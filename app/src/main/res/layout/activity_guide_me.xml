@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ebtes_000.tourpedia.guideMe"
+    android:orientation="vertical"
+    android:id="@+id/guideMe">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/appc"
+            android:adjustViewBounds="false" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="77dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/logoc"
+            android:layout_gravity="top|left|center_vertical"
+            android:paddingBottom="6dp"
+            android:layout_marginLeft="6dp" />
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/homeBtn"
+            android:src="@drawable/homec"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="10dp" />
+
+
+    </FrameLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:id="@+id/sub_header"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/settingsBtn"
+            android:src="@drawable/settingsc"
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:layout_marginRight="105dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Guide Me"
+            android:id="@+id/textView"
+            android:textColor="#3f9d9f"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/filterBtn"
+            android:src="@drawable/filterc"
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:layout_marginLeft="105dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/AllFunctions"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attractions_Restaurants"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nearestAttractions"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/attractionsBtn"
+                    android:src="@drawable/directionscompressor"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="0.09" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nearest Attractions"
+                    android:id="@+id/textView5"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nearestRestaurants"
+                android:layout_marginLeft="40dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/restaurantsBtn"
+                    android:src="@drawable/restaurantscompressor"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nearest Restaurants"
+                    android:id="@+id/textView6"
+                    android:textSize="12dp"
+                    android:singleLine="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/restrooms_Trans"
+            android:layout_marginTop="40dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nearestRestrooms">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/restroomsBtn"
+                    android:src="@drawable/restroomscompressor"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nearest Restrooms"
+                    android:id="@+id/textView7"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nearestTransportations"
+                android:layout_marginLeft="40dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/transportationsBtn"
+                    android:src="@drawable/guidecompressor"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nearest Transportations"
+                    android:id="@+id/textView8"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
