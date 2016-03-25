@@ -8,6 +8,7 @@ public class attractionsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_attractions_list);
     }
 }

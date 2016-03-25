@@ -21,6 +21,8 @@ public class home extends AppCompatActivity {
         ImageButton guideMe = (ImageButton) findViewById(R.id.guideBtn);
         ImageButton Plan = (ImageButton) findViewById(R.id.planBtn);
         ImageButton idntify = (ImageButton) findViewById(R.id.identifyBtn);
+        ImageButton setting = (ImageButton) findViewById(R.id.settingsBtn);
+        ImageButton filters = (ImageButton) findViewById(R.id.filterBtn);
         guideMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +60,34 @@ public class home extends AppCompatActivity {
                 intent.putExtra("Bitmap", bitmap);
                 startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(home.this, camera.class);
+                startActivity(intent);
+
+
+            }
+        });
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(home.this, settings.class);
+                startActivity(intent);
+
+
+            }
+        });
+        filters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(home.this, filter.class);
                 startActivity(intent);
 
 
