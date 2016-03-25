@@ -92,6 +92,51 @@ public class guideMe extends AppCompatActivity {
 
             }
         });
+        ImageButton home = (ImageButton) findViewById(R.id.homeBtn);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(guideMe.this, home.class);
+                startActivity(intent);
+
+
+            }
+        });
+        ImageButton setting = (ImageButton) findViewById(R.id.settingsBtn);
+        ImageButton filters = (ImageButton) findViewById(R.id.filterBtn);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(guideMe.this, settings.class);
+                startActivity(intent);
+
+
+            }
+        });
+        filters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(guideMe.this, filter.class);
+                startActivity(intent);
+
+
+            }
+        });
 
 
     }
