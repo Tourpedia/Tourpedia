@@ -160,23 +160,23 @@ public class attractionsList extends AppCompatActivity {
         }
 
         // Getting listview
-       // lv = (ListView) findViewById(R.id.list);
+        lv = (ListView) findViewById(R.id.list);
 
         // button show on map
-       // btnShowOnMap = (Button) findViewById(R.id.btn_show_map);
+        //btnShowOnMap = (Button) findViewById(R.id.btn_show_map);
 
         // calling background Async task to load Google Places
         // After getting places from Google all the data is shown in listview
         new LoadPlaces().execute();
 
         /** Button click event for shown on map */
-        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-             //   Intent i = new Intent(getApplicationContext(),
-               //         PlacesMapActivity.class);
-                // Sending user current geo location
+//        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//                Intent i = new Intent(getApplicationContext(),
+//                        PlacesMapActivity.class);
+//                // Sending user current geo location
 //                i.putExtra("user_latitude", Double.toString(gps.getLatitude()));
 //                i.putExtra("user_longitude", Double.toString(gps.getLongitude()));
 //
@@ -184,32 +184,32 @@ public class attractionsList extends AppCompatActivity {
 //                i.putExtra("near_places", nearPlaces);
 //                // staring activity
 //                startActivity(i);
-            }
-        });
+//            }
+//        });
 
 
         /**
          * ListItem click event
          * On selecting a listitem SinglePlaceActivity is launched
          * */
-        lv.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // getting values from selected ListItem
-               // String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
-
-                // Starting new intent
-                Intent in = new Intent(getApplicationContext(),
-                        attractionDescription.class);
-
-                // Sending place refrence id to single place activity
-                // place refrence id used to get "Place full details"
-               // in.putExtra(KEY_REFERENCE, reference);
-                startActivity(in);
-            }
-        });
+//        lv.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                // getting values from selected ListItem
+//                String reference = ((TextView) view.findViewById(R.id)).getText().toString();
+//
+//                // Starting new intent
+//                Intent in = new Intent(getApplicationContext(),
+//                        attractionDescription.class);
+//
+//                // Sending place refrence id to single place activity
+//                // place refrence id used to get "Place full details"
+//                in.putExtra(KEY_REFERENCE, reference);
+//                startActivity(in);
+//            }
+//        });
     }
     /**
      * Background Async Task to Load Google places
