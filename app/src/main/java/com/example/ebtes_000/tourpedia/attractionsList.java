@@ -103,11 +103,6 @@ public class attractionsList extends AppCompatActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(attractionsList.this, settings.class);
                 startActivity(intent);
             }
@@ -115,11 +110,6 @@ public class attractionsList extends AppCompatActivity {
         filters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(attractionsList.this, filter.class);
                 startActivity(intent);
 
@@ -198,7 +188,7 @@ public class attractionsList extends AppCompatActivity {
 //            public void onItemClick(AdapterView<?> parent, View view,
 //                                    int position, long id) {
 //                // getting values from selected ListItem
-//                String reference = ((TextView) view.findViewById(R.id)).getText().toString();
+//                String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
 //
 //                // Starting new intent
 //                Intent in = new Intent(getApplicationContext(),
@@ -209,7 +199,7 @@ public class attractionsList extends AppCompatActivity {
 //                in.putExtra(KEY_REFERENCE, reference);
 //                startActivity(in);
 //            }
-//        });
+//       });
     }
     /**
      * Background Async Task to Load Google places
