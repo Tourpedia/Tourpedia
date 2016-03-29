@@ -236,6 +236,7 @@ public class attractionsList extends AppCompatActivity {
                 // Radius in meters - increase this value if you don't find any places
                 double radius = 1000; // 1000 meters
 
+
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);

@@ -7,6 +7,32 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
+
+    <!-- Internet Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Network State Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Access Location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Bluetooth Permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <permission android:name="android.permission.BLUETOOTH" android:label="BLUETOOTH" />
+    <permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- Camera Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- Storage Permissions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:largeHeap="true"
@@ -26,21 +52,16 @@
         <activity android:name=".addPlan" />
         <activity android:name=".attractionDescription" />
         <activity android:name=".attractionsList" />
-        <activity android:name=".camera" />
+        <activity android:name=".CameraActivity" />
         <activity android:name=".guideMe" />
         <activity android:name=".filter" />
-        <activity android:name=".imgDescription" />
+        <activity android:name=".imgDescription" android:screenOrientation="portrait"/>
         <activity android:name=".plans"></activity>
+        <activity android:name=".Identify" android:screenOrientation="portrait"/>
+        <activity android:name=".GlassActivity" android:screenOrientation="portrait"/>
     </application>
 
-    <!-- Internet Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Network State Permissions -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- Access Location -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 </manifest>

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ebtes_000.tourpedia.imgDescription"
-    android:orientation="vertical"
-    android:id="@+id/imgDesc">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,10 +33,7 @@
             android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="10dp" />
-
     </FrameLayout>
-
-
 
     <LinearLayout
         android:orientation="horizontal"
@@ -62,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Identified Image Description"
+            android:text="Google Glass(will remove it!)"
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
             android:layout_gravity="center"
@@ -79,69 +73,20 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:id="@+id/imgDescreption"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp">
 
-    <ViewFlipper
-        android:id="@+id/viewFlipper"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-       <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Uploading..."
-                android:id="@+id/uploadingMessage"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textAlignment="center" />
-
-        </RelativeLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/capturedImg"
-            android:src="@drawable/pic"
-            />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-                        >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="descriptionText"
-            android:id="@+id/description"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp" />
-            </RelativeLayout>
-        </ScrollView>
-    </LinearLayout>
+            android:text="Connecting..."
+            android:id="@+id/connctionMessage"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center" />
+    </RelativeLayout>
 
-    </ViewFlipper> </LinearLayout>
+
 
 </LinearLayout>
