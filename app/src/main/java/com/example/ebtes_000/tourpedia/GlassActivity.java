@@ -11,7 +11,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +48,54 @@ public class GlassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_glass);
 
+        ImageButton home = (ImageButton) findViewById(R.id.homeBtn);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(GlassActivity.this, home.class);
+                startActivity(intent);
 
+
+            }
+        });
+        ImageButton setting = (ImageButton) findViewById(R.id.settingsBtn);
+        ImageButton filters = (ImageButton) findViewById(R.id.filterBtn);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(GlassActivity.this, settings.class);
+                startActivity(intent);
+
+
+            }
+        });
+        filters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
+                Intent intent = new Intent();
+                intent.setClass(home.this, guideMe.class);
+                intent.putExtra("Bitmap", bitmap);
+                startActivity(intent);*/ // causes faild binder
+                Intent intent = new Intent(GlassActivity.this, filter.class);
+                startActivity(intent);
+
+
+            }
+        });
         message = (TextView)findViewById(R.id.connctionMessage);
 
 
@@ -83,29 +130,15 @@ public class GlassActivity extends AppCompatActivity {
                    //     break;
 
                     case MESSAGE_READ:
-                        byte[] readBuf = (byte[]) msg.obj;
-                        int bytes = msg.arg1;
-                        //String readMessage = (String) msg.obj;
-                        //TODO: Here start showing the picture
-                       // Log.d("debug", "Msg read please!! ");
-                        // construct a string from the valid bytes in the buffer
-                        //  String readMessage = new String(readBuf, 0, msg.arg1);
-                        //TODO: create the file
-                        try {
-                            Log.d("debug","bytes after: "+ bytes);
-                            fos.write(readBuf,0,bytes);
-
-                        } catch (FileNotFoundException e) {
-                            Log.d("debug", "File not found: " + e.getMessage());
-                        } catch (IOException e) {
-                            Log.d("debug", "Error accessing file: " + e.getMessage());
-                        }
+                        //TODO:put message or something
                         break;
                     case DONE_READ:
                         try{
+
                             fos.close();
-                            Log.d("debug", "Msg read please!! ");
+                            //Log.d("debug", "Msg read please!! ");
                             uploadImage();
+
                         }catch (IOException e){
                             Log.d("debug", "Error closing file: " + e.getMessage());
 

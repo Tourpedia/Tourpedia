@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.example.ebtes_000.tourpedia.GlassActivity;
+import com.example.ebtes_000.tourpedia.VariablesAndConstants;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -198,6 +200,12 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
       t.setText(s);
 
+      if(VariablesAndConstants.isFromGlass){
+
+          GlassActivity.sendToGlass(s);
+
+          VariablesAndConstants.isFromGlass=false;
+      }
       flipper.showNext();
      // Summary.url=infoUrl;
 
