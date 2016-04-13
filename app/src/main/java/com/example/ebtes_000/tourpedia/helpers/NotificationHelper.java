@@ -14,8 +14,7 @@ import com.example.ebtes_000.tourpedia.imgurmodel.ImageResponse;
 
 
 /**
- * Created by AKiniyalocts on 1/15/15.
- * <p/>
+ * this code is reused and it is created by AKiniyalocts
  * This class is just created to help with notifications, definitely not necessary.
  */
 public class NotificationHelper {

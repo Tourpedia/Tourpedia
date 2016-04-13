@@ -9,62 +9,41 @@ import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpMediaType;
 import com.google.api.client.http.MultipartContent;
-
 import java.io.File;
 
+/*
+* this class for image post configuration
+* this code is reused *
+* */
 public class CSPostConfig {
-    private static final String MULTIPART_FORM_BOUNDARY_KEY = "boundary";
-    private static final String MULTIPART_FORM_BOUNDARY_VALUE = "__END_OF_PART__";
-    private static final String CONTENT_DISPOSITION = "Content-Disposition";
-    private static final String FORM_DATA_FORMAT = "form-data; name=\"%s\"";
-    private static final String FORM_DATA_FORMAT_FILE = "form-data; name=\"%s\"; filename=\"%s\"";
-    private static final String IMAGE_REQUEST_FORM_KEY = "image_request[image]";
-    private static final String REMOTE_URL_REQUEST_FORM_KEY = "image_request[remote_image_url]";
-    private static final String LOCALE_FORM_KEY = "image_request[locale]";
-    private static final String LANGUAGE_FORM_KEY = "image_request[language]";
-    private static final String DEVICE_ID_FORM_KEY = "image_request[device_id]";
-    private static final String LATITUDE_FORM_KEY = "image_request[latitude]";
-    private static final String LONGITUDE_FORM_KEY = "image_request[longitude]";
-    private static final String ALTITUDE_FORM_KEY = "image_request[altitude]";
-    private static final String TTL_FORM_KEY = "image_request[ttl]";
-    private static final String FOCUS_X_FORM_KEY = "focus[X]";
-    private static final String FOCUS_Y_FORM_KEY = "focus[Y]";
+    private static final String MULTIPART_FORM_BOUNDARY_KEY = "boundary" ,
+            MULTIPART_FORM_BOUNDARY_VALUE = "__END_OF_PART__", CONTENT_DISPOSITION = "Content-Disposition" ,
+            FORM_DATA_FORMAT = "form-data; name=\"%s\"" ,FORM_DATA_FORMAT_FILE = "form-data; name=\"%s\"; filename=\"%s\"",
+            IMAGE_REQUEST_FORM_KEY = "image_request[image]",REMOTE_URL_REQUEST_FORM_KEY = "image_request[remote_image_url]",
+            LOCALE_FORM_KEY = "image_request[locale]" ,LANGUAGE_FORM_KEY = "image_request[language]",
+            DEVICE_ID_FORM_KEY = "image_request[device_id]" ,LATITUDE_FORM_KEY = "image_request[latitude]",
+            LONGITUDE_FORM_KEY = "image_request[longitude]" ,ALTITUDE_FORM_KEY = "image_request[altitude]",
+            TTL_FORM_KEY = "image_request[ttl]" , FOCUS_X_FORM_KEY = "focus[X]" ,FOCUS_Y_FORM_KEY = "focus[Y]";
 
-
+    // First thing to call
     public static Builder newBuilder() {
+        System.out.println("newBuilder!");
         return new Builder();
     }
 
     private final File mImage;
-    private final String mRemoteImageUrl;
-    private final String mLocale;
-    private final String mLanguage;
-    private final String mDeviceId;
-    private final Double mLatitude;
-    private final Double mLongitude;
-    private final Double mAltitude;
-    private final Integer mTtl;
-    private final Integer mFocusX;
-    private final Integer mFocusY;
+    private final String RemoteImageUrl , Locale, mLanguage, mDeviceId;
+    private final Double mLatitude , mLongitude, mAltitude;
+    private final Integer mTtl ,mFocusX, mFocusY;
     private final MultipartContent mContent;
 
-    private CSPostConfig(
-            final File image,
-            final String remoteImageUrl,
-            final String locale,
-            final String language,
-            final String deviceId,
-            final Double latitude,
-            final Double longitude,
-            final Double altitude,
-            final Integer ttl,
-            final Integer focusX,
-            final Integer focusY,
-            final MultipartContent content
-    ) {
+    // constructor to initialize the variables
+    private CSPostConfig( File image, String remoteImageUrl, String locale, String language, String deviceId, Double latitude,
+                          Double longitude, Double altitude, Integer ttl, Integer focusX, Integer focusY, MultipartContent content) {
+       // System.out.println("Hey 2!");
         mImage = image;
-        mRemoteImageUrl = remoteImageUrl;
-        mLocale = locale;
+        RemoteImageUrl = remoteImageUrl;
+        Locale = locale;
         mLanguage = language;
         mDeviceId = deviceId;
         mLatitude = latitude;
@@ -76,170 +55,70 @@ public class CSPostConfig {
         mContent = content;
     }
 
-    public File getImage() {
-        return mImage;
-    }
 
+    /*
+    * get methods
+    * */
     public String getRemoteImageUrl() {
-        return mRemoteImageUrl;
-    }
-
-    public String getLocale() {
-        return mLocale;
-    }
-
-    public String getLanguage() {
-        return mLanguage;
-    }
-
-    public String getDeviceId() {
-        return mDeviceId;
-    }
-
-    public Double getLatitude() {
-        return mLatitude;
-    }
-
-    public Double getLongitude() {
-        return mLongitude;
-    }
-
-    public Double getAltitude() {
-        return mAltitude;
-    }
-
-    public Integer getTtl() {
-        return mTtl;
-    }
-
-    public Integer getFocusX() {
-        return mFocusX;
-    }
-
-    public Integer getFocusY() {
-        return mFocusY;
+        return RemoteImageUrl;
     }
 
     public MultipartContent getContent() {
         return mContent;
     }
 
-    public static class Builder {
-        public static final String DEFAULT_LOCALE = "en";
 
+    // inner class that really build the image and post it
+    public static class Builder {
+
+        public static final String DEFAULT_LOCALE = "en";
         private File mImage;
-        private String mRemoteImageUrl;
-        private String mLocale;
-        private String mLanguage;
-        private String mDeviceId;
-        private Double mLatitude;
-        private Double mLongitude;
-        private Double mAltitude;
-        private Integer mTtl;
-        private Integer mFocusX;
-        private Integer mFocusY;
+        private String RemoteImageUrl, mLocale, mLanguage, mDeviceId;
+        private Double mLatitude, mLongitude, mAltitude;
+        private Integer mTtl, mFocusX, mFocusY;
+
 
         private Builder() {
             super();
         }
 
-        public Builder withImage(final File image) {
-            mImage = image;
-            return this;
-        }
-
         public Builder withRemoteImageUrl(final String url) {
-            mRemoteImageUrl = url;
+            RemoteImageUrl = url;
             return this;
         }
 
-        public Builder withLocale(final String locale) {
-            mLocale = locale;
-            return this;
-        }
 
-        public Builder withLanguage(final String language) {
-            mLanguage = language;
-            return this;
-        }
-
-        public Builder withDeviceId(final String deviceId) {
-            mDeviceId = deviceId;
-            return this;
-        }
-
-        public Builder withLatitude(final double latitude ) {
-            mLatitude = latitude;
-            return this;
-        }
-
-        public Builder withLongitude(final double longitude) {
-            mLongitude = longitude;
-            return this;
-        }
-
-        public Builder withAltitude(final double altitude) {
-            mAltitude = altitude;
-            return this;
-        }
-
-        public Builder withTtl(final int ttl) {
-            mTtl = ttl;
-            return this;
-        }
-
-        public Builder withFocusX(final int focusX) {
-            mFocusX = focusX;
-            return this;
-        }
-
-        public Builder withFocusY(final int focusY) {
-            mFocusY = focusY;
-            return this;
-        }
-
-        private void addPart(
-                final MultipartContent content,
-                final String formKey,
-                final Object formValue
-        ) {
+        // add image content
+        private void addPart( final MultipartContent content, final String formKey, final Object formValue) {
             if (null != formValue) {
                 final MultipartContent.Part part = new MultipartContent.Part(
-                        ByteArrayContent.fromString(null, formValue.toString())
-                );
-                part.setHeaders(
-                        new HttpHeaders().set(
-                                CONTENT_DISPOSITION,
-                                String.format(FORM_DATA_FORMAT, formKey)
-                        )
-                );
+                        ByteArrayContent.fromString(null, formValue.toString()) );
+                part.setHeaders( new HttpHeaders().set( CONTENT_DISPOSITION, String.format(FORM_DATA_FORMAT, formKey)));
                 content.addPart(part);
             }
         }
 
+
+        // build the image
         public CSPostConfig build() throws IllegalStateException {
-            if ((null == mImage && null == mRemoteImageUrl) || (null != mImage && null != mRemoteImageUrl) ) {
+           // System.out.println("Hey one i don't find vars content!");
+            if ((null == mImage && null == RemoteImageUrl) || (null != mImage && null != RemoteImageUrl) ) {
                 throw new IllegalStateException("Exactly one of image or remote image url must be provided.");
             }
 
-            final MultipartContent content = new MultipartContent().setMediaType(
-                    new HttpMediaType(CSApi.CONTENT_TYPE)
-                            .setParameter(MULTIPART_FORM_BOUNDARY_KEY, MULTIPART_FORM_BOUNDARY_VALUE)
-            );
+            final MultipartContent content = new MultipartContent().setMediaType( new HttpMediaType(CSApi.CONTENT_TYPE)
+                    .setParameter(MULTIPART_FORM_BOUNDARY_KEY, MULTIPART_FORM_BOUNDARY_VALUE) );
 
 
             if (null != mImage) {
                 final FileContent fileContent = new FileContent(null, mImage);
                 final MultipartContent.Part image = new MultipartContent.Part(fileContent);
                 image.setHeaders(
-                        new HttpHeaders().set(
-                                CONTENT_DISPOSITION,
-                                String.format(FORM_DATA_FORMAT_FILE, IMAGE_REQUEST_FORM_KEY, mImage.getName())
-                        )
-                );
+                        new HttpHeaders().set( CONTENT_DISPOSITION,
+                                String.format(FORM_DATA_FORMAT_FILE, IMAGE_REQUEST_FORM_KEY, mImage.getName()) ) );
                 content.addPart(image);
             } else {
-                addPart(content, REMOTE_URL_REQUEST_FORM_KEY, mRemoteImageUrl);
+                addPart(content, REMOTE_URL_REQUEST_FORM_KEY, RemoteImageUrl);
             }
 
             if (null == mLocale) {
@@ -256,20 +135,8 @@ public class CSPostConfig {
             addPart(content, FOCUS_X_FORM_KEY, mFocusX);
             addPart(content, FOCUS_Y_FORM_KEY, mFocusY);
 
-            return new CSPostConfig(
-                    mImage,
-                    mRemoteImageUrl,
-                    mLocale,
-                    mLanguage,
-                    mDeviceId,
-                    mLatitude,
-                    mLongitude,
-                    mAltitude,
-                    mTtl,
-                    mFocusX,
-                    mFocusY,
-                    content
-            );
+            return new CSPostConfig( mImage, RemoteImageUrl, mLocale, mLanguage, mDeviceId, mLatitude, mLongitude, mAltitude,
+                    mTtl, mFocusX, mFocusY, content );
         }
 
     }

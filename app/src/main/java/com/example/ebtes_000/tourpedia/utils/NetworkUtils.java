@@ -9,8 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * Created by AKiniyalocts on 1/15/15.
- *
+ * this code is reused and it is created by AKiniyalocts
  * Basic network utils
  */
 public class NetworkUtils {

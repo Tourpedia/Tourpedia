@@ -18,9 +18,8 @@ import retrofit.mime.TypedFile;
 
 
 /**
- * Created by AKiniyalocts on 1/12/15.
- * <p/>
- * Our upload service. This creates our restadapter, uploads our image, and notifies us of the response.
+ * this code is reused and it is created by AKiniyalocts
+ * upload service. This creates restadapter, uploads the image, and notifies us of the response.
  */
 public class UploadService {
     public final static String TAG = UploadService.class.getSimpleName();
