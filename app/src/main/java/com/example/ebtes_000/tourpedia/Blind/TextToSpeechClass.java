@@ -30,7 +30,7 @@ public class TextToSpeechClass extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.text_to_speech);
         //Button b = (Button) findViewById(R.id.bTextToVoice);
-        //b.setOnClickListener(this);
+        //b.setOnClickListener(this); //
         tts = new TextToSpeech(TextToSpeechClass.this, new TextToSpeech.OnInitListener(){
 
             @Override
