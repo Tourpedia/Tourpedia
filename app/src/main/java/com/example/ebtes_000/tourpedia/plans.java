@@ -1,5 +1,7 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,11 @@ public class plans extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_plans);
+        FragmentManager fragmentManger = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+        PlansFragment plansFragment = new PlansFragment();
+        fragmentTransaction.add(R.id.fragment_container, plansFragment);
+        fragmentTransaction.commit();
 
         // declare add plan img button
         ImageButton add = (ImageButton) findViewById(R.id.addPlanBtn);
@@ -107,6 +114,7 @@ public class plans extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // Intent intent = new Intent(plans.this, PlanDetails.class);
                 //startActivity(intent);
+                StringBuffer stringBuffer = null;
                 String planName = (String) listSavedPlans.getItemAtPosition(position);
                 try {
                     String Readdate;
@@ -114,22 +122,26 @@ public class plans extends AppCompatActivity {
                     FileInputStream fileInputStream = openFileInput(planName);
                     InputStreamReader inputSreamReader = new InputStreamReader(fileInputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputSreamReader);
-                    StringBuffer stringBuffer = new StringBuffer();
+                    stringBuffer = new StringBuffer();
                     while ((Readdate=bufferedReader.readLine()) != null)
                     {
                         stringBuffer.append(Readdate + "\n");
                     }
 
-                    TextView textView = (TextView) findViewById(R.id.date);
-                    textView.setText(stringBuffer.toString());
-                    textView.setVisibility(View.VISIBLE);
+                   // TextView textView = (TextView) findViewById(R.id.date);
+                   // textView.setText(stringBuffer.toString());
+                   // textView.setVisibility(View.VISIBLE);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                FragmentManager fragmentManger = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
+                EditFragment editFragment = new EditFragment(stringBuffer.toString());
+                fragmentTransaction.replace(R.id.fragment_container, editFragment);
+                fragmentTransaction.commit();
             }
         });
 
