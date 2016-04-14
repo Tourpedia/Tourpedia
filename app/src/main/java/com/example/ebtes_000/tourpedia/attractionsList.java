@@ -256,7 +256,7 @@ public class attractionsList extends AppCompatActivity {
                             types = "amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; // Listing attractions
                             break;
                         case "restroom":
-                            types = "restroom"; // Listing restrooms
+                            types = "restroom|bathroom"; // Listing restrooms
                             break;
                         case "Transportation":
                             types = "bus_station|car_rental|subway_station|taxi_stand|train_station|transit_station"; // Listing transportation places
@@ -267,7 +267,7 @@ public class attractionsList extends AppCompatActivity {
                 }
 
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 1000; // 1000 meters
+                double radius = 10000; // 1000 meters
 
 
                 // get nearest places
@@ -307,7 +307,6 @@ public class attractionsList extends AppCompatActivity {
                             for (Place p : nearPlaces.results) {
                                 HashMap<String, String> map = new HashMap<String, String>();
 
-                                // Place reference won't display in listview - it will be hidden
                                 // Place reference is used to get "place full details"
                                 map.put(KEY_REFERENCE, p.reference);
 
