@@ -133,12 +133,13 @@
             android:text="Guide me"
             android:layout_gravity="center_horizontal"
             android:id="@+id/guideMeBtn"
+            android:onClick="guide"
             android:background="#98cbcc"
             android:textColor="#fdfbfb"
-            android:enabled="false"
+            android:enabled="true"
             android:layout_marginTop="240dp"
             android:layout_marginLeft="100dp"
-            android:clickable="false" />
+            android:clickable="true" />
 
     </LinearLayout>
 </LinearLayout>

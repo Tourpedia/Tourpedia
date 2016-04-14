@@ -1,5 +1,7 @@
 package com.example.ebtes_000.tourpedia;
 
+import com.google.api.client.util.Key;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,9 +11,10 @@ import java.util.List;
 * */
 public class PlacesList implements Serializable {
 
+	@Key
+	public List<Place> results;
+	@Key
 	public String status;
 
-
-	public List<Place> results;
 
 }

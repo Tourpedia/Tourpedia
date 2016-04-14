@@ -11,15 +11,16 @@ import java.io.Serializable;
 public class PlaceDetails implements Serializable {
 
 	@Key
-	public String status;
-	
+	public Place results;
+
+
 	@Key
-	public Place result;
+	public String status;
 
 	@Override
 	public String toString() {
-		if (result!=null) {
-			return result.toString();
+		if (results!=null) {
+			return results.toString();
 		}
 		return super.toString();
 	}

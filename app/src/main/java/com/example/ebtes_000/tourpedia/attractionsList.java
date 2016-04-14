@@ -182,24 +182,24 @@ public class attractionsList extends AppCompatActivity {
          * ListItem click event
          * On selecting a listitem SinglePlaceActivity is launched
          * */
-//        lv.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                // getting values from selected ListItem
-//                String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
-//
-//                // Starting new intent
-//                Intent in = new Intent(getApplicationContext(),
-//                        attractionDescription.class);
-//
-//                // Sending place refrence id to single place activity
-//                // place refrence id used to get "Place full details"
-//                in.putExtra(KEY_REFERENCE, reference);
-//                startActivity(in);
-//            }
-//       });
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // getting values from selected ListItem
+                String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
+
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(),
+                        attractionDescription.class);
+
+                // Sending place refrence id to single place activity
+                // place refrence id used to get "Place full details"
+                in.putExtra(KEY_REFERENCE, reference);
+                startActivity(in);
+            }
+       });
     }
     /**
      * Background Async Task to Load Google places
@@ -285,14 +285,14 @@ public class attractionsList extends AppCompatActivity {
                                 // adding HashMap to ArrayList
                                 placesListItems.add(map);
                             }
-                            // list adapter
-//                            ListAdapter adapter = new SimpleAdapter(attractionsList.this, placesListItems,
-//                                    R.layout.list_item,
-//                                    new String[] { KEY_REFERENCE, KEY_NAME}, new int[] {
-//                                    R.id.reference, R.id.name });
+                            //list adapter
+                            ListAdapter adapter = new SimpleAdapter(attractionsList.this, placesListItems,
+                                   R.layout.list_item,
+                                    new String[] { KEY_REFERENCE, KEY_NAME}, new int[] {
+                                    R.id.reference, R.id.name });
 
                             // Adding data into listview
-//                            lv.setAdapter(adapter);
+                            lv.setAdapter(adapter);
                         }
                     }
                     else if(status.equals("ZERO_RESULTS")){

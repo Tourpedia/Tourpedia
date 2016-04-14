@@ -62,10 +62,10 @@ public class GooglePlaces {
 			request.getUrl().put("sensor", "false");
 			if(types != null)
 				request.getUrl().put("types", types);
-
+			Log.d("type",types);
 			PlacesList list = request.execute().parseAs(PlacesList.class);
 			// Check log cat for places response status
-			Log.d("Places Status", "" + list.status);
+			Log.d("Places Status", "" + list.results.toString());
 			return list;
 
 		} catch (HttpResponseException e) {
@@ -88,6 +88,7 @@ public class GooglePlaces {
 			request.getUrl().put("sensor", "false");
 
 			PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
+
 			
 			return place;
 
@@ -104,9 +105,9 @@ public class GooglePlaces {
 			final HttpTransport transport) {
 		return transport.createRequestFactory(new HttpRequestInitializer() {
 			public void initialize(HttpRequest request) {
-				HttpHeaders headers = new HttpHeaders();
-			//	headers.setApplicationName("AndroidHive-Places-Test");
-				request.setHeaders(headers);
+				//HttpHeaders headers = new HttpHeaders();
+				//	headers.setApplicationName("AndroidHive-Places-Test");
+				//request.setHeaders(headers);
 
 
 				//JsonHttpParser parser = new JsonHttpParser(new JacksonFactory());

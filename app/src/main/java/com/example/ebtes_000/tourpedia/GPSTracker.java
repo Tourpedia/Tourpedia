@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -106,16 +107,26 @@ public class GPSTracker extends Service implements LocationListener {
 	/**
 	 * Stop using GPS listener Calling this function will stop using GPS in your
 	 * app
-	 * */
+	 */
 	public void stopUsingGPS() {
 		if (locationManager != null) {
+			if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				// TODO: Consider calling
+				//    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+				// here to request the missing permissions, and then overriding
+				//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+				//                                          int[] grantResults)
+				// to handle the case where the user grants the permission. See the documentation
+				// for Activity#requestPermissions for more details.
+				return;
+			}
 			locationManager.removeUpdates(GPSTracker.this);
 		}
 	}
 
 	/**
 	 * Function to get latitude
-	 * */
+	 */
 	public double getLatitude() {
 		if (location != null) {
 			latitude = location.getLatitude();
@@ -127,7 +138,7 @@ public class GPSTracker extends Service implements LocationListener {
 
 	/**
 	 * Function to get longitude
-	 * */
+	 */
 	public double getLongitude() {
 		if (location != null) {
 			longitude = location.getLongitude();
@@ -139,9 +150,9 @@ public class GPSTracker extends Service implements LocationListener {
 
 	/**
 	 * Function to check GPS/wifi enabled
-	 * 
+	 *
 	 * @return boolean
-	 * */
+	 */
 	public boolean canGetLocation() {
 		return this.canGetLocation;
 	}
@@ -149,7 +160,7 @@ public class GPSTracker extends Service implements LocationListener {
 	/**
 	 * Function to show settings alert dialog On pressing Settings button will
 	 * lauch Settings Options
-	 * */
+	 */
 	public void showSettingsAlert() {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
@@ -202,4 +213,5 @@ public class GPSTracker extends Service implements LocationListener {
 	public IBinder onBind(Intent arg0) {
 		return null;
 	}
+
 }
