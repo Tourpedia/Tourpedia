@@ -40,6 +40,10 @@ public class attractionDescription extends AppCompatActivity {
     // Progress dialog
     ProgressDialog pDialog;
 
+
+    String longitude;
+    String latitude;
+
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
     @Override
@@ -142,8 +146,8 @@ public class attractionDescription extends AppCompatActivity {
                                 String name = placeDetails.results.name;
                                 String address = placeDetails.results.formatted_address;
                                 String phone = placeDetails.results.formatted_phone_number;
-                                String latitude = Double.toString(placeDetails.results.geometry.location.lat);
-                                String longitude = Double.toString(placeDetails.results.geometry.location.lng);
+                                latitude = Double.toString(placeDetails.results.geometry.location.lat);
+                                longitude = Double.toString(placeDetails.results.geometry.location.lng);
 
                                 Log.d("Place ", name + address + phone + latitude + longitude);
 
@@ -220,7 +224,7 @@ public class attractionDescription extends AppCompatActivity {
         Log.d("guide","Clicking???");
 
         // Create a Uri from an intent string. Use the result to create an Intent.
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=0,,0=d");//TODO:put the locatoin here
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=longitude,,latitude=d");//TODO:put the locatoin here
         // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         // Make the Intent explicit by setting the Google Maps package
