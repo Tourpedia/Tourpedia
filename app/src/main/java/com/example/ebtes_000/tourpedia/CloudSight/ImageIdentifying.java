@@ -113,6 +113,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             if(scoredResult.getStatus().equals("completed")){
 
              publishProgress(SEARCHING_START);
+
              searchForInfoURL(scoredResult.getName());
              getInfoFromWikipedia();
 
@@ -207,10 +208,9 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
           VariablesAndConstants.isFromGlass=false;
       }
       flipper.showNext();
-     // Summary.url=infoUrl;
 
-    //  new Summary().execute();
-
+      // Summary.url=infoUrl;
+      //  new Summary().execute();
       //UploadActivity.showResults();
   }
 

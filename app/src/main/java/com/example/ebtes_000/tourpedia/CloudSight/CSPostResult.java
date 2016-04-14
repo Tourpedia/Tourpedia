@@ -6,6 +6,7 @@ package com.example.ebtes_000.tourpedia.CloudSight;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
 
+/* this code is reused */
 public class CSPostResult extends GenericJson {
     @Key
     private String token;
