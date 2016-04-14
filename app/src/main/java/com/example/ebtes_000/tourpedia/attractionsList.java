@@ -242,19 +242,27 @@ public class attractionsList extends AppCompatActivity {
                 // Check list of types supported by google
                 //
 
-                String types = "cafe|restaurant";
+
+
+                String types = "cafe|restaurant"; // default type
+                //switch cases for the chosen place to guide to
                 if(Guideingtype != null){
+                    Log.d("inside",Guideingtype);
                     switch (Guideingtype) {
                         case "restaurant":
-                        types = "cafe|restaurant"; // Listing places only cafes, restaurants
-                        case "attractions":
-                            types = "amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo";
-                        case "restroom":
-                            types = "restroom";
-                        case "Transportation":
-                            types = "bus_station|car_rental|subway_station|taxi_stand|train_station|transit_station";
-                        default:
                             types = "cafe|restaurant"; // Listing places only cafes, restaurants
+                            break;
+                        case "attractions":
+                            types = "amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; // Listing attractions
+                            break;
+                        case "restroom":
+                            types = "restroom"; // Listing restrooms
+                            break;
+                        case "Transportation":
+                            types = "bus_station|car_rental|subway_station|taxi_stand|train_station|transit_station"; // Listing transportation places
+                            break;
+                        default:
+                            types = "cafe|restaurant";
                     }
                 }
 
