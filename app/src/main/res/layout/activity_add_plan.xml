@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.ebtes_000.tourpedia.addPlan"
     android:orientation="vertical"
-    android:id="@+id/addPlan">
+    android:id="@+id/addPlan"
+    android:weightSum="1">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,30 +80,111 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
         android:id="@+id/name_date"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="24dp">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/planName"
-            android:text="Enter plan name..." />
+            android:hint="Enter plan name" />
 
         <EditText
-            android:layout_width="149dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
+            android:hint="Enter the date of your plan"
             android:id="@+id/planDate"
-            android:text="Enter plan date..." />
-
-        <DatePicker
-            android:layout_width="260dp"
-            android:layout_height="95dp"
-            android:id="@+id/datePicker" />
+            android:onClick="showDatePickerDialog" />
 
     </LinearLayout>
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dip"
+        android:background="#aaaaaa"
+        android:id="@+id/divider"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/placeTxt"
+            android:hint="Place to go" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/timeFrom"
+                android:hint="From"
+                android:onClick="showTimePickerDialog" />
+
+            <EditText
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/timeTo"
+                android:hint="To"
+                android:layout_marginLeft="80dp"
+                android:onClick="showTimePickerDialog" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add event"
+            android:id="@+id/addEventBtn"
+            android:layout_gravity="right"
+            android:onClick="addEvent"
+            android:layout_marginTop="30dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dip"
+        android:background="#aaaaaa"
+        android:id="@+id/divider1"
+        android:layout_gravity="top|center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/date"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Save Plan"
+        android:id="@+id/savePlanBtn"
+        android:layout_gravity="center_horizontal"
+        android:onClick="savePlan"
+        android:layout_marginTop="40dp" />
+
 </LinearLayout>
