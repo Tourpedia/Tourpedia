@@ -113,6 +113,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             if(scoredResult.getStatus().equals("completed")){
 
              publishProgress(SEARCHING_START);
+
              searchForInfoURL(scoredResult.getName());
              getInfoFromWikipedia();
 
