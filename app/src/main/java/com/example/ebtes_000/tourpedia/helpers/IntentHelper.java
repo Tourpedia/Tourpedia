@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 /**
- * Created by AKiniyalocts on 2/23/15.
- *
+ * this code is reused and it is created by AKiniyalocts
  */
 public class IntentHelper {
   public final static int FILE_PICK = 1001;

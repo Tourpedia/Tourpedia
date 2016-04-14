@@ -1,9 +1,8 @@
 package com.example.ebtes_000.tourpedia.imgurmodel;
 
 /**
- * Created by AKiniyalocts on 1/14/15.
- *
- * Response from imgur when uploading to the server.
+ * this code is reused and it is created by AKiniyalocts
+ * class responsible for response from imgur when uploading to the server.
  */
 public class ImageResponse {
   public boolean success;
@@ -11,22 +10,9 @@ public class ImageResponse {
   public UploadedImage data;
 
   public static class UploadedImage{
-    public String id;
-    public String title;
-    public String description;
-    public String type;
-    public boolean animated;
-    public int width;
-    public int height;
-    public int size;
-    public int views;
-    public int bandwidth;
-    public String vote;
-    public boolean favorite;
-    public String account_url;
-    public String deletehash;
-    public String name;
-    public String link;
+    public String id, title,description, type, vote, account_url, deletehash,name, link  ;
+    public boolean animated, favorite;
+    public int width, height, size, views, bandwidth ;
 
     @Override
     public String toString() {
