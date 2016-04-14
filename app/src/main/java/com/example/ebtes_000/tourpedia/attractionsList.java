@@ -73,6 +73,9 @@ public class attractionsList extends AppCompatActivity {
     // ListItems data
     ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String,String>>();
 
+    //type of button chosen , attraction, restroom ...
+    String Guideingtype;
+
 
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
@@ -89,11 +92,6 @@ public class attractionsList extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(attractionsList.this, home.class);
                 startActivity(intent);
             }
@@ -115,6 +113,18 @@ public class attractionsList extends AppCompatActivity {
 
             }
         });
+
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                Guideingtype= null;
+            } else {
+                Guideingtype= extras.getString("attractionsList");
+            }
+        } else {
+            Guideingtype= (String) savedInstanceState.getSerializable("attractionsList");
+        }
 
         //
         //
@@ -231,7 +241,22 @@ public class attractionsList extends AppCompatActivity {
                 // If you want all types places make it as null
                 // Check list of types supported by google
                 //
-                String types = "cafe|restaurant"; // Listing places only cafes, restaurants
+
+                String types = "cafe|restaurant";
+                if(Guideingtype != null){
+                    switch (Guideingtype) {
+                        case "restaurant":
+                        types = "cafe|restaurant"; // Listing places only cafes, restaurants
+                        case "attractions":
+                            types = "amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo";
+                        case "restroom":
+                            types = "restroom";
+                        case "Transportation":
+                            types = "bus_station|car_rental|subway_station|taxi_stand|train_station|transit_station";
+                        default:
+                            types = "cafe|restaurant"; // Listing places only cafes, restaurants
+                    }
+                }
 
                 // Radius in meters - increase this value if you don't find any places
                 double radius = 1000; // 1000 meters
