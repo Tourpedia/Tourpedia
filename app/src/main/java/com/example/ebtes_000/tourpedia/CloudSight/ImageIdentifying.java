@@ -207,10 +207,9 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
           VariablesAndConstants.isFromGlass=false;
       }
       flipper.showNext();
-     // Summary.url=infoUrl;
 
-    //  new Summary().execute();
-
+      // Summary.url=infoUrl;
+      //  new Summary().execute();
       //UploadActivity.showResults();
   }
 
