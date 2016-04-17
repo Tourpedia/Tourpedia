@@ -3,8 +3,11 @@ package com.example.ebtes_000.tourpedia;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 
 public class filter extends AppCompatActivity {
 
@@ -59,5 +62,13 @@ public class filter extends AppCompatActivity {
 
             }
         });
+
+        RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
+        EditText distance = (EditText) findViewById(R.id.distance);
+        double rate = rating.getRating();
+        //int distanceM = Integer.parseInt(String.valueOf(distance.getText()));
+
+        Log.d("res1","rating:"+rate);
+
     }
 }

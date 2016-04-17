@@ -82,7 +82,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/distance_info">
+        android:id="@+id/distance_info"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,27 +110,43 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/distance"
             android:layout_marginLeft="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Distance"
+            android:text="Rateing"
             android:id="@+id/textView12"
             android:textColor="#3f9d9f"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp" />
 
-        <TextView
+        <RatingBar
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="The distance range for the nearest attractions in miles"
-            android:id="@+id/textView12"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
             android:layout_marginLeft="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Filters"
+            android:id="@+id/button"
+            android:layout_gravity="right"
+            android:onClick="addEvent"
+            android:layout_marginTop="30dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/button2"
+            android:onClick="addEvent"
+            android:layout_marginTop="30dp"
+            android:layout_weight="0.56"
+            android:layout_gravity="right" />
 
     </LinearLayout>
 
