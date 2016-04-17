@@ -10,12 +10,11 @@ import java.io.Serializable;
 * */
 public class PlaceDetails implements Serializable {
 
-	@Key
-	public Place results;
-
 
 	@Key
 	public String status;
+	@Key
+	public Place results;
 
 	@Override
 	public String toString() {

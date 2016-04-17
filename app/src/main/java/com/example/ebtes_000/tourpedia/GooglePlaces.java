@@ -25,7 +25,7 @@ public class GooglePlaces {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
 	// Google API Key
-	private static final String API_KEY = "AIzaSyBLrqcKR1kuMt77Uqz4Imrg0l0LzmVvOwk"; // place your API key here AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc
+	private static final String API_KEY = "AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc"; // place your API key here AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc
 
 	// Google Places serach url's
 	private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/search/json?";
@@ -88,8 +88,10 @@ public class GooglePlaces {
 			request.getUrl().put("sensor", "false");
 
 			PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
-
-			
+			if(place != null)
+			Log.d("ppp12", place.results.toString());
+			else
+				Log.d("ppp12","null");
 			return place;
 
 		} catch (HttpResponseException e) {

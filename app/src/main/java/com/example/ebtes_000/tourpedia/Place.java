@@ -24,7 +24,10 @@ public class Place implements Serializable {
 	
 	@Key
 	public String vicinity;
-	
+
+	@Key
+	public double rating;
+
 	@Key
 	public Geometry geometry;
 	
@@ -53,5 +56,6 @@ public class Place implements Serializable {
 		@Key
 		public double lng;
 	}
+
 	
 }

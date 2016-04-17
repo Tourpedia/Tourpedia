@@ -190,7 +190,7 @@ public class attractionsList extends AppCompatActivity {
 
         /**
          * ListItem click event
-         * On selecting a listitem attraction description is launched
+         * On selecting a listitem attractionDescription is launched
          * */
         lv.setOnItemClickListener(new OnItemClickListener() {
 

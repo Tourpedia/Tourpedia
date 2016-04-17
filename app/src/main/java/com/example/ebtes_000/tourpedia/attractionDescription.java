@@ -118,6 +118,7 @@ public class attractionDescription extends AppCompatActivity {
             try {
                 placeDetails = googlePlaces.getPlaceDetails(reference);
 
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -138,11 +139,12 @@ public class attractionDescription extends AppCompatActivity {
                      * */
                     if(placeDetails != null){
                         String status = placeDetails.status;
-
+                        Log.d("status1",status);
                         // check place deatils status
                         // Check for all possible status
                         if(status.equals("OK")){
                             if (placeDetails.results != null) {
+                                Log.d("placeDetails.results",placeDetails.results.toString());
                                 String name = placeDetails.results.name;
                                 String address = placeDetails.results.formatted_address;
                                 String phone = placeDetails.results.formatted_phone_number;
@@ -171,6 +173,7 @@ public class attractionDescription extends AppCompatActivity {
                                 lbl_phone.setText(Html.fromHtml("<b>Phone:</b> " + phone));
                                 lbl_location.setText(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
                             }
+                            Log.d("placeDetails.results","NO");
                         }
                         else if(status.equals("ZERO_RESULTS")){
                             alert.showAlertDialog(attractionDescription.this, "Near Places",
