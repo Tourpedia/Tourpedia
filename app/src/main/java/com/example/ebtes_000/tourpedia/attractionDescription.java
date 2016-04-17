@@ -81,16 +81,16 @@ public class attractionDescription extends AppCompatActivity {
 
         // Place referece id
         String reference = i.getStringExtra(KEY_REFERENCE);
-
+        Log.d("ref1",reference);
         // Calling a Async Background thread
-        new LoadSinglePlaceDetails().execute(reference);
+        new LoadattractionDescription().execute(reference);
     }
 
 
     /**
      * Background Async Task to Load Google places
      * */
-    class LoadSinglePlaceDetails extends AsyncTask<String, String, String> {
+    class LoadattractionDescription extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -110,7 +110,7 @@ public class attractionDescription extends AppCompatActivity {
          * */
         protected String doInBackground(String... args) {
             String reference = args[0];
-
+            Log.d("ref2",reference);
             // creating Places class object
             googlePlaces = new GooglePlaces();
 

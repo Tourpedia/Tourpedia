@@ -190,7 +190,7 @@ public class attractionsList extends AppCompatActivity {
 
         /**
          * ListItem click event
-         * On selecting a listitem SinglePlaceActivity is launched
+         * On selecting a listitem attraction description is launched
          * */
         lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -267,7 +267,7 @@ public class attractionsList extends AppCompatActivity {
                 }
 
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 10000; // 1000 meters
+                double radius = 1000; // 1000 meters
 
 
                 // get nearest places
