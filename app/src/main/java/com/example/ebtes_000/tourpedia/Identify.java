@@ -10,19 +10,18 @@ public class Identify extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_identify);
     }
 
 
    public void useMobileCamera(View view){
+
        Intent intent=new Intent(this,CameraActivity.class);
        startActivity(intent);
    }
 
   public void useGlassCamera(View view){
-
-      /*Toast toast=Toast.makeText(this, "Available soon..", Toast.LENGTH_SHORT);
-      toast.show();*/
 
       Intent intent=new Intent(this,GlassActivity.class);
       startActivity(intent);

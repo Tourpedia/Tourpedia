@@ -51,38 +51,15 @@ public class UploadStart {
         upload = new Upload();
 
         upload.image = image;
-        // upload.title = uploadTitle.getText().toString();
-        // upload.description = uploadDesc.getText().toString();
+
     }
 
-
-    /*public static void showResults(){
-        Intent intent=new Intent(context,WikiJsoup.class);
-        startActivity(intent);
-    }*/
-    public static void showResults(String result){
-
-
-        // message.setText("Status: "+result);
-
-        if(VariablesAndConstants.isFromGlass){
-
-            GlassActivity.sendToGlass(result);
-
-            VariablesAndConstants.isFromGlass=false;
-        }
-    }
     private class UiCallback implements Callback<ImageResponse> {
 
         @Override
         public void success(ImageResponse imageResponse, Response response) {
-            // clearInput();
 
-            //TODO:here start the cloudsight
-            // Intent intent=new Intent(context,WikiJsoup.class);
-            // startActivity(intent);
-
-            new ImageIdentifying().execute(imageResponse.data.link);
+            new ImageIdentifying().execute(imageResponse.data.link);//Start identifying the image
 
         }
 
@@ -98,7 +75,11 @@ public class UploadStart {
                 Toast toast = Toast.makeText(null, "No internet connection", duration);
                 toast.show();
             }else {
-                GlassActivity.sendToGlass("Failed");
+
+                if(VariablesAndConstants.isFromGlass) {
+                    GlassActivity.sendToGlass("Failed");
+                    //=false?
+                }
             }
         }
     }

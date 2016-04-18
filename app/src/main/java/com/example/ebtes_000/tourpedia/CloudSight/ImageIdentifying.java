@@ -1,5 +1,6 @@
 package com.example.ebtes_000.tourpedia.CloudSight;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import com.example.ebtes_000.tourpedia.imgDescription;
 
@@ -42,19 +44,17 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
-    //static ImageResponse response;
     String infoUrl ;
     String s;
     TextView message;
     TextView t;
     ViewFlipper flipper;
-    //private WeakReference<Context>
+
 
     @Override
 
     protected void onPreExecute(){
-        // UploadActivity.setContentView(R.layout.wiki_layout);
-      //  t = WikiJsoup.t;
+
 
         message=imgDescription.message;
         t=imgDescription.description;
@@ -69,6 +69,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             case 1:
                message.setText("Now trying to identify the image..");
+
 
                 break;
 
@@ -98,14 +99,21 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
         try {
 
+
+
             CSPostResult portResult = api.postImage(imageToPost);
 
             Log.d("debug", "Post result: " + portResult);
 
             Thread.sleep(30000);
 
-            CSGetResult scoredResult = api.getImage(portResult);
 
+
+
+           // while(!portResult.getStatus().equals("completed"));
+
+
+            CSGetResult scoredResult = api.getImage(portResult);
             Log.d("debug", "" + scoredResult);
 
            //  return scoredResult.getStatus();
@@ -209,20 +217,6 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
       }
       flipper.showNext();
 
-      // Summary.url=infoUrl;
-      //  new Summary().execute();
-      //UploadActivity.showResults();
-  }
-
-
-
-
-
-   /* protected Void onProgressUpdate(Integer ...progress){
-
-
-
-
-    }*/
+       }
 
 }

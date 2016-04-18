@@ -1,5 +1,8 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +10,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class home extends AppCompatActivity {
+
+
+    public Context context=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,39 @@ public class home extends AppCompatActivity {
         identify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home.this, Identify.class);
-                startActivity(intent);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setMessage(R.string.isThereGlass)
+                        .setTitle(R.string.isThereGlassTitle);
+
+
+                // Add the buttons
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked Yes button
+                        Intent intent=new Intent(context,GlassActivity.class);
+                        startActivity(intent);
+
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked No button
+                        Intent intent=new Intent(context,CameraActivity.class);
+                        startActivity(intent);
+
+                    }
+                });
+
+
+                //Todo: put the check box
+
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+
             }
         });
 
