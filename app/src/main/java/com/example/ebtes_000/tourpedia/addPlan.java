@@ -5,12 +5,14 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +66,8 @@ public class addPlan extends AppCompatActivity {
         });
 
 
+
+
     }
     // to show date picker from the edit text
    public void showDatePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
@@ -71,8 +75,21 @@ public class addPlan extends AppCompatActivity {
        DatePickerFragment datePickerFragment = new DatePickerFragment(v);
        FragmentTransaction ft = getFragmentManager().beginTransaction();
        datePickerFragment.show(ft, "DatePicker");
+    //   if (datePickerFragment.isDateSet == true)
+        //   showEventInfo();
+
+
+
        // DialogFragment newFragment = new DatePickerFragment();
         //newFragment.show(getSupportFragmentManager(), "datePicker");
+    /*   final Handler handler = new Handler();
+       handler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               showEventInfo();
+           }
+       }, 600);*/
+
     }
 
     public void showTimePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
@@ -80,12 +97,28 @@ public class addPlan extends AppCompatActivity {
         TimePickerFragment timePickerFragment = new TimePickerFragment(v);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         timePickerFragment.show(ft, "DatePicker");
+
         // DialogFragment newFragment = new DatePickerFragment();
         //newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void addEvent (View v) {
+    public void showEventInfo(){
 
+       //     EditText name = (EditText) findViewById(R.id.planName);
+         //   EditText date = (EditText) findViewById(R.id.planDate);
+           // if (name.getText().equals("") == false){
+             //   if (date.getText().equals("") == false){
+                    Button saveBtn = (Button) findViewById(R.id.savePlanBtn);
+                    LinearLayout event = (LinearLayout) findViewById(R.id.event);
+                    LinearLayout name_date = (LinearLayout) findViewById(R.id.name_date);
+                    name_date.setVisibility(View.INVISIBLE);
+                    event.setVisibility(View.VISIBLE);
+                    saveBtn.setVisibility(View.VISIBLE);
+//                }}
+
+    }
+
+    public void addEvent (View v) {
         // stupid way to avoid redundancy when adding multiple events
         if (planName.equals("p")) {
             // plan information
@@ -111,9 +144,9 @@ public class addPlan extends AppCompatActivity {
                 // writing date
                 outputStreamWriter.write(date + "\n");
 
-                outputStreamWriter.write(place + "\n");
-                outputStreamWriter.write("From: " + timeFrom);
-                outputStreamWriter.write(" - To: " + timeTo + "\n");
+                outputStreamWriter.write("Slot: \n"+place + "\n");
+                outputStreamWriter.write("From: " + timeFrom );
+                outputStreamWriter.write("To: " + timeTo + "\n");
 
                 outputStreamWriter.close();
                 Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();
@@ -141,9 +174,9 @@ public class addPlan extends AppCompatActivity {
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_APPEND));
                 //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
 
-                outputStreamWriter.write(place + "\n");
-                outputStreamWriter.write("From: " + timeFrom);
-                outputStreamWriter.write(" - To: " + timeTo + "\n");
+                outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
+                //outputStreamWriter.write("From: " + timeFrom);
+              //  outputStreamWriter.write(" - To: " + timeTo + "\n");
 
                 outputStreamWriter.close();
                 Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();

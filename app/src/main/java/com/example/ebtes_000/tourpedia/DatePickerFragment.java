@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.Calendar;
 
@@ -16,6 +18,7 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     EditText dateTxt;
+    public boolean isDateSet = false;
     public DatePickerFragment(View view){ // there was a problem here
        dateTxt = (EditText)view;
     }
@@ -34,5 +37,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
        dateTxt.setText(day + "/" + (month + 1) + "/" + year);
+        isDateSet = true;
+
     }
 }

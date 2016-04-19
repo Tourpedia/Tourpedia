@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class plans extends AppCompatActivity {
+public class plans extends AppCompatActivity implements PlanInterface {
     ListView listSavedPlans;
     String[] SavedPlans;
 
@@ -27,11 +27,7 @@ public class plans extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_plans);
-        FragmentManager fragmentManger = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
-        PlansFragment plansFragment = new PlansFragment();
-        fragmentTransaction.add(R.id.fragment_container, plansFragment);
-        fragmentTransaction.commit();
+
 
         // declare add plan img button
         ImageButton add = (ImageButton) findViewById(R.id.addPlanBtn);
@@ -112,42 +108,19 @@ public class plans extends AppCompatActivity {
         listSavedPlans.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // Intent intent = new Intent(plans.this, PlanDetails.class);
-                //startActivity(intent);
-                StringBuffer stringBuffer = null;
+
                 String planName = (String) listSavedPlans.getItemAtPosition(position);
-                try {
-                    String Readdate;
-                    //  getFilesDir();
-                    FileInputStream fileInputStream = openFileInput(planName);
-                    InputStreamReader inputSreamReader = new InputStreamReader(fileInputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputSreamReader);
-                    stringBuffer = new StringBuffer();
-                    while ((Readdate=bufferedReader.readLine()) != null)
-                    {
-                        stringBuffer.append(Readdate + "\n");
-                    }
+                Intent intent = new Intent(plans.this, PlanDetails.class);
+                intent.putExtra("planName", planName);
+                startActivity(intent);
 
-                   // TextView textView = (TextView) findViewById(R.id.date);
-                   // textView.setText(stringBuffer.toString());
-                   // textView.setVisibility(View.VISIBLE);
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                FragmentManager fragmentManger = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManger.beginTransaction();
-                EditFragment editFragment = new EditFragment(stringBuffer.toString());
-                fragmentTransaction.replace(R.id.fragment_container, editFragment);
-                fragmentTransaction.commit();
             }
         });
 
 
     }
-    void ShowSavedFiles(){
+    public void ShowSavedFiles(){
         SavedPlans = getApplicationContext().fileList();
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,
