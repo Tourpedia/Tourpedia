@@ -68,12 +68,12 @@ public final class CSApi {
     // method to take result from the api
     public CSGetResult getImage(final String token) throws IOException {
         final HttpRequest request = mHttpRequestFactory.buildGetRequest(
-                new GenericUrl(String.format(URL_CONCATENATION_FORMAT, mImageGetUrl.toString(), token)));
-        request.getHeaders()
-                .setContentType(CONTENT_TYPE)
-                .setAuthorization(String.format(AUTHORIZATION_FORMAT, mAuthorizationKey));
-        return request.execute().parseAs(CSGetResult.class);
-    }
+            new GenericUrl(String.format(URL_CONCATENATION_FORMAT, mImageGetUrl.toString(), token)));
+    request.getHeaders()
+            .setContentType(CONTENT_TYPE)
+    .setAuthorization(String.format(AUTHORIZATION_FORMAT, mAuthorizationKey));
+    return request.execute().parseAs(CSGetResult.class);
+}
 
     // method to take result from the api
     public CSGetResult getImage(final CSPostResult csPostResult) throws IOException {

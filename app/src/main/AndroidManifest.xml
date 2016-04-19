@@ -5,8 +5,8 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="19"
+        android:targetSdkVersion="23" />
 
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -48,24 +48,33 @@
 
 
         <!-- <uses-library android:name="com.google.android.maps" /> -->
-        <activity android:name=".home">
+        <activity android:name=".home" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".settings" />
-        <activity android:name=".addPlan" />
-        <activity android:name=".attractionDescription" />
-        <activity android:name=".attractionsList" />
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".guideMe" />
-        <activity android:name=".filter" />
+        <activity android:name=".settings"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".addPlan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".attractionDescription"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".attractionsList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CameraActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".guideMe"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".filter"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".imgDescription"
             android:screenOrientation="portrait" />
-        <activity android:name=".plans" />
+        <activity android:name=".plans"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Identify"
             android:screenOrientation="portrait" />

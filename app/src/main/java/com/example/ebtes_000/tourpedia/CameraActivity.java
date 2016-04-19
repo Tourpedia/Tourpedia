@@ -17,9 +17,9 @@ import java.io.IOException;
 public class CameraActivity extends AppCompatActivity {
 
 
-    File pictureFile;
+    public File pictureFile;
     public static final int MEDIA_TYPE_IMAGE = 1;
-    Uri fileUri;
+
 
     private Camera mCamera;
     private CameraPreview mPreview;
@@ -30,27 +30,25 @@ public class CameraActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_camera);
 
-
         // Create an instance of Camera
         mCamera = getCameraInstance();
 
-        // Create our Preview view and set it as the content of our activity.
+        // Create Preview view and set it as the content of the frame.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
 
 
-        //captureImage();
     }
 
 
+    //Capture picture
     public void captureImage(View v) {
         // get an image from the camera
         mCamera.takePicture(null, null, mPicture);
     }
 
-    public void uploadImage(){
-        //TODO: upload activity call
+    public void uploadImage(){//Call upload activity in order to
         Intent intent = new Intent(this, imgDescription.class);
         startActivity(intent);
     }

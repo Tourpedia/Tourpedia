@@ -9,4 +9,13 @@
     <!--From imgur code(END)-->
 
 
+    <!--for glass finding-->
+    <string name="isThereGlass">Do you have a Google Glass to use?</string>
+    <string name="isThereGlassTitle"></string>
+    <string name="isThereGlassDoNotShow">Don\'t show again</string>
+
+
+    <!--messages-->
+
+
 </resources>

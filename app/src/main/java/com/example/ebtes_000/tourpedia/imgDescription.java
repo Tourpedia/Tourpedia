@@ -1,6 +1,8 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +26,8 @@ public class imgDescription extends AppCompatActivity {
     UploadStart uploadStart ;
     public static TextView message;
     public static TextView  description;
+
+    public static ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,7 @@ public class imgDescription extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(imgDescription.this, home.class);
                 startActivity(intent);
 
@@ -70,11 +70,7 @@ public class imgDescription extends AppCompatActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(imgDescription.this, settings.class);
                 startActivity(intent);
 
@@ -84,11 +80,7 @@ public class imgDescription extends AppCompatActivity {
         filters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(imgDescription.this, filter.class);
                 startActivity(intent);
 

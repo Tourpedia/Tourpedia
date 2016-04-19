@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ebtes_000.tourpedia.settings"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layoutDirection = "ltr">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

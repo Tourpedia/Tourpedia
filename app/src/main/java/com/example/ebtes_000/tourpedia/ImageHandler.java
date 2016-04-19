@@ -22,10 +22,11 @@ public class ImageHandler {
        return imageFile;
     }
 
-      /** Create a file Uri for saving an image  */
-      private static Uri getOutputMediaFileUri(int type){
-          return Uri.fromFile(getOutputMediaFile(type));
-      }
+    public static void deleteImage(){
+
+       //todo:delete the image from mobile storage.
+        imageFile.delete();
+    }
 
       /** Create a File for saving an image or video */
     private static File getOutputMediaFile(int type){
@@ -46,11 +47,11 @@ public class ImageHandler {
         }
 
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "tourpedia_"+ timeStamp + ".jpg");
+                    "tourpedia_Identify_Image.jpg");
         } else {
             return null;
         }
