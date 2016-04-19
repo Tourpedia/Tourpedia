@@ -14,12 +14,12 @@ public class PlaceDetails implements Serializable {
 	@Key
 	public String status;
 	@Key
-	public Place results;
+	public Place result;
 
 	@Override
 	public String toString() {
-		if (results!=null) {
-			return results.toString();
+		if (result!=null) {
+			return result.toString();
 		}
 		return super.toString();
 	}

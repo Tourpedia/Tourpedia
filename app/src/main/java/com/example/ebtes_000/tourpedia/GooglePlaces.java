@@ -1,5 +1,6 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.location.Location;
 import android.util.Log;
 
 //import com.google.api.client.googleapis.GoogleHeaders;
@@ -83,22 +84,37 @@ public class GooglePlaces {
 			HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
 			HttpRequest request = httpRequestFactory
 					.buildGetRequest(new GenericUrl(PLACES_DETAILS_URL));
+			Log.d("requist state", "before adding to url"); // print
 			request.getUrl().put("key", API_KEY);
 			request.getUrl().put("reference", reference);
 			request.getUrl().put("sensor", "false");
+			Log.d("requist state", "after adding to url"); //print
 
-			PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
-			if(place != null)
-			Log.d("ppp12", place.results.toString());
-			else
-				Log.d("ppp12","null");
+			try {
+				PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
+				Log.d("request state", place.status);
+				Log.d("request state",place.result.toString());
+				if(place != null){
+					Log.d("ppp12", place.toString());} // print
+				else{
+					Log.d("ppp12", "null");} // print
 
-			return place;
+				return place;
+
+			}
+			catch (Exception e) {
+				Log.d("Ex type", e.toString());
+				Log.d("GP catch","hey catch");
+			}
+
+
+			Log.d("after return","rturn");
 
 		} catch (HttpResponseException e) {
 			Log.e("Perform Details Error:", e.getMessage());
 			throw e;
 		}
+		return  null;
 	}
 
 	/**
@@ -118,6 +134,7 @@ public class GooglePlaces {
 
 				JsonObjectParser parser = new JsonObjectParser(new JacksonFactory());
 				request.setParser(parser);
+				Log.d("requist state","requistdone");
 
 			}
 		});
