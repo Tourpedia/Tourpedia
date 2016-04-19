@@ -124,10 +124,15 @@
             android:layout_marginLeft="10dp" />
 
         <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ratingBar"
-            android:layout_marginLeft="10dp" />
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -136,17 +141,17 @@
             android:id="@+id/button"
             android:layout_gravity="right"
             android:onClick="addEvent"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="30dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="104dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="Reset"
             android:id="@+id/button2"
+            android:layout_gravity="right"
             android:onClick="addEvent"
-            android:layout_marginTop="30dp"
-            android:layout_weight="0.56"
-            android:layout_gravity="right" />
+            android:layout_marginRight="30dp" />
 
     </LinearLayout>
 

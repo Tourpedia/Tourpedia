@@ -92,6 +92,7 @@ public class GooglePlaces {
 			Log.d("ppp12", place.results.toString());
 			else
 				Log.d("ppp12","null");
+
 			return place;
 
 		} catch (HttpResponseException e) {
