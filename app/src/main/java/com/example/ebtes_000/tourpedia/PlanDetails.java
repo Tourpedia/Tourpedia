@@ -62,8 +62,9 @@ String planName; // should be date
                 pname = planDetails;
                 EditText name = (EditText) findViewById(R.id.planName);
                 Log.d("trace1", "heeeere");
-                stringBuffer.append(pname+"\n");
+                stringBuffer.append(pname + "\n");
                 name.setText(stringBuffer.toString());
+                name.setContentDescription(stringBuffer.toString());
 
             }
             else if (lineNum == 2)

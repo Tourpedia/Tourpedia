@@ -119,6 +119,7 @@ public class attractionDescription extends AppCompatActivity {
             super.onPreExecute();
             pDialog = new ProgressDialog(attractionDescription.this);
             pDialog.setMessage("Loading profile ...");
+            //pDialog.setContentDiscription();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -195,10 +196,15 @@ public class attractionDescription extends AppCompatActivity {
                                 longitude = longitude == null ? "Not present" : longitude;
 
                                 lbl_icon.setImageBitmap(icon);
+                                lbl_icon.setContentDescription("Icon");
                                 lbl_name.setText(name);
+                                lbl_name.setContentDescription(name);
                                 lbl_address.setText(address);
+                                lbl_address.setContentDescription(address);
                                 lbl_phone.setText(Html.fromHtml("<b>Phone:</b> " + phone));
+                                lbl_phone.setContentDescription(Html.fromHtml("<b>Phone:</b> " + phone));
                                 lbl_location.setText(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
+                                lbl_location.setContentDescription(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
                             }
                             Log.d("placeDetails.results","NO");
                         }

@@ -325,6 +325,7 @@ public class attractionsList extends AppCompatActivity {
 
                             // Adding data into listview
                             lv.setAdapter(adapter);
+                            lv.setContentDescription(adapter.toString());
                         }
                     }
                     else if(status.equals("ZERO_RESULTS")){

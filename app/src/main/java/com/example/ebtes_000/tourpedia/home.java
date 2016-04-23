@@ -56,6 +56,7 @@ public class home extends AppCompatActivity {
                         .setTitle(R.string.isThereGlassTitle);
 
 
+
                 // Add the buttons
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
