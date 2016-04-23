@@ -16,7 +16,8 @@
             android:layout_height="72dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            android:contentDescription="Background" />
 
         <ImageView
             android:layout_width="80dp"
@@ -25,7 +26,8 @@
             android:src="@drawable/logoc"
             android:layout_gravity="top|left|center_vertical"
             android:paddingBottom="6dp"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"
+            android:contentDescription="Logo" />
 
         <ImageButton
             android:layout_width="25dp"
@@ -35,7 +37,8 @@
             android:background="#00000000"
             android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:contentDescription="Home" />
 
 
 
@@ -56,7 +59,8 @@
             android:src="@drawable/settingsc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginRight="120dp" />
+            android:layout_marginRight="120dp"
+            android:contentDescription="Setting" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +69,8 @@
             android:text="Filter"
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Filter" />
 
         <ImageButton
             android:layout_width="24dp"
@@ -74,7 +79,8 @@
             android:src="@drawable/filterc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginLeft="120dp" />
+            android:layout_marginLeft="120dp"
+            android:contentDescription="Filter" />
 
     </LinearLayout>
 
@@ -94,7 +100,8 @@
             android:textColor="#3f9d9f"
             android:layout_marginTop="20dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Distance" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,7 +110,8 @@
             android:text="The distance range for the nearest attractions in miles"
             android:id="@+id/textView15"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="The distance range for the nearest attractions in miles" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -111,17 +119,19 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/distance"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Enter distance here" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Rateing"
+            android:text="Rating"
             android:id="@+id/textView12"
             android:textColor="#3f9d9f"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:contentDescription="Rating" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -132,7 +142,8 @@
             android:numStars="5"
             android:stepSize="0.1"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:contentDescription="Rating bar" />
 
         <Button
             android:layout_width="wrap_content"
@@ -142,7 +153,8 @@
             android:layout_gravity="right"
             android:onClick="addEvent"
             android:layout_marginTop="70dp"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            android:contentDescription="Submit filter" />
 
         <Button
             android:layout_width="104dp"
@@ -151,7 +163,8 @@
             android:id="@+id/button2"
             android:layout_gravity="right"
             android:onClick="addEvent"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            android:contentDescription="Reset" />
 
     </LinearLayout>
 

@@ -16,7 +16,8 @@
             android:layout_height="72dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            android:contentDescription="background" />
 
         <ImageView
             android:layout_width="80dp"
@@ -25,7 +26,8 @@
             android:src="@drawable/logoc"
             android:layout_gravity="top|left|center_vertical"
             android:paddingBottom="6dp"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"
+            android:contentDescription="logo" />
 
         <ImageButton
             android:layout_width="25dp"
@@ -35,7 +37,8 @@
             android:background="#00000000"
             android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:contentDescription="Home" />
 
 
     </FrameLayout>
@@ -54,7 +57,8 @@
             android:src="@drawable/settingsc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginRight="65dp" />
+            android:layout_marginRight="65dp"
+            android:contentDescription="Setting" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +68,8 @@
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
             android:layout_gravity="center"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:contentDescription="Attraction Description" />
 
         <ImageButton
             android:layout_width="24dp"
@@ -73,7 +78,8 @@
             android:src="@drawable/filterc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginLeft="65dp" />
+            android:layout_marginLeft="65dp"
+            android:contentDescription="Filter" />
 
     </LinearLayout>
 
@@ -105,7 +111,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/name"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Attraction name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +120,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/address"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Address" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +129,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/phone"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Phone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,7 +138,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/location"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Location" />
 
         <Button
             android:layout_width="100dp"
@@ -143,7 +153,8 @@
             android:enabled="true"
             android:layout_marginTop="240dp"
             android:layout_marginLeft="100dp"
-            android:clickable="true" />
+            android:clickable="true"
+            android:contentDescription="Guide Me" />
 
     </LinearLayout>
 </LinearLayout>
