@@ -87,10 +87,13 @@
             android:name=".Identify"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".blind"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".GlassActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".PlanDetails" />
-        <activity android:name=".EditPlan" />
+       <!-- <activity android:name=".EditPlan" /> -->
     </application>
 
 </manifest>

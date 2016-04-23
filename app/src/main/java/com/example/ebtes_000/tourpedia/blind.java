@@ -40,7 +40,7 @@ public class blind extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent (RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                i.putExtra(RecognizerIntent.EXTRA_PROMPT , "Speak !");
+                i.putExtra(RecognizerIntent.EXTRA_PROMPT , "Speak");
                 startActivityForResult(i, check);
             }
         });
@@ -82,11 +82,11 @@ public class blind extends AppCompatActivity {
 
                     break;
                 case "Make a plan":
-                    tts.speak("what do you want?",TextToSpeech.QUEUE_FLUSH , null);
+                   // tts.speak("what do you want?",TextToSpeech.QUEUE_ADD , null,"1");
                     // call plan arr
                     break;
                 case "Setting":
-
+                    // call setting
                     break;
                 case "Filter":
                     break;
@@ -106,7 +106,7 @@ public class blind extends AppCompatActivity {
     }
 
     void ConvertToSpeech(String str) {
-        tts.speak(str , TextToSpeech.QUEUE_FLUSH , null);
+        tts.speak(str , TextToSpeech.QUEUE_ADD , null);
     }
 
 

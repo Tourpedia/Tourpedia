@@ -236,6 +236,7 @@ public class addPlan extends AppCompatActivity {
 
             TextView textView = (TextView) findViewById(R.id.date);
             textView.setText(stringBuffer.toString() + getFilesDir());
+            textView.setContentDescription(stringBuffer.toString() + getFilesDir());
             textView.setVisibility(View.VISIBLE);
 
         } catch (FileNotFoundException e) {

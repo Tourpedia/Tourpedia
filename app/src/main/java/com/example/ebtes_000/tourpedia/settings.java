@@ -77,6 +77,8 @@ public class settings extends AppCompatActivity {
                 if (isChecked) {
                     Log.d("status","Switch is currently ON");
                     isBlind = true;
+                    Intent intent = new Intent(settings.this, blind.class);
+                    startActivity(intent);
                     // open blind interface
                 } else {
                     Log.d("status", "Switch is currently OFF");
