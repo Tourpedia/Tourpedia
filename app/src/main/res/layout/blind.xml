@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ebtes_000.tourpedia.blind"
+    android:orientation="vertical"
+    android:id="@+id/camera">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/appc"
+            android:adjustViewBounds="false" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="77dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/logoc"
+            android:layout_gravity="top|left|center_vertical"
+            android:paddingBottom="6dp"
+            android:layout_marginLeft="6dp" />
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <ImageButton
+            android:layout_width="283dp"
+            android:layout_height="236dp"
+            android:id="@+id/recordButton"
+            android:layout_gravity="center"
+            android:background="#0b0a0a"
+            android:src="@drawable/re1"
+            android:contentDescription="Record"/>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvVoiceReturn"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Listen"
+            android:id="@+id/bTextToVoice"
+            android:layout_gravity="center_horizontal|top" />
+    </FrameLayout>
+
+</LinearLayout>

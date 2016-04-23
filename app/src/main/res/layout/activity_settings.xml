@@ -103,14 +103,16 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Blind Mode"
-                    android:id="@+id/textView16"
-                    android:textColor="#3f9d9f" />
+                    android:contentDescription="Blind Mode"
+                    android:textColor="#3f9d9f"
+                    android:id="@+id/blindLabel" />
 
                 <TextView
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Commands and responses will be through voice"
+                    android:contentDescription="Commands and responses will be through voice"
                     android:id="@+id/textView17" />
             </LinearLayout>
 
@@ -126,6 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/blindMode"
+                    android:contentDescription="turn on blind mode"
                     android:checked="true"
                     android:clickable="true"
                     android:layout_gravity="center_vertical" />
@@ -158,7 +161,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Around Me"
+                    android:text="Google Glass"
+                    android:contentDescription="Google Glass"
                     android:id="@+id/textView18"
                     android:textColor="#3f9d9f" />
 
@@ -166,7 +170,8 @@
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Tourpedia will alert you while you&apos;re moving around attractions "
+                    android:text="If you have google glass please turn this option on"
+                    android:contentDescription="If you have google glass please turn this option on"
                     android:id="@+id/textView19" />
             </LinearLayout>
 
@@ -181,7 +186,8 @@
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/aroundMe"
+                    android:id="@+id/googleGlass"
+                    android:contentDescription="turn on google glass connection"
                     android:checked="true"
                     android:clickable="true"
                     android:layout_gravity="center_vertical" />
@@ -214,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Plan Alert"
+                    android:contentDescription="Plan Alert"
                     android:id="@+id/textView20"
                     android:textColor="#3f9d9f" />
 
@@ -222,6 +229,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Tourpedia will alert you according to your plan"
+                    android:contentDescription="Tourpedia will alert you according to your plan"
                     android:id="@+id/textView21" />
             </LinearLayout>
 
@@ -237,6 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/planAlert"
+                    android:contentDescription="Turn on plan alert"
                     android:checked="true"
                     android:clickable="true"
                     android:layout_gravity="center_vertical" />
