@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -237,6 +238,7 @@ public class addPlan extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.date);
             textView.setText(stringBuffer.toString() + getFilesDir());
             textView.setContentDescription(stringBuffer.toString() + getFilesDir());
+            Log.d("File"," "+getFilesDir());
             textView.setVisibility(View.VISIBLE);
 
         } catch (FileNotFoundException e) {

@@ -84,7 +84,7 @@ public class settings extends AppCompatActivity {
                     Log.d("status", "Switch is currently OFF");
                     isBlind = false;
                 }
-                saveSettingToFile();
+//                saveSettingToFile();
             }
         });
 
@@ -100,7 +100,7 @@ public class settings extends AppCompatActivity {
                     Log.d("status", "haveGoogleGlass Switch is currently OFF");
                     haveGoogleGlass = false;
                 }
-                saveSettingToFile();
+  //              saveSettingToFile();
 
             }
         });
