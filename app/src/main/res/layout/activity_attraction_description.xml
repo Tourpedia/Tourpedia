@@ -6,6 +6,7 @@
     tools:context="com.example.ebtes_000.tourpedia.attractionDescription"
     android:orientation="vertical"
     android:id="@+id/attractionDesc">
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,7 +95,6 @@
             android:layout_width="172dp"
             android:layout_height="123dp"
             android:id="@+id/attractionImg"
-            android:src="@drawable/pic1"
             android:layout_marginLeft="15dp"
             android:layout_gravity="center_horizontal" />
 
@@ -109,52 +109,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/name"
             android:layout_gravity="center"
-            android:contentDescription="Attraction name" />
+            android:contentDescription="Attraction name"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/address"
             android:layout_gravity="center"
-            android:contentDescription="Address" />
+            android:contentDescription="Address"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/phone"
             android:layout_gravity="center"
-            android:contentDescription="Phone" />
+            android:contentDescription="Phone"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/location"
             android:layout_gravity="center"
-            android:contentDescription="Location" />
+            android:contentDescription="Location"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center" />
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="Guide me"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/guideMeBtn"
-            android:onClick="guide"
-            android:background="#98cbcc"
-            android:textColor="#fdfbfb"
-            android:enabled="true"
-            android:layout_marginTop="240dp"
-            android:layout_marginLeft="100dp"
-            android:clickable="true"
-            android:contentDescription="Guide Me" />
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="Guide me"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/guideMeBtn"
+        android:onClick="guide"
+        android:background="#98cbcc"
+        android:textColor="#fdfbfb"
+        android:enabled="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="100dp"
+        android:clickable="true"
+        android:contentDescription="Guide Me"
+        android:layout_marginBottom="40dp" />
+
 </LinearLayout>
