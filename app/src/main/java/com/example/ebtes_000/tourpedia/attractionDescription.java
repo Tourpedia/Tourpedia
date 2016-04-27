@@ -24,6 +24,8 @@ import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.InputStream;
+
 public class attractionDescription extends AppCompatActivity {
 
     // flag for Internet connection status
@@ -169,7 +171,7 @@ public class attractionDescription extends AppCompatActivity {
                         // Check for all possible status
                         if(status.equals("OK")){
                             if (placeDetails.result != null) {
-                                Bitmap icon = BitmapFactory.decodeFile(placeDetails.result.icon);
+                                String icon = placeDetails.result.icon;
                                 String name = placeDetails.result.name;
                                 String address = placeDetails.result.formatted_address;
                                 String phone = placeDetails.result.formatted_phone_number;
@@ -195,8 +197,11 @@ public class attractionDescription extends AppCompatActivity {
                                 latitude = latitude == null ? "Not present" : latitude;
                                 longitude = longitude == null ? "Not present" : longitude;
 
-                                lbl_icon.setImageBitmap(icon);
+                                // show The Image in a ImageView
+                                new DownloadImageTask((ImageView) findViewById(R.id.attractionImg))
+                                        .execute(icon);
                                 lbl_icon.setContentDescription("Icon");
+
                                 lbl_name.setText(name);
                                 lbl_name.setContentDescription(name);
                                 lbl_address.setText(address);
@@ -256,4 +261,28 @@ public class attractionDescription extends AppCompatActivity {
         }
 
 }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 }

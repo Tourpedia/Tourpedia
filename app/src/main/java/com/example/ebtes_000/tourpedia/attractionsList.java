@@ -125,6 +125,10 @@ public class attractionsList extends AppCompatActivity {
         } else {
             Guideingtype= (String) savedInstanceState.getSerializable("attractionsList");
         }
+        TextView lbl_name = (TextView) findViewById(R.id.textView);
+        lbl_name.setText(Guideingtype + " List");
+        lbl_name.setContentDescription(Guideingtype + " List");
+        
 
         //
         //
@@ -155,6 +159,10 @@ public class attractionsList extends AppCompatActivity {
             alert.showAlertDialog(attractionsList.this, "GPS Status",
                     "Couldn't get location information. Please enable GPS",
                     false);
+            //enable the GPS if the user click yes
+            Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
+            intent.putExtra("enabled", true);
+            sendBroadcast(intent);
             // stop executing code by return
             return;
         }
@@ -162,31 +170,9 @@ public class attractionsList extends AppCompatActivity {
         // Getting listview
         lv = (ListView) findViewById(R.id.list);
 
-        // button show on map
-        //btnShowOnMap = (Button) findViewById(R.id.btn_show_map);
-
         // calling background Async task to load Google Places
         // After getting places from Google all the data is shown in listview
         new LoadPlaces().execute();
-
-        /** Button click event for shown on map */
-//        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                Intent i = new Intent(getApplicationContext(),
-//                        PlacesMapActivity.class);
-//                // Sending user current geo location
-//                i.putExtra("user_latitude", Double.toString(gps.getLatitude()));
-//                i.putExtra("user_longitude", Double.toString(gps.getLongitude()));
-//
-//                // passing near places to map activity
-//                i.putExtra("near_places", nearPlaces);
-//                // staring activity
-//                startActivity(i);
-//            }
-//        });
-
 
         /**
          * ListItem click event
