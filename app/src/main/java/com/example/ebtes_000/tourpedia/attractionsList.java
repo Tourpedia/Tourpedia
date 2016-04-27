@@ -159,10 +159,7 @@ public class attractionsList extends AppCompatActivity {
             alert.showAlertDialog(attractionsList.this, "GPS Status",
                     "Couldn't get location information. Please enable GPS",
                     false);
-            //enable the GPS if the user click yes
-            Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
-            intent.putExtra("enabled", true);
-            sendBroadcast(intent);
+
             // stop executing code by return
             return;
         }
