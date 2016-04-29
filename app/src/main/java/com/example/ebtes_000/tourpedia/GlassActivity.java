@@ -180,16 +180,18 @@ public class GlassActivity extends AppCompatActivity {
             if (mBluetoothAdapter == null) {
 
                message.setText("Make sure of the blutoothAdabter!!");//TODO:This is for devices with no bluetooth or that what i think
-
+                message.setContentDescription("Make sure of the blutoothAdabter!!");
             } else if (mBluetoothAdapter.isEnabled()) {
 
                 if (mBluetoothAdapter.isDiscovering()) { //TODO:See the documentation for isDiscovering()
 
                     message.setText("Now discovering..");
+                    message.setContentDescription("Now discovering..");
                 } else {
 
                     //Now everything is okay :)
                     message.setText("Waiting for the Glass.."); //TODO: I need to check for sudden bt close
+                    message.setContentDescription("Waiting for the Glass..");
 
                      new AcceptThread().start();
 
@@ -199,6 +201,7 @@ public class GlassActivity extends AppCompatActivity {
 
                 //Someone ignored the request :(
                 message.setText("Bluetooth is not enabled!!");
+                message.setContentDescription("Bluetooth is not enabled!!");
                 Toast toast=Toast.makeText(this, "Can not work without Bluetooth enabled", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();//No Bluetooth NO Glass

@@ -52,6 +52,7 @@ public class imgDescription extends AppCompatActivity {
         ImageView myImage = (ImageView) findViewById(R.id.capturedImg);
 
         myImage.setImageBitmap(myBitmap);
+        myImage.setContentDescription("Image");
 
 
         ImageButton home = (ImageButton) findViewById(R.id.homeBtn);

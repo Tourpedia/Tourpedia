@@ -31,7 +31,7 @@ public class NotificationHelper {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext.get());
         mBuilder.setSmallIcon(android.R.drawable.ic_menu_upload);
         mBuilder.setContentTitle(mContext.get().getString(R.string.notification_progress));
-
+       // mBuilder.setCo
 
         mBuilder.setColor(mContext.get().getResources().getColor(R.color.primary));
 

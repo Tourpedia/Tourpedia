@@ -16,7 +16,8 @@
             android:layout_height="72dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            android:contentDescription="Background" />
 
         <ImageView
             android:layout_width="80dp"
@@ -25,7 +26,8 @@
             android:src="@drawable/logoc"
             android:layout_gravity="top|left|center_vertical"
             android:paddingBottom="6dp"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"
+            android:contentDescription="Logo" />
 
         <ImageButton
             android:layout_width="25dp"
@@ -35,7 +37,8 @@
             android:background="#00000000"
             android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:contentDescription="Home" />
 
 
     </FrameLayout>
@@ -54,7 +57,8 @@
             android:src="@drawable/settingsc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginRight="105dp" />
+            android:layout_marginRight="105dp"
+            android:contentDescription="Setting" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +67,8 @@
             android:text="Guide Me"
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Guide me" />
 
         <ImageButton
             android:layout_width="24dp"
@@ -72,7 +77,8 @@
             android:src="@drawable/filterc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginLeft="105dp" />
+            android:layout_marginLeft="105dp"
+            android:contentDescription="Filter" />
 
     </LinearLayout>
 
@@ -106,7 +112,8 @@
                     android:src="@drawable/directionscompressor"
                     android:background="#00000000"
                     android:scaleType="fitCenter"
-                    android:layout_weight="0.09" />
+                    android:layout_weight="0.09"
+                    android:contentDescription="Nearest Attraction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,9 +136,10 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/restaurantsBtn"
-                    android:src="@drawable/restaurantscompressor"
+                    android:src="@drawable/res"
                     android:background="#00000000"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Nearest Restaurant" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +148,8 @@
                     android:text="Nearest Restaurants"
                     android:id="@+id/textView6"
                     android:textSize="12dp"
-                    android:singleLine="false" />
+                    android:singleLine="false"
+                    android:contentDescription="Nearest Restaurant" />
             </LinearLayout>
         </LinearLayout>
 
@@ -163,7 +172,8 @@
                     android:id="@+id/restroomsBtn"
                     android:src="@drawable/restroomscompressor"
                     android:background="#00000000"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Nearest Restroom" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +181,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Nearest Restrooms"
                     android:id="@+id/textView7"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:contentDescription="Nearest Restroom" />
             </LinearLayout>
 
             <LinearLayout
@@ -188,7 +199,8 @@
                     android:src="@drawable/guidecompressor"
                     android:background="#00000000"
                     android:scaleType="fitCenter"
-                    android:layout_marginLeft="14dp" />
+                    android:layout_marginLeft="14dp"
+                    android:contentDescription="Nearest Transportation" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -196,7 +208,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Nearest Transportations"
                     android:id="@+id/textView8"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:contentDescription="Nearest Transportation" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

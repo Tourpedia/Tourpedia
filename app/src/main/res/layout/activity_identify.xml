@@ -17,7 +17,8 @@
             android:layout_height="72dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            android:contentDescription="Background" />
 
         <ImageView
             android:layout_width="80dp"
@@ -26,7 +27,8 @@
             android:src="@drawable/logoc"
             android:layout_gravity="top|left|center_vertical"
             android:paddingBottom="6dp"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"
+            android:contentDescription="Logo" />
 
     </FrameLayout>
 
@@ -45,16 +47,18 @@
             android:src="@drawable/settingsc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginRight="120dp" />
+            android:layout_marginRight="120dp"
+            android:contentDescription="Setting" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Home"
+            android:text="Identify"
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Identify" />
 
         <ImageButton
             android:layout_width="24dp"
@@ -63,7 +67,8 @@
             android:src="@drawable/filterc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginLeft="120dp" />
+            android:layout_marginLeft="120dp"
+            android:contentDescription="Filter" />
 
     </LinearLayout>
 
@@ -83,7 +88,8 @@
             android:layout_marginTop="50dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:onClick="useGlassCamera"/>
+            android:onClick="useGlassCamera"
+            android:contentDescription="Google glass" />
 
         <Button
             android:layout_width="wrap_content"
@@ -93,7 +99,8 @@
             android:layout_below="@+id/glass"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="46dp"
-            android:onClick="useMobileCamera"/>
+            android:onClick="useMobileCamera"
+            android:contentDescription="Camera" />
 
 
     </LinearLayout>

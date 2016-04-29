@@ -34,5 +34,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         // Do something with the time chosen by the user
        //timeTxt.setText(timeTxt.getText());
        timeTxt.setText( hourOfDay + ":" + minute);
+        timeTxt.setContentDescription( hourOfDay + ":" + minute);
     }
 }

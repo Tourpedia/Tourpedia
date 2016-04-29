@@ -69,12 +69,14 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             case 1:
                message.setText("Now trying to identify the image..");
+                message.setContentDescription("Now trying to identify the image..");
 
 
                 break;
 
             case 2:
                 message.setText("Getting info..");
+                message.setContentDescription("Getting info..");
                 break;
         }
     }
@@ -208,6 +210,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
     protected void onPostExecute(String result){
 
       t.setText(s);
+      t.setContentDescription(s);
 
       if(VariablesAndConstants.isFromGlass){
 

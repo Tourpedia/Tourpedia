@@ -18,7 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class plans extends AppCompatActivity/* implements PlanInterface*/ {
+
+public class plans extends AppCompatActivity { //implements PlanInterface {
+
     ListView listSavedPlans;
     String[] SavedPlans;
 

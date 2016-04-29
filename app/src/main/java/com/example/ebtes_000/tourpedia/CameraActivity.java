@@ -36,14 +36,19 @@ public class CameraActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_camera);
 
+
+        Log.e("debug","1");
+
         // Create an instance of Camera
         getCameraInstance();
+        Log.e("debug", "2");
 
         // Create Preview view and set it as the content of the frame.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
 
+        Log.e("debug", "3");
 
 
 
@@ -57,8 +62,16 @@ public class CameraActivity extends AppCompatActivity {
 
         //if(mCamera!=null)
         //    mCamera.release();
+        Log.e("debug","4");
 
-       // getCameraInstance();
+        if( !getCameraInstance()) {
+
+            Log.e("debug", "5");
+
+           // alert.showAlertDialog(this,"","Cann't open the camera",true);
+
+       }else
+          mPreview.setCamera(mCamera);
 
 
     }
@@ -68,6 +81,7 @@ public class CameraActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         // Release the Camera because we don't need it when paused
+        Log.e("debug","6");
 
         releaseCameraAndPreview();
     }
@@ -120,13 +134,18 @@ public class CameraActivity extends AppCompatActivity {
 
     public boolean getCameraInstance(){
         boolean qOpened = false;
+        Log.e("debug","7");
 
         try {
-            releaseCameraAndPreview();
+           // releaseCameraAndPreview();
             mCamera = Camera.open();
+            Log.e("debug","8");
+
             qOpened = (mCamera != null);
         } catch (Exception e) {
             Log.e(getString(R.string.app_name), "failed to open Camera");
+            Log.e("debug","9");
+
             e.printStackTrace();
         }
 
@@ -135,8 +154,12 @@ public class CameraActivity extends AppCompatActivity {
 
     private void releaseCameraAndPreview() {
         mPreview.setCamera(null);
+        Log.e("debug", "10");
+
         if (mCamera != null) {
             mCamera.release();
+            Log.e("debug", "11");
+
             mCamera = null;
         }
 

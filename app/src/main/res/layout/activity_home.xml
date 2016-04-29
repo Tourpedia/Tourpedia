@@ -18,7 +18,8 @@
             android:layout_height="72dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            android:contentDescription="Background" />
 
         <ImageView
             android:layout_width="80dp"
@@ -27,7 +28,8 @@
             android:src="@drawable/logoc"
             android:layout_gravity="top|left|center_vertical"
             android:paddingBottom="6dp"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"
+            android:contentDescription="Logo" />
 
     </FrameLayout>
 
@@ -46,7 +48,8 @@
             android:src="@drawable/settingsc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginRight="120dp" />
+            android:layout_marginRight="120dp"
+            android:contentDescription="Setting" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +58,8 @@
             android:text="Home"
             android:id="@+id/textView"
             android:textColor="#3f9d9f"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Home" />
 
         <ImageButton
             android:layout_width="24dp"
@@ -64,7 +68,8 @@
             android:src="@drawable/filterc"
             android:scaleType="fitCenter"
             android:background="#00000000"
-            android:layout_marginLeft="120dp" />
+            android:layout_marginLeft="120dp"
+            android:contentDescription="Filter" />
 
     </LinearLayout>
 
@@ -88,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/guideMe"
-                android:clickable="true">
+                android:clickable="true"
+                android:contentDescription="Guide me">
 
                 <ImageButton
                     android:layout_width="140dp"
@@ -96,7 +102,8 @@
                     android:id="@+id/guideBtn"
                     android:src="@drawable/mapc"
                     android:scaleType="fitCenter"
-                    android:background="#00000000" />
+                    android:background="#00000000"
+                    android:contentDescription="Guide me" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,7 +112,8 @@
                     android:text="Guide Me"
                     android:id="@+id/textView2"
                     android:textColor="#939393"
-                    android:layout_marginLeft="25dp" />
+                    android:layout_marginLeft="25dp"
+                    android:contentDescription="Guide me" />
 
             </LinearLayout>
 
@@ -115,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/identifyImage"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp">
+                android:layout_marginLeft="40dp"
+                android:contentDescription="Identify image">
 
                 <ImageButton
                     android:layout_width="120dp"
@@ -123,7 +132,8 @@
                     android:id="@+id/identifyBtn"
                     android:src="@drawable/searchc"
                     android:scaleType="fitCenter"
-                    android:background="#00000000" />
+                    android:background="#00000000"
+                    android:contentDescription="Identify image" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +141,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Identify Image"
                     android:id="@+id/textView3"
-                    android:textColor="#939393" />
+                    android:textColor="#939393"
+                    android:contentDescription="Identify image" />
 
             </LinearLayout>
         </LinearLayout>
@@ -140,7 +151,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/makePlan">
+            android:id="@+id/makePlan"
+            android:contentDescription="Make a plan">
 
             <ImageButton
                 android:layout_width="120dp"
@@ -150,7 +162,8 @@
                 android:src="@drawable/plansc"
                 android:background="#00000000"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="40dp"
+                android:contentDescription="Make a plan" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,7 +172,8 @@
                 android:text="Make a Plan"
                 android:id="@+id/textView4"
                 android:layout_gravity="center_horizontal"
-                android:textColor="#939393" />
+                android:textColor="#939393"
+                android:contentDescription="Make a plan" />
 
         </LinearLayout>
 

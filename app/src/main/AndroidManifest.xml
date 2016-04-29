@@ -36,6 +36,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
 
     <application
         android:allowBackup="true"
@@ -47,41 +49,53 @@
 
 
         <!-- <uses-library android:name="com.google.android.maps" /> -->
-        <activity android:name=".home" android:screenOrientation="portrait">
+        <activity
+            android:name=".home"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".settings"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".addPlan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".attractionDescription"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".attractionsList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CameraActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".guideMe"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".filter"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addPlan"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".attractionDescription"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".attractionsList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".guideMe"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".filter"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".imgDescription"
             android:screenOrientation="portrait" />
-        <activity android:name=".plans"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".plans"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Identify"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".blind"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GlassActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".PlanDetails" />
-        <activity android:name=".EditPlan"></activity>
+       <!-- <activity android:name=".EditPlan" /> -->
     </application>
 
 </manifest>
