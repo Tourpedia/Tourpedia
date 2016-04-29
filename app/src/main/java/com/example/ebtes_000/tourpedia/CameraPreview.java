@@ -25,7 +25,7 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         setCamera(camera);
         Log.e("debug", "12");
 
-        setCameraDisplayOrientation(0, mCamera);//TODO:There is a small problem here fix it!!!!
+        mCamera.setDisplayOrientation(90);
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
@@ -101,27 +101,6 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         }
 
 
-    }
-
-
-    public static void setCameraDisplayOrientation(int cameraId, android.hardware.Camera camera) {
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(cameraId, info);
-       // int rotation = Surface.ROTATION_90;
-        int degrees = 0;
-
-            degrees = 90;
-
-        Log.e("debug","21");
-
-
-        int result;
-        // back-facing
-            result = (info.orientation - degrees + 360) % 360;
-        Log.e("debug","22");
-
-        camera.setDisplayOrientation(result);
     }
 
     public void setCamera(Camera camera) {

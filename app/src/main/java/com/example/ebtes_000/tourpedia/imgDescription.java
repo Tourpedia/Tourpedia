@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,12 +48,18 @@ public class imgDescription extends AppCompatActivity {
 
         image = ImageHandler.imageFile;//TODO: find a better way to pass the file since this looks unreliable.
 
-        Bitmap myBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
 
+        Matrix matrix = new Matrix();
+        Bitmap myBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        matrix.postRotate(90);
+        Bitmap bMapRotate = Bitmap.createBitmap( myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
         ImageView myImage = (ImageView) findViewById(R.id.capturedImg);
 
-        myImage.setImageBitmap(myBitmap);
+
+
+        myImage.setImageBitmap(bMapRotate);
         myImage.setContentDescription("Image");
+
 
 
         ImageButton home = (ImageButton) findViewById(R.id.homeBtn);
