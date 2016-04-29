@@ -46,9 +46,6 @@ public class attractionsList extends AppCompatActivity {
     // flag for Internet connection status
     Boolean isInternetPresent = false;
 
-    // Connection detector class
-    ConnectionDetector cd;
-
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
 
@@ -132,10 +129,9 @@ public class attractionsList extends AppCompatActivity {
         //
         //
 
-        cd = new ConnectionDetector(getApplicationContext());
 
         // Check if Internet present
-        isInternetPresent = cd.isConnectingToInternet();
+        isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
         if (!isInternetPresent) {
             // Internet Connection is not present
             alert.showAlertDialog(attractionsList.this, "Internet Connection Error",

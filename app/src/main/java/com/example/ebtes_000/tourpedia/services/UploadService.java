@@ -9,7 +9,7 @@ import com.example.ebtes_000.tourpedia.helpers.NotificationHelper;
 import com.example.ebtes_000.tourpedia.imgurmodel.ImageResponse;
 import com.example.ebtes_000.tourpedia.imgurmodel.ImgurAPI;
 import com.example.ebtes_000.tourpedia.imgurmodel.Upload;
-import com.example.ebtes_000.tourpedia.utils.NetworkUtils;
+import com.example.ebtes_000.tourpedia.ConnectionDetector;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -33,11 +33,13 @@ public class UploadService {
     public void Execute(Upload upload, Callback<ImageResponse> callback) {
         final Callback<ImageResponse> cb = callback;
 
-        if (!NetworkUtils.isConnected(mContext.get())) {
+        if (!ConnectionDetector.isConnectingToInternet(mContext.get())) {
             //Callback will be called, so we prevent a unnecessary notification
             cb.failure(null);
             return;
         }
+
+
 
         final NotificationHelper notificationHelper = new NotificationHelper(mContext.get());
         notificationHelper.createUploadingNotification();

@@ -72,8 +72,8 @@ public class UploadStart {
                 // Snackbar.make(findViewById(R.id.rootView), "No internet connection", Snackbar.LENGTH_SHORT).show();
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(null, "No internet connection", duration);
-                toast.show();
+//                Toast toast = Toast.makeText(null, "No internet connection", duration);
+    //            toast.show();
             }else {
 
                 if(VariablesAndConstants.isFromGlass) {

@@ -17,6 +17,12 @@ import java.io.IOException;
 public class CameraActivity extends AppCompatActivity {
 
 
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+
+    // Alert Dialog Manager
+    AlertDialogManager alert = new AlertDialogManager();
+
     public File pictureFile;
     public static final int MEDIA_TYPE_IMAGE = 1;
 
@@ -31,7 +37,7 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         // Create an instance of Camera
-        mCamera = getCameraInstance();
+        getCameraInstance();
 
         // Create Preview view and set it as the content of the frame.
         mPreview = new CameraPreview(this, mCamera);
@@ -39,6 +45,31 @@ public class CameraActivity extends AppCompatActivity {
         preview.addView(mPreview);
 
 
+
+
+
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        //if(mCamera!=null)
+        //    mCamera.release();
+
+       // getCameraInstance();
+
+
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Release the Camera because we don't need it when paused
+
+        releaseCameraAndPreview();
     }
 
 
@@ -48,7 +79,17 @@ public class CameraActivity extends AppCompatActivity {
         mCamera.takePicture(null, null, mPicture);
     }
 
-    public void uploadImage(){//Call upload activity in order to
+    public void uploadImage(){//Start uploading and identifying image
+
+        // Check if Internet present
+        isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
+        if (!isInternetPresent) {
+            // Internet Connection is not present
+            alert.showAlertDialog(CameraActivity.this, "Internet Connection Error",
+                    "Please connect to working Internet connection", false);
+            // stop executing code by return
+            return;
+        }
         Intent intent = new Intent(this, imgDescription.class);
         startActivity(intent);
     }
@@ -77,16 +118,28 @@ public class CameraActivity extends AppCompatActivity {
         }
     };
 
-    public static Camera getCameraInstance(){
-        Camera c = null;
-        try {
-            c = Camera.open(); // attempt to get a Camera instance
-        }
-        catch (Exception e){
-            Log.d("debug","getCameraInstance(): Camera is not available (in use or does not exist)");
+    public boolean getCameraInstance(){
+        boolean qOpened = false;
 
+        try {
+            releaseCameraAndPreview();
+            mCamera = Camera.open();
+            qOpened = (mCamera != null);
+        } catch (Exception e) {
+            Log.e(getString(R.string.app_name), "failed to open Camera");
+            e.printStackTrace();
         }
-        return c; // returns null if camera is unavailable
+
+        return qOpened;
+    }
+
+    private void releaseCameraAndPreview() {
+        mPreview.setCamera(null);
+        if (mCamera != null) {
+            mCamera.release();
+            mCamera = null;
+        }
+
     }
 
 }
