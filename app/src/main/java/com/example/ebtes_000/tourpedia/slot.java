@@ -21,4 +21,17 @@ public class slot {
         startTime = s;
         endTime = d;
     }
+    public String getaPlace(){
+        return aPlace;
+    }
+    public String getStartTime(){
+        return startTime;
+    }
+    public String getEndTime(){
+        return endTime;
+    }
+    @Override
+    public String toString() {
+        return this.aPlace + "\nStart: " + this.startTime  + "      End: "+ this.endTime;
+    }
 }

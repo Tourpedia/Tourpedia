@@ -1,10 +1,13 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.DialogFragment;
+
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -23,7 +28,6 @@ import java.io.OutputStreamWriter;
 
 public class addPlan extends AppCompatActivity {
     String planName = "p";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,20 +65,50 @@ public class addPlan extends AppCompatActivity {
             }
         });
 
+        final EditText planDateTxt = (EditText) findViewById(R.id.planDate);
+        planDateTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                DatePickerFragment datePickerFragment = new DatePickerFragment(v);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                datePickerFragment.show(ft, "DatePicker");
+            }
+        });
+
+        final EditText startTxt = (EditText) findViewById(R.id.timeFrom);
+        startTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                TimePickerFragment timePickerFragment = new TimePickerFragment(v);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                timePickerFragment.show(ft, "TimePicker");
+            }
+        });
+
+        final EditText endTxt = (EditText) findViewById(R.id.timeTo);
+        endTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                TimePickerFragment timePickerFragment = new TimePickerFragment(v);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                timePickerFragment.show(ft, "TimePicker");
+            }
+        });
     }
-
     // to show date picker from the edit text
-    public void showDatePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
-        EditText planDateTxt = (EditText) findViewById(R.id.planDate);
-        DatePickerFragment datePickerFragment = new DatePickerFragment(v);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        datePickerFragment.show(ft, "DatePicker");
-        //   if (datePickerFragment.isDateSet == true)
+  /* public void showDatePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
+       EditText planDateTxt = (EditText) findViewById(R.id.planDate);
+       DatePickerFragment datePickerFragment = new DatePickerFragment(v);
+       FragmentTransaction ft = getFragmentManager().beginTransaction();
+       datePickerFragment.show(ft, "DatePicker");*/
+    //   if (datePickerFragment.isDateSet == true)
         //   showEventInfo();
 
 
-        // DialogFragment newFragment = new DatePickerFragment();
+
+       // DialogFragment newFragment = new DatePickerFragment();
         //newFragment.show(getSupportFragmentManager(), "datePicker");
     /*   final Handler handler = new Handler();
        handler.postDelayed(new Runnable() {
@@ -84,9 +118,9 @@ public class addPlan extends AppCompatActivity {
            }
        }, 600);*/
 
-    }
+    //}
 
-    public void showTimePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
+  /*  public void showTimePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
         EditText planDateTxt = (EditText) findViewById(R.id.timeFrom);
         TimePickerFragment timePickerFragment = new TimePickerFragment(v);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -94,25 +128,25 @@ public class addPlan extends AppCompatActivity {
 
         // DialogFragment newFragment = new DatePickerFragment();
         //newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
+    }*/
 
-    public void showEventInfo() {
+    public void showEventInfo(){
 
-        //     EditText name = (EditText) findViewById(R.id.planName);
-        //   EditText date = (EditText) findViewById(R.id.planDate);
-        // if (name.getText().equals("") == false){
-        //   if (date.getText().equals("") == false){
-        Button saveBtn = (Button) findViewById(R.id.savePlanBtn);
-        LinearLayout event = (LinearLayout) findViewById(R.id.event);
-        LinearLayout name_date = (LinearLayout) findViewById(R.id.name_date);
-        name_date.setVisibility(View.INVISIBLE);
-        event.setVisibility(View.VISIBLE);
-        saveBtn.setVisibility(View.VISIBLE);
+       //     EditText name = (EditText) findViewById(R.id.planName);
+         //   EditText date = (EditText) findViewById(R.id.planDate);
+           // if (name.getText().equals("") == false){
+             //   if (date.getText().equals("") == false){
+                    Button saveBtn = (Button) findViewById(R.id.savePlanBtn);
+                    LinearLayout event = (LinearLayout) findViewById(R.id.event);
+                    LinearLayout name_date = (LinearLayout) findViewById(R.id.name_date);
+                    name_date.setVisibility(View.INVISIBLE);
+                    event.setVisibility(View.VISIBLE);
+                    saveBtn.setVisibility(View.VISIBLE);
 //                }}
 
     }
 
-    public void addEvent(View v) {
+    public void addEvent (View v) {
         // stupid way to avoid redundancy when adding multiple events
         if (planName.equals("p")) {
             // plan information
@@ -129,6 +163,7 @@ public class addPlan extends AppCompatActivity {
             String timeTo = to.getText().toString();
 
 
+
             try {
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
                 //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
@@ -137,8 +172,8 @@ public class addPlan extends AppCompatActivity {
                 // writing date
                 outputStreamWriter.write(date + "\n");
 
-                outputStreamWriter.write("Slot: \n" + place + "\n");
-                outputStreamWriter.write("From: " + timeFrom);
+                outputStreamWriter.write("Slot: \n"+place + "\n");
+                outputStreamWriter.write("From: " + timeFrom );
                 outputStreamWriter.write("To: " + timeTo + "\n");
 
                 outputStreamWriter.close();
@@ -155,7 +190,8 @@ public class addPlan extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else{
             EditText placeName = (EditText) findViewById(R.id.placeTxt);
             EditText from = (EditText) findViewById(R.id.timeFrom);
             EditText to = (EditText) findViewById(R.id.timeTo);
@@ -168,7 +204,7 @@ public class addPlan extends AppCompatActivity {
 
                 outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
                 //outputStreamWriter.write("From: " + timeFrom);
-                //  outputStreamWriter.write(" - To: " + timeTo + "\n");
+              //  outputStreamWriter.write(" - To: " + timeTo + "\n");
 
                 outputStreamWriter.close();
                 Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();
@@ -187,7 +223,7 @@ public class addPlan extends AppCompatActivity {
         }// end else
     }
 
-    public void savePlan(View view) {
+    public void savePlan(View view){
         // plan information
         EditText pName = (EditText) findViewById(R.id.planName);
         EditText planDate = (EditText) findViewById(R.id.planDate);
@@ -205,40 +241,42 @@ public class addPlan extends AppCompatActivity {
         //String fileName = name;
 
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
-            //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
+           OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
+         //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
             // writing name
-            outputStreamWriter.write(planName + "\n");
+            outputStreamWriter.write(planName+"\n");
             // writing date
-            outputStreamWriter.write(date + "\n");
+            outputStreamWriter.write(date+"\n");
+            outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
 
-            outputStreamWriter.write(place + "\n");
-            outputStreamWriter.write("From: " + timeFrom);
-            outputStreamWriter.write(" - To: " + timeTo + "\n");
+            /*outputStreamWriter.write(place+"\n");
+            outputStreamWriter.write("From: "+timeFrom);
+            outputStreamWriter.write(" - To: "+timeTo+"\n");*/
 
             outputStreamWriter.close();
             Toast.makeText(getApplicationContext(), "Plan saved", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(addPlan.this, plans.class);
+            startActivity(intent);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 ///////////////////////////////////
-        try {
+     /*   try {
             String Readdate;
-            //  getFilesDir();
+          //  getFilesDir();
             FileInputStream fileInputStream = openFileInput(planName);
             InputStreamReader inputSreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputSreamReader);
             StringBuffer stringBuffer = new StringBuffer();
-            while ((Readdate = bufferedReader.readLine()) != null) {
+            while ((Readdate=bufferedReader.readLine()) != null)
+            {
                 stringBuffer.append(Readdate + "\n");
             }
 
             TextView textView = (TextView) findViewById(R.id.date);
-            textView.setText(stringBuffer.toString() + getFilesDir());
-            textView.setContentDescription(stringBuffer.toString() + getFilesDir());
-            Log.d("File1"," "+getFilesDir());
+            textView.setText(stringBuffer.toString()+getFilesDir());
             textView.setVisibility(View.VISIBLE);
 
         } catch (FileNotFoundException e) {
@@ -246,9 +284,7 @@ public class addPlan extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
 
     }
-
 }
-
