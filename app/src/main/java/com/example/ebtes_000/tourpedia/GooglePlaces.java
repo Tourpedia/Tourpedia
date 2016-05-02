@@ -92,19 +92,11 @@ public class GooglePlaces {
 
 			try {
 				PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
-				Log.d("request state", place.status);
-				Log.d("request state",place.result.toString());
-				if(place != null){
-					Log.d("ppp12", place.toString());} // print
-				else{
-					Log.d("ppp12", "null");} // print
-
 				return place;
 
 			}
 			catch (Exception e) {
 				Log.d("Ex type", e.toString());
-				Log.d("GP catch","hey catch");
 			}
 
 
@@ -124,17 +116,8 @@ public class GooglePlaces {
 			final HttpTransport transport) {
 		return transport.createRequestFactory(new HttpRequestInitializer() {
 			public void initialize(HttpRequest request) {
-				//HttpHeaders headers = new HttpHeaders();
-				//	headers.setApplicationName("AndroidHive-Places-Test");
-				//request.setHeaders(headers);
-
-
-				//JsonHttpParser parser = new JsonHttpParser(new JacksonFactory());
-				//request.addParser(parser);
-
 				JsonObjectParser parser = new JsonObjectParser(new JacksonFactory());
-				request.setParser(parser);
-				Log.d("requist state","requistdone");
+				request.setParser(parser); // parse the request by pre implemented Json parser
 
 			}
 		});
