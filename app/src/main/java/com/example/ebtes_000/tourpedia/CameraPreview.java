@@ -25,7 +25,7 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         setCamera(camera);
         Log.e("debug", "12");
 
-        mCamera.setDisplayOrientation(90);
+
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
@@ -135,6 +135,7 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
             Log.e("debug","28");
 
             mCamera.startPreview();
+            mCamera.setDisplayOrientation(90);
         }
     }
 

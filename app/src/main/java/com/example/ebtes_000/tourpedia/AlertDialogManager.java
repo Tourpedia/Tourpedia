@@ -11,10 +11,9 @@ public class AlertDialogManager {
 	 * @param title - alert dialog title
 	 * @param message - alert message
 	 * @param status - success/failure (used to set icon)
-	 * 				 - pass null if you don't want icon
-	 * */
-	public void showAlertDialog(Context context, String title, String message,
-			Boolean status) {
+* 				 - pass null if you don't want icon   */
+	public boolean showAlertDialog(Context context, String title, String message,
+								   Boolean status) {
 		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
 		// Setting Dialog Title
@@ -36,5 +35,6 @@ public class AlertDialogManager {
 
 		// Showing Alert Message
 		alertDialog.show();
+		return false;
 	}
 }

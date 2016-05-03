@@ -310,38 +310,51 @@ public class attractionsList extends AppCompatActivity {
                     else if(status.equals("ZERO_RESULTS")){
                         // Zero results found
                         alert.showAlertDialog(attractionsList.this, "Near Places",
-                                "Sorry no places found. Try to change the types of places",
+                                "Sorry no places found. Try to choose another places type",
                                 false);
+
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                     else if(status.equals("UNKNOWN_ERROR"))
                     {
                         alert.showAlertDialog(attractionsList.this, "Places Error",
-                                "Sorry unknown error occured.",
+                                "Sorry unknown error occurred.",
                                 false);
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                     else if(status.equals("OVER_QUERY_LIMIT"))
                     {
                         alert.showAlertDialog(attractionsList.this, "Places Error",
                                 "Sorry query limit to google places is reached",
                                 false);
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                     else if(status.equals("REQUEST_DENIED"))
                     {
                         alert.showAlertDialog(attractionsList.this, "Places Error",
-                                "Sorry error occured. Request is denied",
+                                "Sorry error occurred. Request is denied",
                                 false);
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                     else if(status.equals("INVALID_REQUEST"))
                     {
                         alert.showAlertDialog(attractionsList.this, "Places Error",
-                                "Sorry error occured. Invalid Request",
+                                "Sorry error occurred. Invalid Request",
                                 false);
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                     else
                     {
                         alert.showAlertDialog(attractionsList.this, "Places Error",
                                 "Sorry error occured.",
                                 false);
+                        Intent intent = new Intent(attractionsList.this, guideMe.class);
+                        startActivity(intent);
                     }
                 }
             });

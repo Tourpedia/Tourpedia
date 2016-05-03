@@ -10,7 +10,6 @@ import java.io.Serializable;
 * */
 public class PlaceDetails implements Serializable {
 
-
 	@Key
 	public String status;
 	@Key
