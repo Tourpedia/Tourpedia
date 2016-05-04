@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.ebtes_000.tourpedia.settings"
     android:orientation="vertical"
-    android:layoutDirection = "ltr">
+    android:layoutDirection = "ltr"
+    android:weightSum="1">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,69 +89,9 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/contents">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/blindModeContainer"
-            android:layout_marginTop="80dp"
-            android:contentDescription="Blind mode">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/blind_mode"
-                android:layout_marginLeft="20dp"
-                android:contentDescription="Blind mode">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Blind Mode"
-                    android:contentDescription="Blind Mode"
-                    android:textColor="#3f9d9f"
-                    android:id="@+id/blindLabel" />
-
-                <TextView
-                    android:layout_width="220dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Commands and responses will be through voice"
-                    android:contentDescription="Commands and responses will be through voice"
-                    android:id="@+id/textView17" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/blind_mode_switch"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="80dp">
-
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/blindMode"
-                    android:contentDescription="blind mode"
-                    android:checked="true"
-                    android:clickable="true"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#aaaaaa"
-            android:id="@+id/divider"
-            android:layout_marginTop="10dp"
-            android:contentDescription="line" />
+        android:id="@+id/contents"
+        android:layout_weight="0.12"
+        android:layout_marginTop="45dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -266,4 +207,28 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Settings"
+        android:id="@+id/button"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:onClick="saveSettings" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show"
+        android:id="@+id/button3"
+        android:layout_gravity="center_horizontal"
+        android:onClick="show" />
+
+    <TextView
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tt" />
 </LinearLayout>

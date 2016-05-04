@@ -138,12 +138,13 @@
             style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isIndicator="true"
+            android:isIndicator="false"
             android:numStars="5"
             android:stepSize="0.1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:contentDescription="Rating bar" />
+            android:contentDescription="Rating bar"
+            android:clickable="true" />
 
         <Button
             android:layout_width="wrap_content"
@@ -151,20 +152,10 @@
             android:text="Set Filters"
             android:id="@+id/submitButton"
             android:layout_gravity="right"
-            android:onClick="addEvent"
+            android:onClick="saveFilters"
             android:layout_marginTop="70dp"
             android:layout_marginRight="30dp"
             android:contentDescription="Submit filter" />
-
-        <Button
-            android:layout_width="104dp"
-            android:layout_height="wrap_content"
-            android:text="Reset"
-            android:id="@+id/button2"
-            android:layout_gravity="right"
-            android:onClick="addEvent"
-            android:layout_marginRight="30dp"
-            android:contentDescription="Reset" />
 
     </LinearLayout>
 

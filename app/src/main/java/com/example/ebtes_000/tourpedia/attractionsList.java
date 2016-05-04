@@ -1,6 +1,8 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -73,6 +75,10 @@ public class attractionsList extends AppCompatActivity {
     //type of button chosen , attraction, restroom ...
     String Guideingtype;
 
+    // filters preferences
+    String distancePref  ;
+    int ratingPref;
+
 
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
@@ -111,6 +117,7 @@ public class attractionsList extends AppCompatActivity {
             }
         });
 
+        Filters();// to get the filters Criteria
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -246,7 +253,12 @@ public class attractionsList extends AppCompatActivity {
                 }
 
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 1000; // 1000 meters
+                double radius;
+                if (distancePref != ""){
+                    radius = Integer.parseInt(distancePref); // taking the radios from the filters if exist
+                }
+                else
+                    radius = 1000; // 1000 meters
 
 
                 // get nearest places
@@ -360,6 +372,16 @@ public class attractionsList extends AppCompatActivity {
             });
 
         }
+
+
+    }
+
+    public void Filters(){
+
+        SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        distancePref = SP.getString("Distance", "");
+        ratingPref = SP.getInt("rating", 0);
+
 
     }
 

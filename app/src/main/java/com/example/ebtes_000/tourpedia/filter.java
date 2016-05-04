@@ -1,6 +1,8 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -22,6 +27,9 @@ import java.io.OutputStreamWriter;
 
 public class filter extends AppCompatActivity {
     private int distanceAtt , ratingAtt;
+    EditText dis;
+    RatingBar rate;
+    TextView T;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,114 +65,35 @@ public class filter extends AppCompatActivity {
             }
         });
 
-        final EditText distanceText = (EditText) findViewById(R.id.distance);
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        Button submit = (Button) findViewById(R.id.submitButton);
-     //   double rate = ratingBar.getRating();
+        dis = (EditText) findViewById(R.id.distance);
+        rate = (RatingBar) findViewById(R.id.ratingBar);
+        T = (TextView) findViewById(R.id.tt);
+
+/////////////
+
+    }
+
+    public void saveFilters(View view) {
+        SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = SP.edit();
+
+        editor.putString("Distance", dis.getText().toString());
+        editor.putInt("rating", (int) rate.getRating());
+        editor.apply();
+
+        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
 
-        distanceText.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                Log.d("res1", "rating:" + s.toString());
-                distanceAtt = Integer.parseInt(s.toString());
-
-            }
-        });
-
-        //if rating value is changed
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-
-                Log.d("res1", "rating:" + rating);
-                ratingAtt = (int) rating;
-
-            }
-        });
-
-
-        //if click on me, then display the current rating value.
-        submit.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View v) {
-                                          // save to file
-                                          saveFilterToFile();
-                                      }
-
-                                  }
-
-        );
-
-
-        }// onCreate end
-
-    void saveFilterToFile() {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("Filter.txt", MODE_PRIVATE));
-            outputStreamWriter.write(distanceAtt+"\n");
-            outputStreamWriter.write(ratingAtt + "\n");
-
-            outputStreamWriter.close();
-        }  // try
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }// saveFile end
 
 
-    public filter() {
-        retriveFilterFromFile();
-    }
-    
-      void retriveFilterFromFile() {
-        try {
-            String settingName;
-            int lineNum=1;
+   /* public void show(View view){
 
-            FileInputStream fileInputStream = openFileInput("Filter.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            Log.d("trace1", "after stream");
-            StringBuffer stringBuffer = new StringBuffer();
+        SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String dis = SP.getString("Distance", "");
+        int rat = SP.getInt("rating", 0);
 
-            while ((settingName = bufferedReader.readLine()) != null) {
-                Log.d("trace1",lineNum+"");
-                if (lineNum == 1){
-                    Log.d("trace1", "inside if 1");
-                    distanceAtt = Integer.parseInt(settingName);
-                }
-                else if (lineNum == 2) {
-                    Log.d("trace1","inside if 2");
-                    ratingAtt = Integer.parseInt(settingName);
-                }
+        T.setText(dis+" - "+rat);
 
-                lineNum++;
-            }//while
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }//retriveFrom end
-
-    public int getDistance() {
-        return distanceAtt;
-    }
-
-    public int getRating() {
-        return ratingAtt;
-    }
+    }*/
 }
