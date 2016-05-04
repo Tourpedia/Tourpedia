@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="The distance range for the nearest attractions in miles"
+            android:text="The distance range for the nearest attractions in meters"
             android:id="@+id/textView15"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"

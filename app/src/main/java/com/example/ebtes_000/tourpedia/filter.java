@@ -29,7 +29,6 @@ public class filter extends AppCompatActivity {
     private int distanceAtt , ratingAtt;
     EditText dis;
     RatingBar rate;
-    TextView T;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,6 @@ public class filter extends AppCompatActivity {
 
         dis = (EditText) findViewById(R.id.distance);
         rate = (RatingBar) findViewById(R.id.ratingBar);
-        T = (TextView) findViewById(R.id.tt);
 
 /////////////
 
@@ -87,6 +85,7 @@ public class filter extends AppCompatActivity {
     }// saveFile end
 
 
+    // take this method to retrive the filters preferences any where
    /* public void show(View view){
 
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);

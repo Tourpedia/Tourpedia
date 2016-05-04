@@ -29,7 +29,6 @@ public class settings extends AppCompatActivity {
     private boolean isBlind ,planAlert , haveGoogleGlass;
     Switch GG;
     Switch PA;
-    TextView T;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class settings extends AppCompatActivity {
         try {
             GG = (Switch) findViewById(R.id.googleGlass);
             PA = (Switch) findViewById(R.id.planAlert);
-            T = (TextView) findViewById(R.id.tt);
 
 
         setting.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +82,8 @@ public class settings extends AppCompatActivity {
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = SP.edit();
 
-        editor.putBoolean("GoogleGlass", GG.getShowText());
-        editor.putBoolean("PlanAlert", PA.getShowText());
+        editor.putBoolean("GoogleGlass", GG.isChecked());
+        editor.putBoolean("PlanAlert", PA.isChecked());
         editor.apply();
 
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
@@ -94,7 +92,8 @@ public class settings extends AppCompatActivity {
     }// saveFile end
 
 
-    public void show(View view){
+    // take this method to retrive the settings preferences any where
+    /*public void show(View view){
 
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         Boolean GG = SP.getBoolean("GoogleGlass", false);
@@ -102,5 +101,5 @@ public class settings extends AppCompatActivity {
 
         T.setText(GG + " - " + PP);
 
-    }
+    }*/
 }
