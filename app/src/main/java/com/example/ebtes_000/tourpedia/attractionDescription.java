@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -25,6 +29,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class attractionDescription extends AppCompatActivity {
 
@@ -45,6 +51,8 @@ public class attractionDescription extends AppCompatActivity {
 
     // Progress dialog
     ProgressDialog pDialog;
+    // ListItems data
+    ArrayList<HashMap<String, String>> ListItems = new ArrayList<HashMap<String,String>>();
 
 
     String longitude;
@@ -52,6 +60,8 @@ public class attractionDescription extends AppCompatActivity {
 
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
+    public static String KEY_TEXT = "text"; // review of the place
+    public static String KEY_NAME = "name"; // name of the author
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +181,7 @@ public class attractionDescription extends AppCompatActivity {
                         // Check for all possible status
                         if(status.equals("OK")){
                             if (placeDetails.result != null) {
+                                double rate = placeDetails.result.rating;
                                 String icon = placeDetails.result.icon;
                                 String name = placeDetails.result.name;
                                 String address = placeDetails.result.formatted_address;
@@ -178,38 +189,62 @@ public class attractionDescription extends AppCompatActivity {
                                 latitude = Double.toString(placeDetails.result.geometry.location.lat);
                                 longitude = Double.toString(placeDetails.result.geometry.location.lng);
 
-                                Log.d("Place ", name + address + phone + latitude + longitude);
+
+                                if (placeDetails.result != null) {
+                                    for (Place.review r : placeDetails.result.reviews) {
+                                        HashMap<String, String> map = new HashMap<String, String>();
+
+                                        // Place reference is used to get "place full details"
+                                        map.put(KEY_NAME, r.author_name);
+
+                                        // Place name
+                                        map.put(KEY_TEXT, r.text);
+
+
+                                        // adding HashMap to ArrayList
+                                        ListItems.add(map);
+                                    }
+
+                                    //list adapter
+                                    ListAdapter adapter = new SimpleAdapter(attractionDescription.this, ListItems,
+                                            R.layout.list_item,
+                                            new String[] { KEY_NAME, KEY_TEXT}, new int[] {
+                                            R.id.name, R.id.text });
+                                    ListView reviews = (ListView) findViewById(R.id.Revlist);
+                                    // Adding data into listview
+                                    reviews.setAdapter(adapter);
+                                    reviews.setContentDescription(adapter.toString());
+                                }
+
 
                                 // Displaying all the details in the view
                                 // single_place.xml
+                                RatingBar ratingBar = (RatingBar) findViewById(R.id.rate);
                                 ImageView lbl_icon = (ImageView) findViewById(R.id.attractionImg);
                                 TextView lbl_name = (TextView) findViewById(R.id.name);
                                 TextView lbl_address = (TextView) findViewById(R.id.address);
                                 TextView lbl_phone = (TextView) findViewById(R.id.phone);
-                                TextView lbl_location = (TextView) findViewById(R.id.location);
+
 
                                 // Check for null data from google
                                 // Sometimes place details might missing
+                                rate = rate == 0.0 ? 0.0 : rate;
                                 icon = icon == null ? null : icon;
                                 name = name == null ? "Not present" : name; // if name is null display as "Not present"
                                 address = address == null ? "Not present" : address;
                                 phone = phone == null ? "Not present" : phone;
-                                latitude = latitude == null ? "Not present" : latitude;
-                                longitude = longitude == null ? "Not present" : longitude;
 
                                 // show The Image in a ImageView
+                                ratingBar.setRating((float) rate);
                                 new DownloadImageTask((ImageView) findViewById(R.id.attractionImg))
                                         .execute(icon);
                                 lbl_icon.setContentDescription("Icon");
-
                                 lbl_name.setText(name);
                                 lbl_name.setContentDescription(name);
                                 lbl_address.setText(address);
                                 lbl_address.setContentDescription(address);
                                 lbl_phone.setText(Html.fromHtml("<b>Phone:</b> " + phone));
                                 lbl_phone.setContentDescription(Html.fromHtml("<b>Phone:</b> " + phone));
-                                lbl_location.setText(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
-                                lbl_location.setContentDescription(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
                             }
                             Log.d("placeDetails.results","NO");
                         }

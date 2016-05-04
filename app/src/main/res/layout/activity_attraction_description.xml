@@ -99,6 +99,13 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp" />
 
+        <RatingBar
+            android:layout_width="wrap_content"
+            style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
+            android:layout_height="wrap_content"
+            android:id="@+id/rate"
+            android:layout_gravity="center" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -137,18 +144,13 @@
             android:layout_marginTop="5dp"
             android:textAlignment="center" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/location"
-            android:layout_gravity="center"
-            android:contentDescription="Location"
-            android:layout_marginTop="5dp"
-            android:textAlignment="center" />
-
 
     </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:id="@+id/Revlist" />
 
     <Button
         android:layout_width="100dp"
@@ -164,6 +166,6 @@
         android:clickable="true"
         android:contentDescription="Guide Me"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="140dp" />
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>

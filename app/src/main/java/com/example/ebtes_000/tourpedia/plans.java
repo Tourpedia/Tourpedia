@@ -42,15 +42,15 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             }
         });
         // declare suggest plan img button
-        ImageButton suggest = (ImageButton) findViewById(R.id.suggestPlanBtn);
-        // to suggest plan
-        suggest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(plans.this, addPlan.class);
-                startActivity(intent);
-            }
-        });
+//        ImageButton suggest = (ImageButton) findViewById(R.id.suggestPlanBtn);
+//        // to suggest plan
+//        suggest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(plans.this, addPlan.class);
+//                startActivity(intent);
+//            }
+//        });
 
     /*    ImageButton edit = (ImageButton) findViewById(R.id.editPlanBtn);
         // to edit plan

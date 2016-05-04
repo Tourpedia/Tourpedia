@@ -134,7 +134,7 @@ public class filter extends AppCompatActivity {
             String settingName;
             int lineNum=1;
 
-            FileInputStream fileInputStream = openFileInput("Filter.txt");
+            FileInputStream fileInputStream = openFileInput("Filter");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             Log.d("trace1", "after stream");

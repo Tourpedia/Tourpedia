@@ -3,6 +3,7 @@ package com.example.ebtes_000.tourpedia;
 import com.google.api.client.util.Key;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /** Implement this class from "Serializable"
 * So that you can pass this class Object to another using Intents
@@ -29,6 +30,9 @@ public class Place implements Serializable {
 	public double rating;
 
 	@Key
+	public review[] reviews;
+
+	@Key
 	public Geometry geometry;
 	
 	@Key
@@ -46,6 +50,14 @@ public class Place implements Serializable {
 	{
 		@Key
 		public Location location;
+	}
+	public static class review implements Serializable
+	{
+		@Key
+		public String author_name;
+
+		@Key
+		public String text;
 	}
 	
 	public static class Location implements Serializable

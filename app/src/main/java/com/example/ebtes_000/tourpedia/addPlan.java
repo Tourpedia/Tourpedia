@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +74,7 @@ public class addPlan extends AppCompatActivity {
                 DatePickerFragment datePickerFragment = new DatePickerFragment(v);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 datePickerFragment.show(ft, "DatePicker");
+                planDateTxt.setInputType(InputType.TYPE_NULL);
             }
         });
 
@@ -84,6 +86,7 @@ public class addPlan extends AppCompatActivity {
                 TimePickerFragment timePickerFragment = new TimePickerFragment(v);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 timePickerFragment.show(ft, "TimePicker");
+                startTxt.setInputType(InputType.TYPE_NULL);
             }
         });
 
@@ -94,6 +97,7 @@ public class addPlan extends AppCompatActivity {
                 TimePickerFragment timePickerFragment = new TimePickerFragment(v);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 timePickerFragment.show(ft, "TimePicker");
+                endTxt.setInputType(InputType.TYPE_NULL);
             }
         });
     }
