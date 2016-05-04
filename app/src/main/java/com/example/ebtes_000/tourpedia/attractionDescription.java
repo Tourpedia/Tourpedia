@@ -189,34 +189,6 @@ public class attractionDescription extends AppCompatActivity {
                                 latitude = Double.toString(placeDetails.result.geometry.location.lat);
                                 longitude = Double.toString(placeDetails.result.geometry.location.lng);
 
-
-                                if (placeDetails.result != null) {
-                                    for (Place.review r : placeDetails.result.reviews) {
-                                        HashMap<String, String> map = new HashMap<String, String>();
-
-                                        // Place reference is used to get "place full details"
-                                        map.put(KEY_NAME, r.author_name);
-
-                                        // Place name
-                                        map.put(KEY_TEXT, r.text);
-
-
-                                        // adding HashMap to ArrayList
-                                        ListItems.add(map);
-                                    }
-
-                                    //list adapter
-                                    ListAdapter adapter = new SimpleAdapter(attractionDescription.this, ListItems,
-                                            R.layout.list_item,
-                                            new String[] { KEY_NAME, KEY_TEXT}, new int[] {
-                                            R.id.name, R.id.text });
-                                    ListView reviews = (ListView) findViewById(R.id.Revlist);
-                                    // Adding data into listview
-                                    reviews.setAdapter(adapter);
-                                    reviews.setContentDescription(adapter.toString());
-                                }
-
-
                                 // Displaying all the details in the view
                                 // single_place.xml
                                 RatingBar ratingBar = (RatingBar) findViewById(R.id.rate);
@@ -228,7 +200,7 @@ public class attractionDescription extends AppCompatActivity {
 
                                 // Check for null data from google
                                 // Sometimes place details might missing
-                                rate = rate == 0.0 ? 0.0 : rate;
+
                                 icon = icon == null ? null : icon;
                                 name = name == null ? "Not present" : name; // if name is null display as "Not present"
                                 address = address == null ? "Not present" : address;
@@ -239,12 +211,42 @@ public class attractionDescription extends AppCompatActivity {
                                 new DownloadImageTask((ImageView) findViewById(R.id.attractionImg))
                                         .execute(icon);
                                 lbl_icon.setContentDescription("Icon");
+
+                                // show the other description elements
                                 lbl_name.setText(name);
                                 lbl_name.setContentDescription(name);
                                 lbl_address.setText(address);
                                 lbl_address.setContentDescription(address);
                                 lbl_phone.setText(Html.fromHtml("<b>Phone:</b> " + phone));
                                 lbl_phone.setContentDescription(Html.fromHtml("<b>Phone:</b> " + phone));
+
+                                // displaying the reviews list
+                                for (Place.Reviews r : placeDetails.result.reviews) {
+                                    HashMap<String, String> map = new HashMap<String, String>();
+
+                                    // reviewer name
+                                    map.put(KEY_NAME, r.author_name);
+
+                                    // review content
+                                    map.put(KEY_TEXT, r.text);
+
+
+                                    // adding HashMap to ArrayList
+                                    ListItems.add(map);
+                                }
+
+                                //list adapter
+
+                                ListAdapter adapter = new SimpleAdapter(attractionDescription.this, ListItems,
+                                        R.layout.rev_list,
+                                        new String[] { KEY_NAME, KEY_TEXT}, new int[] {
+                                        R.id.name, R.id.text });
+                                ListView reviews = (ListView) findViewById(R.id.Revlist);
+                                // Adding data into listview
+                                reviews.setAdapter(adapter);
+                                reviews.setContentDescription(adapter.toString());
+                                //end reviews list
+
                             }
                             Log.d("placeDetails.results","NO");
                         }

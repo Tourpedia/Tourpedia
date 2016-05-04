@@ -30,11 +30,11 @@ public class Place implements Serializable {
 	public double rating;
 
 	@Key
-	public review[] reviews;
+	public Geometry geometry;
 
 	@Key
-	public Geometry geometry;
-	
+	public Reviews[] reviews;
+
 	@Key
 	public String formatted_address;
 	
@@ -51,7 +51,7 @@ public class Place implements Serializable {
 		@Key
 		public Location location;
 	}
-	public static class review implements Serializable
+	public static class Reviews implements Serializable
 	{
 		@Key
 		public String author_name;
