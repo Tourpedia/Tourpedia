@@ -87,6 +87,56 @@
     </LinearLayout>
 
     <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+        android:layout_width="178dp"
+        android:layout_height="178dp"
+        android:id="@+id/capturedImg"
+        android:contentDescription="Image"
+        android:layout_gravity="center_horizontal" />
+
+        <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="31dp">
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Uploading..."
+                 android:id="@+id/uploadingMessage"
+                 android:layout_centerVertical="true"
+                 android:layout_centerHorizontal="true"
+                 android:textAlignment="center"
+                 android:contentDescription="Uploading" />
+
+        </RelativeLayout>
+
+        <ScrollView
+        android:layout_width="283dp"
+        android:layout_height="match_parent"
+            android:layout_gravity="center">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/description"
+                android:contentDescription="Description"
+                android:layout_alignParentTop="true"
+                android:textAlignment="center"/>
+        </RelativeLayout>
+    </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,57 +150,6 @@
         android:id="@+id/viewFlipper"
         android:layout_width="265dp"
         android:layout_height="300dp">
-
-       <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Uploading..."
-                android:id="@+id/uploadingMessage"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textAlignment="center"
-                android:contentDescription="Uploading" />
-
-        </RelativeLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/capturedImg"
-            android:src="@drawable/pic"
-            android:contentDescription="Image" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-                        >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="descriptionText"
-            android:id="@+id/description"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:contentDescription="Description" />
-            </RelativeLayout>
-        </ScrollView>
-    </LinearLayout>
 
     </ViewFlipper> </LinearLayout>
 

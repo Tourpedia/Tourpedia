@@ -211,6 +211,8 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
       t.setText(s);
       t.setContentDescription(s);
+      message.setText("");
+      message.setContentDescription("");
 
       if(VariablesAndConstants.isFromGlass){
 
