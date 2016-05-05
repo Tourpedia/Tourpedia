@@ -92,6 +92,16 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Plan Information:"
+                android:id="@+id/textView9"
+                android:textColor="#3f9d9f"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,31 +119,50 @@
                 android:onClick="showDatePickerDialog"
                 android:clickable="false" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Events:"
+                android:id="@+id/desc"
+                android:textColor="#3f9d9f"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp" />
+
             <ListView
                 android:id="@+id/list"
                 android:layout_width="fill_parent"
                 android:layout_height="230dp"
-                android:clickable="true" />
+                android:clickable="true"
+                android:layout_marginTop="10dp" />
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/deletePlanBtn"
-                android:src="@drawable/deletec"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:onClick="deletePlan"
-                android:layout_gravity="right"
-                android:layout_marginRight="20dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Delete Plan"
-                android:id="@+id/textView11"
-                android:layout_marginLeft="128dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/deletePlanBtn"
+                    android:src="@drawable/deletec"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:onClick="deletePlan"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="10dp" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/editBtn"
+                    android:src="@drawable/editc"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="235dp"
+                    android:onClick="editPlan"
+                    android:nestedScrollingEnabled="true" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -172,15 +201,35 @@
                 android:hint="End"
                 android:onClick="showTimePickerDialog" />
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/editPlanBtn"
-                android:src="@drawable/editc"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:layout_marginLeft="260dp"
-                android:layout_marginTop="150dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="150dp">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/deleteBtn"
+                    android:src="@drawable/deletec"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:onClick="deleteEvent"
+                    android:layout_gravity="right"
+                    android:clickable="true" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/editButton"
+                    android:src="@drawable/editc"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="220dp"
+                    android:onClick="updateEvent"
+                    android:nestedScrollingEnabled="false"
+                    android:clickable="true" />
+            </LinearLayout>
 
 
         </LinearLayout>

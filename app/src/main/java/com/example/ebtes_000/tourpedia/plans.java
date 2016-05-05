@@ -42,15 +42,15 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             }
         });
         // declare suggest plan img button
-//        ImageButton suggest = (ImageButton) findViewById(R.id.suggestPlanBtn);
-//        // to suggest plan
-//        suggest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(plans.this, addPlan.class);
-//                startActivity(intent);
-//            }
-//        });
+   /*     ImageButton suggest = (ImageButton) findViewById(R.id.suggestPlanBtn);
+        // to suggest plan
+        suggest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(plans.this, addPlan.class);
+                startActivity(intent);
+            }
+        });*/
 
     /*    ImageButton edit = (ImageButton) findViewById(R.id.editPlanBtn);
         // to edit plan
@@ -124,6 +124,10 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
     }
     public void ShowSavedFiles(){
         SavedPlans = getApplicationContext().fileList();
+        if (SavedPlans.length == 0){
+            TextView noplan = (TextView) findViewById(R.id.noPlan);
+            noplan.setVisibility(View.VISIBLE);
+        }
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,

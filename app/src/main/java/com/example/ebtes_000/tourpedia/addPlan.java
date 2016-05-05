@@ -9,11 +9,17 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListPopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +31,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 public class addPlan extends AppCompatActivity {
     String planName = "p";
+    ArrayList<slot> slots = new ArrayList<slot>();
+    ListPopupWindow lpw;
+    String[] list;
+    EditText place;
+
+    // Alert Dialog Manager
+    AlertDialogManager alert = new AlertDialogManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +90,12 @@ public class addPlan extends AppCompatActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                DatePickerFragment datePickerFragment = new DatePickerFragment(v);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                datePickerFragment.show(ft, "DatePicker");
-                planDateTxt.setInputType(InputType.TYPE_NULL);
+                if (hasFocus) {
+                    DatePickerFragment datePickerFragment = new DatePickerFragment(v);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    datePickerFragment.show(ft, "DatePicker");
+                    planDateTxt.setInputType(InputType.TYPE_NULL);
+                }
             }
         });
 
@@ -83,10 +104,12 @@ public class addPlan extends AppCompatActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                TimePickerFragment timePickerFragment = new TimePickerFragment(v);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                timePickerFragment.show(ft, "TimePicker");
-                startTxt.setInputType(InputType.TYPE_NULL);
+                if (hasFocus) {
+                    TimePickerFragment timePickerFragment = new TimePickerFragment(v);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    timePickerFragment.show(ft, "TimePicker");
+                    startTxt.setInputType(InputType.TYPE_NULL);
+                }
             }
         });
 
@@ -94,201 +117,235 @@ public class addPlan extends AppCompatActivity {
         endTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                TimePickerFragment timePickerFragment = new TimePickerFragment(v);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                timePickerFragment.show(ft, "TimePicker");
-                endTxt.setInputType(InputType.TYPE_NULL);
+                if (hasFocus) {
+                    TimePickerFragment timePickerFragment = new TimePickerFragment(v);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    timePickerFragment.show(ft, "TimePicker");
+                    endTxt.setInputType(InputType.TYPE_NULL);
+                }
             }
         });
-    }
-    // to show date picker from the edit text
-  /* public void showDatePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
-       EditText planDateTxt = (EditText) findViewById(R.id.planDate);
-       DatePickerFragment datePickerFragment = new DatePickerFragment(v);
-       FragmentTransaction ft = getFragmentManager().beginTransaction();
-       datePickerFragment.show(ft, "DatePicker");*/
-    //   if (datePickerFragment.isDateSet == true)
-        //   showEventInfo();
+       // showPlacesList();
+     /*   final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
 
+        ///
+// creating GPS Class object
+        GPSTracker gps = new GPSTracker(this);
 
-
-       // DialogFragment newFragment = new DatePickerFragment();
-        //newFragment.show(getSupportFragmentManager(), "datePicker");
-    /*   final Handler handler = new Handler();
-       handler.postDelayed(new Runnable() {
-           @Override
-           public void run() {
-               showEventInfo();
-           }
-       }, 600);*/
-
-    //}
-
-  /*  public void showTimePickerDialog(View v) { // some examples use (onStart then OnfoucseChange)
-        EditText planDateTxt = (EditText) findViewById(R.id.timeFrom);
-        TimePickerFragment timePickerFragment = new TimePickerFragment(v);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        timePickerFragment.show(ft, "DatePicker");
-
-        // DialogFragment newFragment = new DatePickerFragment();
-        //newFragment.show(getSupportFragmentManager(), "datePicker");
-    }*/
-
-    public void showEventInfo(){
-
-       //     EditText name = (EditText) findViewById(R.id.planName);
-         //   EditText date = (EditText) findViewById(R.id.planDate);
-           // if (name.getText().equals("") == false){
-             //   if (date.getText().equals("") == false){
-                    Button saveBtn = (Button) findViewById(R.id.savePlanBtn);
-                    LinearLayout event = (LinearLayout) findViewById(R.id.event);
-                    LinearLayout name_date = (LinearLayout) findViewById(R.id.name_date);
-                    name_date.setVisibility(View.INVISIBLE);
-                    event.setVisibility(View.VISIBLE);
-                    saveBtn.setVisibility(View.VISIBLE);
-//                }}
-
-    }
-
-    public void addEvent (View v) {
-        // stupid way to avoid redundancy when adding multiple events
-        if (planName.equals("p")) {
-            // plan information
-            EditText pName = (EditText) findViewById(R.id.planName);
-            EditText planDate = (EditText) findViewById(R.id.planDate);
-            planName = pName.getText().toString();
-            String date = planDate.getText().toString();
-            // event information
-            EditText placeName = (EditText) findViewById(R.id.placeTxt);
-            EditText from = (EditText) findViewById(R.id.timeFrom);
-            EditText to = (EditText) findViewById(R.id.timeTo);
-            String place = placeName.getText().toString();
-            String timeFrom = from.getText().toString();
-            String timeTo = to.getText().toString();
-
-
-
-            try {
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
-                //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
-                // writing name
-                outputStreamWriter.write(planName + "\n");
-                // writing date
-                outputStreamWriter.write(date + "\n");
-
-                outputStreamWriter.write("Slot: \n"+place + "\n");
-                outputStreamWriter.write("From: " + timeFrom );
-                outputStreamWriter.write("To: " + timeTo + "\n");
-
-                outputStreamWriter.close();
-                Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();
-                // clearing information
-                placeName.getText().clear();
-                placeName.setHint("Place to go");
-                from.getText().clear();
-                from.setHint("From");
-                to.getText().clear();
-                to.setHint("To");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // check if GPS location can get
+        if (gps.canGetLocation()) {
+            Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
+        } else {
+            // Can't get user's current location
+            alert.showAlertDialog(addPlan.this, "GPS Status",
+                    "Couldn't get location information. Please enable GPS",
+                    false);
         }
-        else{
-            EditText placeName = (EditText) findViewById(R.id.placeTxt);
-            EditText from = (EditText) findViewById(R.id.timeFrom);
-            EditText to = (EditText) findViewById(R.id.timeTo);
-            String place = placeName.getText().toString();
-            String timeFrom = from.getText().toString();
-            String timeTo = to.getText().toString();
-            try {
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_APPEND));
-                //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
+        String types = "cafe|restaurant";
+        PlacesList nearPlaces = null;
+        // Google Places
+        GooglePlaces googlePlaces = new GooglePlaces();
 
-                outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
-                //outputStreamWriter.write("From: " + timeFrom);
-              //  outputStreamWriter.write(" - To: " + timeTo + "\n");
+        // Radius in meters - increase this value if you don't find any places
+        double radius = 1000; // 1000 meters
 
-                outputStreamWriter.close();
-                Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();
-                // clearing information
-                placeName.getText().clear();
-                placeName.setHint("Place to go");
-                from.getText().clear();
-                from.setHint("From");
-                to.getText().clear();
-                to.setHint("To");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        // get nearest places
+        try {
+            nearPlaces = googlePlaces.search(gps.getLatitude(),gps.getLongitude(), radius, types);
+            Log.d("near","inside try");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //
+
+
+        String[] places = null;
+        if (nearPlaces != null)
+            Log.d("status","inside");
+        for (int i=0 ; i<nearPlaces.results.size() ; i++ ){
+            places[i] = nearPlaces.results.get(i).name;
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,places);
+        a.setAdapter(adapter);
+        a.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                a.showDropDown();
+                return false;
             }
-        }// end else
-    }
+        });*/
+    }// end of onCreate
 
-    public void savePlan(View view){
-        // plan information
+
+    public void addEvent (View view) {
         EditText pName = (EditText) findViewById(R.id.planName);
         EditText planDate = (EditText) findViewById(R.id.planDate);
-        planName = pName.getText().toString();
-        String date = planDate.getText().toString();
-        // event information
         EditText placeName = (EditText) findViewById(R.id.placeTxt);
         EditText from = (EditText) findViewById(R.id.timeFrom);
         EditText to = (EditText) findViewById(R.id.timeTo);
-        String place = placeName.getText().toString();
-        String timeFrom = from.getText().toString();
-        String timeTo = to.getText().toString();
+        if (checkFields(pName, planDate, placeName, from, to)) {
+            String place = placeName.getText().toString();
+            String timeFrom = from.getText().toString();
+            String timeTo = to.getText().toString();
 
-        // specifying file name
-        //String fileName = name;
+            if(checkTime(timeFrom,timeTo)) {
+                slot s = new slot(place, timeFrom, timeTo);
+                slots.add(s);
 
-        try {
-           OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
-         //   FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
-            // writing name
-            outputStreamWriter.write(planName+"\n");
-            // writing date
-            outputStreamWriter.write(date+"\n");
-            outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
+
+                // clearing information
+                placeName.getText().clear();
+                placeName.setHint("Place to go");
+                from.getText().clear();
+                from.setHint("From");
+                to.getText().clear();
+                to.setHint("To");
+
+                Toast.makeText(getApplicationContext(), "Event Added", Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Please enter a correct period of time", Toast.LENGTH_LONG).show();
+
+        }
+        else
+            Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+
+    }
+
+
+    private Boolean checkFields(EditText name, EditText date, EditText place, EditText start, EditText end) {
+        if (name.getText().toString().length() == 0 || date.getText().toString().length() == 0 ||
+                place.getText().toString().length() == 0 || start.getText().toString().length() == 0
+                || end.getText().toString().length() == 0)
+            return false;
+        return true;
+    }
+
+    public void savePlan(View view){
+
+        // plan information
+        EditText pName = (EditText) findViewById(R.id.planName);
+        EditText planDate = (EditText) findViewById(R.id.planDate);
+        EditText placeName = (EditText) findViewById(R.id.placeTxt);
+        EditText from = (EditText) findViewById(R.id.timeFrom);
+        EditText to = (EditText) findViewById(R.id.timeTo);
+        if (checkFields(pName, planDate, placeName, from, to)) {
+
+            planName = pName.getText().toString();
+            String date = planDate.getText().toString();
+            if (checkDate(date)) {
+                String place = placeName.getText().toString();
+                String timeFrom = from.getText().toString();
+                String timeTo = to.getText().toString();
+                if (place != "" && timeFrom != "" && timeTo != "")
+                    if (checkTime(timeFrom, timeTo)) {
+
+               //     date += "  " + getDayOfWeek(date);
+                        try {
+                          //  OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
+                            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(getDayOfWeek(date), MODE_PRIVATE));
+                            // writing name
+                            outputStreamWriter.write(planName + "\n");
+                            // writing date
+                            outputStreamWriter.write(date + "\n");
+                            for (int i = 0; i < slots.size(); i++) {
+                                slot slot = slots.get(i);
+                                outputStreamWriter.write(slot.getaPlace() + "," + slot.getStartTime() + "," + slot.getEndTime() + "\n");
+                            }
+                            if (place != "" && timeFrom != "" && timeTo != "")
+                                outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
 
             /*outputStreamWriter.write(place+"\n");
             outputStreamWriter.write("From: "+timeFrom);
             outputStreamWriter.write(" - To: "+timeTo+"\n");*/
 
-            outputStreamWriter.close();
-            Toast.makeText(getApplicationContext(), "Plan saved", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(addPlan.this, plans.class);
-            startActivity(intent);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+                            outputStreamWriter.close();
+                            Toast.makeText(getApplicationContext(), "Plan saved", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(addPlan.this, plans.class);
+                            startActivity(intent);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else
+                        Toast.makeText(getApplicationContext(), "Please enter a correct period of time", Toast.LENGTH_LONG).show();
+
+            } else
+                Toast.makeText(getApplicationContext(), "Please enter a correct date", Toast.LENGTH_LONG).show();
+        }
+            else
+            Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+
+    }// end savePlan
+
+    private Boolean checkTime (String from , String to){
+        int start = Integer.parseInt(from.substring(0, from.indexOf(":")));
+        int end = Integer.parseInt(to.substring(0, to.indexOf(":")));
+        if (start < end)
+            return true;
+        else
+        if (start == end){
+            int s = Integer.parseInt(from.substring(from.indexOf(":")+1));
+            int e = Integer.parseInt(to.substring(to.indexOf(":")+1));
+            if (s < e)
+                return true;
+        }
+        return false;
+
+    }// end checkTime
+
+    private Boolean checkDate (String d){
+        //EditText date = (EditText) findViewById(R.id.planDate);
+        Date date = null;
+        try {
+            date = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(d);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-///////////////////////////////////
-     /*   try {
-            String Readdate;
-          //  getFilesDir();
-            FileInputStream fileInputStream = openFileInput(planName);
-            InputStreamReader inputSreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputSreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-            while ((Readdate=bufferedReader.readLine()) != null)
-            {
-                stringBuffer.append(Readdate + "\n");
-            }
+        return new Date().before(date);
+    }// end checkDate
 
-            TextView textView = (TextView) findViewById(R.id.date);
-            textView.setText(stringBuffer.toString()+getFilesDir());
-            textView.setVisibility(View.VISIBLE);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private String getDayOfWeek(String date){
+        int s1,s2,s3;
+        String yr;
+        String[] out = date.split("/");
+        s1 = Integer.parseInt(out[0]);
+        s2 = Integer.parseInt(out[1]) - 1;
+        yr = out[2];
+        char a, b, c, d;
+        a = yr.charAt(0);
+        b = yr.charAt(1);
+        c = yr.charAt(2);
+        d = yr.charAt(3);
+        s3 = Character.getNumericValue(a)*1000 +
+                Character.getNumericValue(b)*100 +
+                Character.getNumericValue(c)*10 +
+                Character.getNumericValue(d);
+        Calendar cal        = Calendar.getInstance();
+        cal.set(s3, s2, s1);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        switch(day) {
+            case 1: return "Sunday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 2: return "Monday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 3: return "Tuesday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 4: return "Wednesday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 5: return "Thursday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 6: return "Friday, "+out[0]+"-"+out[1]+"-"+out[2];
+            case 7: return "Saturday, "+out[0]+"-"+out[1]+"-"+out[2];
         }
-*/
-
+return "";
     }
+   /* public void showPlacesList(){
+        AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
+        String[] countries = {"ac","cb","cv"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,countries);
+        a.setAdapter(adapter);
+        //a.showDropDown();
+
+    }*/
 }
