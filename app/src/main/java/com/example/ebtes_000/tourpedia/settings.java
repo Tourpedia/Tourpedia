@@ -26,7 +26,6 @@ import java.io.OutputStreamWriter;
 
 public class settings extends AppCompatActivity {
 
-    private boolean isBlind ,planAlert , haveGoogleGlass;
     Switch GG;
     Switch PA;
     Switch AM;
@@ -91,6 +90,8 @@ public class settings extends AppCompatActivity {
 
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
+        Intent intent = new Intent(settings.this, home.class);
+        startActivity(intent);
 
     }// saveFile end
 

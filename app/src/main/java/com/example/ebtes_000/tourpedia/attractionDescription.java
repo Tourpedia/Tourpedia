@@ -54,6 +54,7 @@ public class attractionDescription extends AppCompatActivity {
     // ListItems data
     ArrayList<HashMap<String, String>> ListItems = new ArrayList<HashMap<String,String>>();
 
+    String Guideingtype;
 
     String longitude;
     String latitude;
@@ -112,7 +113,22 @@ public class attractionDescription extends AppCompatActivity {
 
         // Place referece id
         String reference = i.getStringExtra(KEY_REFERENCE);
-        Log.d("ref1",reference);
+
+        //place Type
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                Guideingtype= "";
+            } else {
+                Guideingtype= extras.getString("Type");
+            }
+        } else {
+            Guideingtype= (String) savedInstanceState.getSerializable("Type");
+        }
+        TextView lbl_name = (TextView) findViewById(R.id.textView);
+        lbl_name.setText(Guideingtype + " List");
+        lbl_name.setContentDescription(Guideingtype + " List");
+
         // Calling a Async Background thread
         new LoadattractionDescription().execute(reference);
     }

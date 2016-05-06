@@ -81,6 +81,8 @@ public class filter extends AppCompatActivity {
 
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
+        Intent intent = new Intent(filter.this, home.class);
+        startActivity(intent);
 
     }// saveFile end
 
