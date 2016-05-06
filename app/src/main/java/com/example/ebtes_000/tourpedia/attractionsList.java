@@ -266,6 +266,8 @@ public class attractionsList extends AppCompatActivity {
                         gps.getLongitude(), radius, types);
 
 
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -136,7 +136,14 @@
             android:id="@+id/placeTxt"
             android:hint="Place to go"
             android:contentDescription="Enter Place to go"
-            android:onClick="showPlacesList" />
+             />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/placeText"
+            android:hint="Place to go"
+            android:contentDescription="Enter Place to go"/>
 
         <EditText
             android:layout_width="match_parent"

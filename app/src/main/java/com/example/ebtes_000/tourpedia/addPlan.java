@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,10 @@ public class addPlan extends AppCompatActivity {
     ListPopupWindow lpw;
     String[] list;
     EditText place;
+    PlacesList nearPlaces;
+    String[] places;
+    GPSTracker gps;
+    GooglePlaces googlePlaces;
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -126,11 +131,11 @@ public class addPlan extends AppCompatActivity {
             }
         });
        // showPlacesList();
-     /*   final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
+       final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
 
         ///
 // creating GPS Class object
-        GPSTracker gps = new GPSTracker(this);
+        gps = new GPSTracker(this);
 
         // check if GPS location can get
         if (gps.canGetLocation()) {
@@ -141,19 +146,22 @@ public class addPlan extends AppCompatActivity {
                     "Couldn't get location information. Please enable GPS",
                     false);
         }
-        String types = "cafe|restaurant";
-        PlacesList nearPlaces = null;
-        // Google Places
-        GooglePlaces googlePlaces = new GooglePlaces();
 
-        // Radius in meters - increase this value if you don't find any places
-        double radius = 1000; // 1000 meters
-
-
+// Google Places
+        googlePlaces = new GooglePlaces();
         // get nearest places
         try {
+            String types = "cafe|restaurant";
+
+
+            // Radius in meters - increase this value if you don't find any places
+            double radius;
+
+
+            radius = 1000; // 1000 meters
+
             nearPlaces = googlePlaces.search(gps.getLatitude(),gps.getLongitude(), radius, types);
-            Log.d("near","inside try");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,22 +170,23 @@ public class addPlan extends AppCompatActivity {
         //
 
 
-        String[] places = null;
-        if (nearPlaces != null)
-            Log.d("status","inside");
-        for (int i=0 ; i<nearPlaces.results.size() ; i++ ){
-            places[i] = nearPlaces.results.get(i).name;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,places);
-        a.setAdapter(adapter);
-        a.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                a.showDropDown();
-                return false;
+        //String[] places = null;
+        if (nearPlaces != null) {
+            for (int i = 0; i < nearPlaces.results.size(); i++) {
+                places[i] = nearPlaces.results.get(i).name;
             }
-        });*/
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, places);
+            a.setAdapter(adapter);
+            a.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    a.showDropDown();
+                    return false;
+                }
+            });
+
+        }
     }// end of onCreate
 
 
