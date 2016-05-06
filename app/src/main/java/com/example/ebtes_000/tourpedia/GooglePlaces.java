@@ -53,7 +53,7 @@ public class GooglePlaces {
 		this._radius = radius;
 
 		try {
-
+			Log.d("whats s","first thing");
 			HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
 			HttpRequest request = httpRequestFactory
 					.buildGetRequest(new GenericUrl(PLACES_SEARCH_URL));

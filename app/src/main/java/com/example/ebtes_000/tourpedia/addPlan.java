@@ -52,7 +52,6 @@ public class addPlan extends AppCompatActivity {
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
 
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, places);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -379,11 +378,7 @@ return "";
                String types = "cafe|restaurant"; // default type
                // Radius in meters - increase this value if you don't find any places
                double radius;
-               if (distancePref != ""){
-                   radius = Double.parseDouble(distancePref); // taking the radios from the filters if exist
-               }
-               else
-                   radius = 1000; // 1000 meters
+               radius = 1000; // 1000 meters
                // get nearest places
                nearPlaces = googlePlaces.search(gps.getLatitude(),
                        gps.getLongitude(), radius, types);
@@ -412,9 +407,9 @@ return "";
                    /**
                     * Updating parsed Places into LISTVIEW
                     * */
+                   if(nearPlaces != null){
                    // Get json response status
-
-
+                   Log.d("nearStatus",nearPlaces.status);
                    String status = nearPlaces.status;
 
                    // Check for all possible status
@@ -427,6 +422,8 @@ return "";
                                for (int i = 0; i < nearPlaces.results.size(); i++) {
                                    places[i] = nearPlaces.results.get(i).name;
                                }
+
+                           ArrayAdapter<String> adapter = new ArrayAdapter<String>(addPlan.this, android.R.layout.select_dialog_singlechoice, places);
                                a.setAdapter(adapter);
                                a.setOnTouchListener(new View.OnTouchListener() {
 
@@ -439,6 +436,9 @@ return "";
                        }
                    }
 
+               }
+                   else
+                       Log.d("elssssse", "null places ");
                }
            });
 
