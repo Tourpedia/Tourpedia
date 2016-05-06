@@ -255,7 +255,7 @@ public class attractionsList extends AppCompatActivity {
                 // Radius in meters - increase this value if you don't find any places
                 double radius;
                 if (distancePref != ""){
-                    radius = Integer.parseInt(distancePref); // taking the radios from the filters if exist
+                    radius = Double.parseDouble(distancePref); // taking the radios from the filters if exist
                 }
                 else
                     radius = 1000; // 1000 meters

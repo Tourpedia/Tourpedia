@@ -1,36 +1,24 @@
 package com.example.ebtes_000.tourpedia;
 
-import android.app.DialogFragment;
-
 import android.app.FragmentTransaction;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,13 +33,26 @@ public class addPlan extends AppCompatActivity {
     ListPopupWindow lpw;
     String[] list;
     EditText place;
-    PlacesList nearPlaces;
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
     String[] places;
+    // Places List
+    PlacesList nearPlaces;
+    // GPS Location
     GPSTracker gps;
+    // Google Places object
     GooglePlaces googlePlaces;
+    // Progress dialog
+    ProgressDialog pDialog;
+
+    // filters preferences
+    String distancePref  ;
+    int ratingPref;
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, places);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,8 @@ public class addPlan extends AppCompatActivity {
             }
         });
 
+        Log.d("Tracing places", "before anything");
+
         final EditText endTxt = (EditText) findViewById(R.id.timeTo);
         endTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -130,63 +133,44 @@ public class addPlan extends AppCompatActivity {
                 }
             }
         });
-       // showPlacesList();
-       final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
 
-        ///
-// creating GPS Class object
+        Log.d("Tracing places", "before internet");
+        // Check if Internet present
+        isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
+        if (!isInternetPresent) {
+            // Internet Connection is not present
+
+            Log.d("Tracing places","inside internet else");
+            alert.showAlertDialog(addPlan.this, "Internet Connection Error",
+                    "Please connect to working Internet connection", false);
+            // stop executing code by return
+            return;
+        }
+
+        // creating GPS Class object
         gps = new GPSTracker(this);
 
+        Log.d("Tracing places","before gps");
         // check if GPS location can get
         if (gps.canGetLocation()) {
             Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
         } else {
+
+            Log.d("Tracing places","inside gps else");
             // Can't get user's current location
             alert.showAlertDialog(addPlan.this, "GPS Status",
                     "Couldn't get location information. Please enable GPS",
                     false);
+
+            // stop executing code by return
+            return;
         }
+        Log.d("Tracing places","before calling loadPlaces");
+        new LoadPlaces().execute();
+        Log.d("Tracing places", "after calling loadPlaces");
 
-// Google Places
-        googlePlaces = new GooglePlaces();
-        // get nearest places
-        try {
-            String types = "cafe|restaurant";
-
-
-            // Radius in meters - increase this value if you don't find any places
-            double radius;
-
-
-            radius = 1000; // 1000 meters
-
-            nearPlaces = googlePlaces.search(gps.getLatitude(),gps.getLongitude(), radius, types);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        //
-
-
-        //String[] places = null;
-        if (nearPlaces != null) {
-            for (int i = 0; i < nearPlaces.results.size(); i++) {
-                places[i] = nearPlaces.results.get(i).name;
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, places);
-            a.setAdapter(adapter);
-            a.setOnTouchListener(new View.OnTouchListener() {
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    a.showDropDown();
-                    return false;
-                }
-            });
-
-        }
+       // showPlacesList();
+// Getting places call
     }// end of onCreate
 
 
@@ -349,12 +333,119 @@ public class addPlan extends AppCompatActivity {
         }
 return "";
     }
-   /* public void showPlacesList(){
+    public void showPlacesList(){
         AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
         String[] countries = {"ac","cb","cv"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,countries);
         a.setAdapter(adapter);
         //a.showDropDown();
 
-    }*/
+    }
+
+
+
+   class LoadPlaces extends AsyncTask<String, String, String> {
+
+       /**
+        * Before starting background thread Show Progress Dialog
+        * */
+
+
+       @Override
+       protected void onPreExecute() {
+           super.onPreExecute();
+           Log.d("Tracing places", "inside pre");
+           pDialog = new ProgressDialog(addPlan.this);
+           pDialog.setMessage(Html.fromHtml("<b>Search</b><br/>Loading Places..."));
+           pDialog.setIndeterminate(false);
+           pDialog.setCancelable(false);
+           pDialog.show();
+       }
+       /**
+        * getting Places JSON
+        * */
+
+       protected String doInBackground(String... args) {
+           // creating Places class object
+
+           Log.d("Tracing places","inside background");
+           googlePlaces = new GooglePlaces();
+           try {
+               Log.d("Tracing places","inside back try");
+               // Separeate your place types by PIPE symbol "|"
+               // If you want all types places make it as null
+               // Check list of types supported by google
+               //
+               String types = "cafe|restaurant"; // default type
+               // Radius in meters - increase this value if you don't find any places
+               double radius;
+               if (distancePref != ""){
+                   radius = Double.parseDouble(distancePref); // taking the radios from the filters if exist
+               }
+               else
+                   radius = 1000; // 1000 meters
+               // get nearest places
+               nearPlaces = googlePlaces.search(gps.getLatitude(),
+                       gps.getLongitude(), radius, types);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           return null;
+       }
+
+       /**
+        * After completing background task Dismiss the progress dialog
+        * and show the data in UI
+        * Always use runOnUiThread(new Runnable()) to update UI from background
+        * thread, otherwise you will get error
+        * **/
+
+
+       protected void onPostExecute(String file_url) {
+           // dismiss the dialog after getting all products
+
+           Log.d("Tracing places","inside post");
+           pDialog.dismiss();
+           // updating UI from Background Thread
+           runOnUiThread(new Runnable() {
+               public void run() {
+                   /**
+                    * Updating parsed Places into LISTVIEW
+                    * */
+                   // Get json response status
+
+
+                   String status = nearPlaces.status;
+
+                   // Check for all possible status
+                   if(status.equals("OK")){
+                       Log.d("Tracing places","status is OK");
+                       // Successfully got places details
+                       if (nearPlaces.results != null) {
+                           Log.d("Tracing places","PlacesList is not null");
+                           final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
+                               for (int i = 0; i < nearPlaces.results.size(); i++) {
+                                   places[i] = nearPlaces.results.get(i).name;
+                               }
+                               a.setAdapter(adapter);
+                               a.setOnTouchListener(new View.OnTouchListener() {
+
+                                   @Override
+                                   public boolean onTouch(View v, MotionEvent event) {
+                                       a.showDropDown();
+                                       return false;
+                                   }
+                               });
+                       }
+                   }
+
+               }
+           });
+
+       }
+
+
+   }
 }
+
+
