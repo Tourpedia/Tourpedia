@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/contents"
-        android:layout_weight="0.12"
+        android:layout_weight="0.27"
         android:layout_marginTop="45dp">
 
         <LinearLayout
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/googleGlass"
                     android:contentDescription="Google glass connection"
-                    android:checked="true"
+                    android:checked="false"
                     android:clickable="true"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
@@ -201,11 +201,73 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/planAlert"
                     android:contentDescription="plan alert"
-                    android:checked="true"
+                    android:checked="false"
                     android:clickable="true"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
         </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#aaaaaa"
+            android:id="@+id/divider2"
+            android:layout_marginTop="10dp"
+            android:contentDescription="line" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/AroundMeContainer"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Around Me">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/AroundMeTxt2"
+                android:layout_marginLeft="20dp"
+                android:contentDescription="Around Me">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Around Me"
+                    android:contentDescription="Around Me"
+                    android:id="@+id/textView2"
+                    android:textColor="#3f9d9f" />
+
+                <TextView
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Tourpedia will alert of the places of interest around you"
+                    android:contentDescription="Tourpedia will alert of the places of interest around you"
+                    android:id="@+id/textView22" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/AroundMeSwitch"
+                android:layout_marginLeft="80dp"
+                android:layout_gravity="center_vertical" >
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AroundMe"
+                    android:contentDescription="Around Me"
+                    android:checked="false"
+                    android:clickable="true"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button

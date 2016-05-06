@@ -117,7 +117,7 @@ public class attractionsList extends AppCompatActivity {
             }
         });
 
-        Filters();// to get the filters Criteria
+        getFilters();// to get the filters Criteria
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -378,7 +378,7 @@ public class attractionsList extends AppCompatActivity {
 
     }
 
-    public void Filters(){
+    public void getFilters(){
 
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         distancePref = SP.getString("Distance", "");

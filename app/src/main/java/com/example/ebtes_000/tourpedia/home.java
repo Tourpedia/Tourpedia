@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,19 +48,25 @@ public class home extends AppCompatActivity {
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
 
+    //Settings Shares values
+    Boolean isGoogleGlassExist = false;
+    Boolean isAlertPlansOn = false;
+    Boolean isAroundMeOn = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_home);
+        GetSetting(); // Getting the Setting values from the Shared Preferences
 
-
-        MyTimerTask myTask = new MyTimerTask();
-        Timer myTimer = new Timer();
-
-        myTimer.schedule(myTask, 50000, 1500);
-
+        // activating Around Me function only if the user allow it
+        if(isAroundMeOn){
+            MyTimerTask myTask = new MyTimerTask(); // Generating Around Me task
+            Timer myTimer = new Timer(); // Timer
+            myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
+            }
 
         // declaring the img buttons
         ImageButton guideMe = (ImageButton) findViewById(R.id.guideBtn);
@@ -116,14 +123,9 @@ public class home extends AppCompatActivity {
                     }
                 });
 
-
                 //Todo: put the check box
-
                 AlertDialog dialog = builder.create();
-
                 dialog.show();
-
-
             }
         });
 
@@ -145,6 +147,7 @@ public class home extends AppCompatActivity {
             }
         });
 
+        if(isAroundMeOn){
         // Check if Internet present
         isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
         if (!isInternetPresent) {
@@ -174,22 +177,24 @@ public class home extends AppCompatActivity {
             // stop executing code by return
             return;
         }
+        }
 
     }
 
     class MyTimerTask extends TimerTask {
         public void run() {
 
-            new LoadPlaces().execute();
+            new LoadPlaces().execute(); // loading nearby places from google places
             if(near != null){
             generateNotification(getApplicationContext(), near.name + " is around you");
             }
         }
     }
 
+    // to Generate the notification
     private void generateNotification(Context context, String message) {
 
-        int icon = R.drawable.logoc;
+        int icon = R.drawable.logoc; // notification logo
         long when = System.currentTimeMillis();
         String appname = context.getResources().getString(R.string.app_name);
         NotificationManager notificationManager = (NotificationManager) context
@@ -221,6 +226,15 @@ public class home extends AppCompatActivity {
 
     }
 
+    public void GetSetting() {
+
+        SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        isGoogleGlassExist = SP.getBoolean("GoogleGlass", false);
+        isAlertPlansOn = SP.getBoolean("PlanAlert", false);
+        isAroundMeOn = SP.getBoolean("AroundMe", false);
+
+    }
+
     class LoadPlaces extends AsyncTask<String, String, String> {
 
         /**
@@ -247,10 +261,10 @@ public class home extends AppCompatActivity {
                 // If you want all types places make it as null
                 // Check list of types supported by google
                 //
-                String types = "cafe|restaurant"; // default type
-                // Radius in meters - increase this value if you don't find any places
+                String types = "cafe|restaurant|amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; //type of places to search for
+                // Radius in meters
                 double radius;
-                radius = 1000; // 1000 meters
+                radius = 100; // 100 meters
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);

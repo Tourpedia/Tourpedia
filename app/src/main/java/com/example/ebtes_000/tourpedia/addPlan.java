@@ -423,7 +423,7 @@ return "";
                                    places[i] = nearPlaces.results.get(i).name;
                                }
 
-                           ArrayAdapter<String> adapter = new ArrayAdapter<String>(addPlan.this, android.R.layout.select_dialog_singlechoice, places);
+                               ArrayAdapter<String> adapter = new ArrayAdapter<String>(addPlan.this, android.R.layout.select_dialog_singlechoice, places);
                                a.setAdapter(adapter);
                                a.setOnTouchListener(new View.OnTouchListener() {
 
