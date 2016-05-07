@@ -1,8 +1,12 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +52,9 @@ public class addPlan extends AppCompatActivity {
     // filters preferences
     String distancePref  ;
     int ratingPref;
+
+
+    public Context context=this;
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -131,16 +138,24 @@ public class addPlan extends AppCompatActivity {
                 }
             }
         });
-
-        Log.d("Tracing places", "before internet");
+        // Check if Internet present
         // Check if Internet present
         isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
         if (!isInternetPresent) {
             // Internet Connection is not present
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Please connect to working Internet connection").setTitle("Internet Connection Error");
+            // Add the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked Yes button
+                    Intent intent = new Intent(context, attractionsList.class);
+                    startActivity(intent);
+                }
+            });
 
-            Log.d("Tracing places","inside internet else");
-            alert.showAlertDialog(addPlan.this, "Internet Connection Error",
-                    "Please connect to working Internet connection", false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
             // stop executing code by return
             return;
         }
@@ -148,24 +163,28 @@ public class addPlan extends AppCompatActivity {
         // creating GPS Class object
         gps = new GPSTracker(this);
 
-        Log.d("Tracing places","before gps");
         // check if GPS location can get
         if (gps.canGetLocation()) {
             Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
         } else {
 
-            Log.d("Tracing places","inside gps else");
-            // Can't get user's current location
-            alert.showAlertDialog(addPlan.this, "GPS Status",
-                    "Couldn't get location information. Please enable GPS",
-                    false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Couldn't get location information. Please enable GPS").setTitle("GPS Status");
+            // Add the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked Yes button
+                    Intent intent = new Intent(context, attractionsList.class);
+                    startActivity(intent);
+                }
+            });
 
+            AlertDialog dialog = builder.create();
+            dialog.show();
             // stop executing code by return
             return;
         }
-        Log.d("Tracing places","before calling loadPlaces");
         new LoadPlaces().execute();
-        Log.d("Tracing places", "after calling loadPlaces");
 
        // showPlacesList();
 // Getting places call
@@ -352,7 +371,6 @@ return "";
        @Override
        protected void onPreExecute() {
            super.onPreExecute();
-           Log.d("Tracing places", "inside pre");
            pDialog = new ProgressDialog(addPlan.this);
            pDialog.setMessage(Html.fromHtml("<b>Search</b><br/>Loading Places..."));
            pDialog.setIndeterminate(false);
@@ -366,18 +384,22 @@ return "";
        protected String doInBackground(String... args) {
            // creating Places class object
 
-           Log.d("Tracing places","inside background");
            googlePlaces = new GooglePlaces();
            try {
-               Log.d("Tracing places","inside back try");
                // Separeate your place types by PIPE symbol "|"
                // If you want all types places make it as null
                // Check list of types supported by google
                //
                String types = "cafe|restaurant|amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; // default type
                // Radius in meters - increase this value if you don't find any places
+
+               getFilters();// to get the filters Criteria
                double radius;
-               radius = 1000; // 1000 meters
+               if (distancePref != ""){
+                   radius = Double.parseDouble(distancePref); // taking the radios from the filters if exist
+               }
+               else
+                   radius = 1000; // 1000 meters
                // get nearest places
                nearPlaces = googlePlaces.search(gps.getLatitude(),
                        gps.getLongitude(), radius, types);
@@ -398,8 +420,6 @@ return "";
 
        protected void onPostExecute(String file_url) {
            // dismiss the dialog after getting all products
-
-           Log.d("Tracing places","inside post");
            pDialog.dismiss();
            // updating UI from Background Thread
            runOnUiThread(new Runnable() {
@@ -409,21 +429,16 @@ return "";
                     * */
                    if(nearPlaces != null){
                    // Get json response status
-                   Log.d("nearStatus",nearPlaces.status);
                    String status = nearPlaces.status;
 
                    // Check for all possible status
                    if(status.equals("OK")){
-                       Log.d("Tracing places","status is OK");
                        // Successfully got places details
                        if (nearPlaces.results != null) {
-                           Log.d("Tracing places","PlacesList is not null");
                            final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeTxt);
                                for (int i = 0; i < nearPlaces.results.size(); i++) {
                                    if(nearPlaces.results.get(i) != null){
-                                       Log.d("Tracing places", nearPlaces.results.get(i).toString());
                                        Place temp = nearPlaces.results.get(i);
-                                       Log.d("Tracing places", nearPlaces.results.get(i).name);
                                        places[i] = temp.name;
                                    }
                                }
@@ -440,17 +455,19 @@ return "";
                                });
                        }
                    }
-
-               }
-                   else
-                       Log.d("elssssse", "null places ");
+                   }
                }
            });
-
        }
-
-
    }
+    public void getFilters(){
+
+        SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        distancePref = SP.getString("Distance", "");
+        ratingPref = SP.getInt("rating", 0);
+
+
+    }
 }
 
 
