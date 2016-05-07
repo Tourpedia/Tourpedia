@@ -118,7 +118,6 @@ public class addPlan extends AppCompatActivity {
             }
         });
 
-        Log.d("Tracing places", "before anything");
 
         final EditText endTxt = (EditText) findViewById(R.id.timeTo);
         endTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {

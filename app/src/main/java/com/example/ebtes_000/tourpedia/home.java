@@ -20,7 +20,16 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +53,16 @@ public class home extends AppCompatActivity {
     // filters preferences
     String distancePref  ;
     int ratingPref;
+
+    //plan
+    String planName; // should be date
+    ListView listOfEvents;
+    ArrayList<slot> slots = null;
+    String splits[] = null;
+    LinearLayout allInfo;
+    LinearLayout eventSec;
+    String oldName = "";
+    String oldDate = "";
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -177,6 +196,64 @@ public class home extends AppCompatActivity {
             // stop executing code by return
             return;
         }
+        }
+
+
+        if(isAlertPlansOn){
+
+            String planDetails;
+            int lineNum=1;
+            slots = new ArrayList<slot>();
+
+            try {
+                Calendar c = Calendar.getInstance();
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                int month = c.get(Calendar.DATE);
+                FileInputStream fileInputStream = openFileInput("");
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuffer stringBuffer1 = new StringBuffer();
+                slot s = null;
+                    while ((planDetails = bufferedReader.readLine()) != null)
+                    {
+                        StringBuffer stringBuffer = new StringBuffer();
+                        //stringBuffer.append(planDetails + "\n");
+                        if (lineNum == 1){
+                            EditText name = (EditText) findViewById(R.id.planName);
+                            stringBuffer.append(planDetails);
+                            name.setText(stringBuffer.toString());
+                            oldName = stringBuffer.toString();
+                        }
+
+                        else if (lineNum == 2) {
+                            EditText date = (EditText) findViewById(R.id.planDate);
+                            stringBuffer.append(planDetails);
+                            date.setText(stringBuffer.toString());
+                            oldDate = stringBuffer.toString();
+                        }
+                        else{
+                            if (planDetails != ""){
+                                splits = planDetails.split(","); // to split event info
+                                s = new slot(splits[0], splits[1], splits[2]);
+                                slots.add(s);
+                            }
+
+
+                        }
+                        lineNum++;
+                    } //end while
+                    ArrayList<String> planEventsTime = null;
+                    if (slots != null){
+                        for (int i = 0; i < slots.size(); i++){
+                            planEventsTime.add(slots.get(i).getStartTime());
+                        }
+                    }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
     }
