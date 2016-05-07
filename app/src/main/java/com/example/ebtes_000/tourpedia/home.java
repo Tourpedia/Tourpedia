@@ -1,15 +1,19 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -22,14 +26,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -72,6 +80,11 @@ public class home extends AppCompatActivity {
     Boolean isAlertPlansOn = false;
     Boolean isAroundMeOn = false;
 
+    ArrayList<String> planEventsTime = null;
+    ArrayList<String> planEventName = null;
+
+    String NextEventName;
+    String NextEventTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +92,6 @@ public class home extends AppCompatActivity {
         getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_home);
         GetSetting(); // Getting the Setting values from the Shared Preferences
-
-        // activating Around Me function only if the user allow it
-        if(isAroundMeOn){
-            MyTimerTask myTask = new MyTimerTask(); // Generating Around Me task
-            Timer myTimer = new Timer(); // Timer
-            myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
-            }
 
         // declaring the img buttons
         ImageButton guideMe = (ImageButton) findViewById(R.id.guideBtn);
@@ -166,12 +172,13 @@ public class home extends AppCompatActivity {
             }
         });
 
+        // Around Me Function
+
         if(isAroundMeOn){
         // Check if Internet present
         isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
         if (!isInternetPresent) {
             // Internet Connection is not present
-            Log.d("Tracing places","inside internet else");
             alert.showAlertDialog(home.this, "Internet Connection Error",
                     "Please connect to working Internet connection", false);
             // stop executing code by return
@@ -196,74 +203,129 @@ public class home extends AppCompatActivity {
             // stop executing code by return
             return;
         }
+
+
+            AroundME myTask = new AroundME(); // Generating Around Me task
+            Timer myTimer = new Timer(); // Timer
+            myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
         }
 
+
+        // Alert Plan Function
 
         if(isAlertPlansOn){
 
+            String CurrentPlan = ""; // Current Plan Date
+            String[] SavedPlans = getApplicationContext().fileList(); // getting list of files names
+            // looking for today's plan if exist
+
+            // reading plan file
             String planDetails;
             int lineNum=1;
             slots = new ArrayList<slot>();
-
             try {
-                Calendar c = Calendar.getInstance();
-                int day = c.get(Calendar.DAY_OF_MONTH);
-                int month = c.get(Calendar.DATE);
-                FileInputStream fileInputStream = openFileInput("");
-                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuffer stringBuffer1 = new StringBuffer();
-                slot s = null;
-                    while ((planDetails = bufferedReader.readLine()) != null)
-                    {
-                        StringBuffer stringBuffer = new StringBuffer();
-                        //stringBuffer.append(planDetails + "\n");
-                        if (lineNum == 1){
-                            EditText name = (EditText) findViewById(R.id.planName);
-                            stringBuffer.append(planDetails);
-                            name.setText(stringBuffer.toString());
-                            oldName = stringBuffer.toString();
-                        }
-
-                        else if (lineNum == 2) {
-                            EditText date = (EditText) findViewById(R.id.planDate);
-                            stringBuffer.append(planDetails);
-                            date.setText(stringBuffer.toString());
-                            oldDate = stringBuffer.toString();
-                        }
-                        else{
-                            if (planDetails != ""){
-                                splits = planDetails.split(","); // to split event info
-                                s = new slot(splits[0], splits[1], splits[2]);
-                                slots.add(s);
+                    //Streams
+                    Log.d("Trace Plan", "Plan not null");
+                    for(int i = 0; i<SavedPlans.length; i++){
+                        if(checkDate(SavedPlans[i])){
+                            CurrentPlan = SavedPlans[i];
+                            Log.d("Trace Plan",CurrentPlan);
+                            FileInputStream fileInputStream = openFileInput(CurrentPlan);
+                            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                            StringBuffer stringBuffer1 = new StringBuffer();
+                            Log.d("Trace Plan", "File opened");
+                            slot s = null; //initial
+                            while ((planDetails = bufferedReader.readLine()) != null) {
+                                StringBuffer stringBuffer = new StringBuffer();
+                                if (lineNum == 1) { // first line
+                                    Log.d("Trace Plan", "FirstLine");
+                                    EditText name = (EditText) findViewById(R.id.planName);
+                                    stringBuffer.append(planDetails);
+                                    name.setText(stringBuffer.toString());
+                                    oldName = stringBuffer.toString();
+                                } else if (lineNum == 2) {
+                                    Log.d("Trace Plan", "Secound");
+                                    EditText date = (EditText) findViewById(R.id.planDate);
+                                    stringBuffer.append(planDetails);
+                                    date.setText(stringBuffer.toString());
+                                    oldDate = stringBuffer.toString();
+                                } else {
+                                    if (planDetails != "") { //other lines if exist are for slots
+                                        Log.d("Trace Plan", "Slots split");
+                                        splits = planDetails.split(","); // to split event info
+                                        s = new slot(splits[0], splits[1], splits[2]);
+                                        slots.add(s);
+                                    }
+                                }
+                                lineNum++;
                             }
-
-
                         }
-                        lineNum++;
-                    } //end while
-                    ArrayList<String> planEventsTime = null;
-                    if (slots != null){
-                        for (int i = 0; i < slots.size(); i++){
+                    }
+                     //end while
+
+                    planEventsTime = new ArrayList<String>();
+                    planEventName = new ArrayList<String>();
+
+                    // saving starting time of each event
+                    if (slots != null) {
+                        Log.d("Trace Plan", "Slots not null");
+                        for (int i = 0; i < slots.size(); i++) {
                             planEventsTime.add(slots.get(i).getStartTime());
+                            Log.d("Trace Plan", planEventsTime.get(i));
+                            planEventName.add(slots.get(i).getaPlace());
+                            Log.d("Trace Plan", planEventName.get(i));
                         }
                     }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            Log.d("Trace Plan", "File Done");
+            // Timer initialization
+            PlanAlert PlanTask = new PlanAlert(); // Generating Plan Alert task
+            Timer myTimer = new Timer(); // Timer
+            if(planEventsTime.size() > 0){
+                if(planEventsTime.get(0) != null){
+                    Log.d("Trace Plan", "fist time not null");
+                    if(Integer.parseInt(planEventsTime.get(0)) <= new Date().getTime()+1) {
+                        myTimer.schedule(PlanTask, 10000, 10000); // 10000 means 1 minutes
+                        NextEventName = planEventName.remove(0);
+                        NextEventTime = planEventsTime.remove(0);
+                    }
+                }
             }
-
-
         }
-
     }
 
-    class MyTimerTask extends TimerTask {
+
+
+    private Boolean checkDate (String d){
+        //EditText date = (EditText) findViewById(R.id.planDate);
+        Date date = null;
+        try {
+            date = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date().equals(date);
+    }// end checkDate
+
+    class AroundME extends TimerTask {
         public void run() {
 
             new LoadPlaces().execute(); // loading nearby places from google places
             if(near != null){
             generateNotification(getApplicationContext(), near.name + " is around you");
+            }
+        }
+    }
+
+    class PlanAlert extends TimerTask {
+        public void run() {
+            if (planEventsTime != null) {
+                generateNotification(getApplicationContext(), "To follow your plan you should be in "+NextEventName+" at "+NextEventTime);
             }
         }
     }
