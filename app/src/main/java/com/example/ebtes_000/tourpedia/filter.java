@@ -29,6 +29,8 @@ public class filter extends AppCompatActivity {
     private int distanceAtt , ratingAtt;
     EditText dis;
     RatingBar rate;
+    String dist;
+    int rat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,9 @@ public class filter extends AppCompatActivity {
         dis = (EditText) findViewById(R.id.distance);
         rate = (RatingBar) findViewById(R.id.ratingBar);
 
-/////////////
-
+        show();
+        dis.setText(dist);
+        rate.setRating(rat);
     }
 
     public void saveFilters(View view) {
@@ -88,13 +91,10 @@ public class filter extends AppCompatActivity {
 
 
     // take this method to retrive the filters preferences any where
-   /* public void show(View view){
+    public void show(){
 
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        String dis = SP.getString("Distance", "");
-        int rat = SP.getInt("rating", 0);
-
-        T.setText(dis+" - "+rat);
-
-    }*/
+        dist = SP.getString("Distance", "");
+        rat = SP.getInt("rating", 0);
+    }
 }

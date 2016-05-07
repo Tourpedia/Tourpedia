@@ -29,6 +29,9 @@ public class settings extends AppCompatActivity {
     Switch GG;
     Switch PA;
     Switch AM;
+    Boolean GGG;
+    Boolean PP;
+    Boolean AA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class settings extends AppCompatActivity {
 
         ImageButton setting = (ImageButton) findViewById(R.id.settingsBtn);
         ImageButton filters = (ImageButton) findViewById(R.id.filterBtn);
-        try {
+
             GG = (Switch) findViewById(R.id.googleGlass);
             PA = (Switch) findViewById(R.id.planAlert);
             AM = (Switch) findViewById(R.id.AroundMe);
@@ -71,11 +74,10 @@ public class settings extends AppCompatActivity {
             }
         });
 
-
-
-        } catch (Exception e) {
-            Log.d("Exc",e.toString());
-        }
+        show();
+        GG.setChecked(GGG);
+        PA.setChecked(PP);
+        AM.setChecked(AA);
     }//onCreate end
 
 
@@ -97,14 +99,13 @@ public class settings extends AppCompatActivity {
 
 
     // take this method to retrive the settings preferences any where
-    /*public void show(View view){
+    public void show() {
 
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        Boolean GG = SP.getBoolean("GoogleGlass", false);
-        Boolean PP = SP.getBoolean("PlanAlert", false);
-        Boolean AA = SP.getBoolean("AroundMe", false);
+        GGG = SP.getBoolean("GoogleGlass", false);
+        PP = SP.getBoolean("PlanAlert", false);
+        AA = SP.getBoolean("AroundMe", false);
 
-        T.setText(GG + " - " + PP);
 
-    }*/
+    }
 }
