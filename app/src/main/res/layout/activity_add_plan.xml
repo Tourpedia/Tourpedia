@@ -130,14 +130,6 @@
         android:id="@+id/event"
         android:layout_marginTop="50dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/placeTxt"
-            android:hint="Place to go"
-            android:contentDescription="Enter Place to go"
-             />
-
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

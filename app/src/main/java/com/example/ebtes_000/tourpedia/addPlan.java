@@ -35,7 +35,7 @@ public class addPlan extends AppCompatActivity {
     EditText place;
     // flag for Internet connection status
     Boolean isInternetPresent = false;
-    String[] places;
+    public String[] places;
     // Places List
     PlacesList nearPlaces;
     // GPS Location
@@ -374,13 +374,14 @@ return "";
                // If you want all types places make it as null
                // Check list of types supported by google
                //
-               String types = "cafe|restaurant"; // default type
+               String types = "cafe|restaurant|amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; // default type
                // Radius in meters - increase this value if you don't find any places
                double radius;
                radius = 1000; // 1000 meters
                // get nearest places
                nearPlaces = googlePlaces.search(gps.getLatitude(),
                        gps.getLongitude(), radius, types);
+               places = new String[nearPlaces.results.size()];
            } catch (Exception e) {
                e.printStackTrace();
            }
@@ -419,7 +420,12 @@ return "";
                            Log.d("Tracing places","PlacesList is not null");
                            final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
                                for (int i = 0; i < nearPlaces.results.size(); i++) {
-                                   places[i] = nearPlaces.results.get(i).name;
+                                   if(nearPlaces.results.get(i) != null){
+                                       Log.d("Tracing places", nearPlaces.results.get(i).toString());
+                                       Place temp = nearPlaces.results.get(i);
+                                       Log.d("Tracing places", nearPlaces.results.get(i).name);
+                                       places[i] = temp.name;
+                                   }
                                }
 
                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(addPlan.this, android.R.layout.select_dialog_singlechoice, places);
