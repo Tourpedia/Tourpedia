@@ -332,7 +332,7 @@ public class addPlan extends AppCompatActivity {
 return "";
     }
     public void showPlacesList(){
-        AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
+        AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeTxt);
         String[] countries = {"ac","cb","cv"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice,countries);
         a.setAdapter(adapter);
@@ -418,7 +418,7 @@ return "";
                        // Successfully got places details
                        if (nearPlaces.results != null) {
                            Log.d("Tracing places","PlacesList is not null");
-                           final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeText);
+                           final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeTxt);
                                for (int i = 0; i < nearPlaces.results.size(); i++) {
                                    if(nearPlaces.results.get(i) != null){
                                        Log.d("Tracing places", nearPlaces.results.get(i).toString());
