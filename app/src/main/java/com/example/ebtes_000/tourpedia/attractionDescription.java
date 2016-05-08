@@ -59,6 +59,8 @@ public class attractionDescription extends AppCompatActivity {
     String longitude;
     String latitude;
 
+    String ref;
+
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
     public static String KEY_TEXT = "text"; // review of the place
@@ -119,21 +121,29 @@ public class attractionDescription extends AppCompatActivity {
         String reference = i.getStringExtra(KEY_REFERENCE);
 
         //place Type
+        Bundle extras;
         if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
+            extras = getIntent().getExtras();
             if(extras == null) {
                 Guideingtype= "";
+                ref = "";
             } else {
                 Guideingtype= extras.getString("Type");
+                ref = extras.getString("ref");
             }
         } else {
             Guideingtype= (String) savedInstanceState.getSerializable("Type");
+            ref = (String) savedInstanceState.getSerializable("ref");
         }
         TextView lbl_name = (TextView) findViewById(R.id.textView);
-        lbl_name.setText(Guideingtype + " List");
-        lbl_name.setContentDescription(Guideingtype + " List");
+        lbl_name.setText(Guideingtype);
+        lbl_name.setContentDescription(Guideingtype);
+
 
         // Calling a Async Background thread
+        if(ref != "")
+            new LoadattractionDescription().execute(ref);
+        else
         new LoadattractionDescription().execute(reference);
     }
 

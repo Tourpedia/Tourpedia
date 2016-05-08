@@ -85,6 +85,7 @@ public class home extends AppCompatActivity {
 
     String NextEventName;
     String NextEventTime;
+    String NextPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,6 +246,7 @@ public class home extends AppCompatActivity {
                                 Log.d("Trace Plan", "File inside while");
                                 Log.d("Trace Plan", lineNum+"");
                                 if (lineNum == 1) {
+                                        NextPlan = CurrentPlan;
                                     Log.d("Trace Plan", "Inside 1");
                                     // first line
                                 }
@@ -266,6 +268,7 @@ public class home extends AppCompatActivity {
                                             splits = planDetails.split(","); // to split event info
                                             s = new slot(splits[0], splits[1], splits[2]);
                                             slots.add(s);
+                                            break;
                                         }
                                     }
                                 }
@@ -377,8 +380,10 @@ public class home extends AppCompatActivity {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         Notification notification;
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, plans.class), 0);
+        Intent i = new Intent(context, PlanDetails.class);
+        i.putExtra("planName",NextPlan);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,i
+                , 0);
         // To support 2.3 os, we use "Notification" class and 3.0+ os will use
         // "NotificationCompat.Builder" class.
         if (currentapiVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -405,8 +410,11 @@ public class home extends AppCompatActivity {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         Notification notification;
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, guideMe.class), 0);
+        Intent i = new Intent(context, attractionDescription.class);
+        i.putExtra("ref",near.reference);
+        i.putExtra("Type","Around You");
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,i
+                , 0);
         // To support 2.3 os, we use "Notification" class and 3.0+ os will use
         // "NotificationCompat.Builder" class.
         if (currentapiVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -448,7 +456,7 @@ public class home extends AppCompatActivity {
                 String types = "cafe|restaurant|amusement_park|aquarium|art_gallery|campground|city_hall|library|museum|park|rv_park|zoo"; //type of places to search for
                 // Radius in meters
                 double radius;
-                radius = 100; // 100 meters
+                radius = 1000; // 100 meters
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);
@@ -464,8 +472,10 @@ public class home extends AppCompatActivity {
                     // Check for all possible status
                     if(status.equals("OK")){
                         // Successfully got places details
-                        if (nearPlaces.results != null) {
-                            if(!near.equals(nearPlaces.results.get(0)))
+                        if (nearPlaces.results.size() > 0) {
+                            if(near == null)
+                                near = nearPlaces.results.get(0);
+                            else if(!near.equals(nearPlaces.results.get(0)))
                                 near = nearPlaces.results.get(0);
                         }
                         else

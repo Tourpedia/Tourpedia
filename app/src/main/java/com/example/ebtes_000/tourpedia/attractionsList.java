@@ -135,8 +135,6 @@ public class attractionsList extends AppCompatActivity {
         TextView lbl_name = (TextView) findViewById(R.id.textView);
         lbl_name.setText(Guideingtype + " List");
         lbl_name.setContentDescription(Guideingtype + " List");
-        
-
         //
         //
         //the function code
