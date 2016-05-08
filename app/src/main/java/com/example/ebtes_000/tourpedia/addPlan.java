@@ -72,6 +72,7 @@ public class addPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(addPlan.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -84,6 +85,7 @@ public class addPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(addPlan.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -93,6 +95,7 @@ public class addPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(addPlan.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -150,6 +153,7 @@ public class addPlan extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     // User clicked Yes button
                     Intent intent = new Intent(context, attractionsList.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             });
@@ -175,6 +179,7 @@ public class addPlan extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     // User clicked Yes button
                     Intent intent = new Intent(context, attractionsList.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             });
@@ -276,6 +281,7 @@ public class addPlan extends AppCompatActivity {
                             outputStreamWriter.close();
                             Toast.makeText(getApplicationContext(), "Plan saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(addPlan.this, plans.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();

@@ -1,7 +1,9 @@
 package com.example.ebtes_000.tourpedia.CloudSight;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -45,7 +47,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
     static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
     String infoUrl ;
-    String s;
+    String s , textDescription;
     TextView message;
     TextView t;
     ViewFlipper flipper;
@@ -70,12 +72,15 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             case 1:
                message.setText("Now trying to identify the image..");
                 message.setContentDescription("Now trying to identify the image..");
-
-
                 break;
 
             case 2:
                 message.setText("Getting info..");
+                message.setContentDescription("Getting info..");
+                break;
+
+            case 3:
+                message.setText("Sorry, we can't recognize your image");
                 message.setContentDescription("Getting info..");
                 break;
         }
@@ -109,9 +114,6 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             Thread.sleep(30000);
 
-
-
-
            // while(!portResult.getStatus().equals("completed"));
 
 
@@ -129,6 +131,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             }
             else {
+                publishProgress(3);
                 return scoredResult.getStatus();
             }
 
@@ -164,33 +167,61 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
     }
 
     public void getInfoFromWikipedia(){
-
+ /*
+ String first = "This word is ";
+String next = "<font color='#EE0000'>red</font>";
+t.setText(Html.fromHtml(first + next));
+ * */
 
         try {
             Document doc = Jsoup.connect(infoUrl).get();
-            s = doc.title()+"\n";
+           // s = doc.title()+"\n"; // we should remove it
+            s = "";
+            textDescription = "";
             for ( Element table : doc.select("table.infobox")){
-                //  Elements rows = table.getElementsByTag("tr");
-                for (Element row : table.getElementsByTag("tr")){
-                    //  Elements ths = row.getElementsByTag("th");
-                    for (Element th : row.getElementsByTag("th"))
-                        s += th.text() + ":\n";
+                for (Element row : table.getElementsByTag("tr")){ // table row
+                    for (Element th : row.getElementsByTag("th")) {  //  cell header
+                        s += "<br/><b><font color='#7DBABB' >"+th.text() + ": "+"</font><b>"; // print cell header
+                        textDescription += th.text();  }
+                       /* s = "<b><font color='#7DBABB' >"+s+"</font><b>";
+                        t.setText(Html.fromHtml(s));*/
 
-                    Elements tds = row.getElementsByTag("td");
+                       // t.setTextColor(Color.CYAN);
+                    Elements tds = row.getElementsByTag("td"); // cell data
+                    if (tds.size() == 0) //{
+                        s += "<br/>"; // move to another header
+                       // t.append(Html.fromHtml(s)); }
+                    else
+                        for (Element td : tds) {
+                            s += "<font color='#000000'>"+td.text()+"</font><br/>"; // print cell data
+                            textDescription +=  td.text();}
+                           /* s = "<font color='#000000'>"+s+"</font>";
+                            t.append(Html.fromHtml(s));}*/
+
+                }
+            }
+
+
+            /*
+            Document doc = Jsoup.connect(infoUrl).get();
+            s = doc.title()+"\n"; // we should remove it
+            for ( Element table : doc.select("table.infobox")){
+                for (Element row : table.getElementsByTag("tr")){ // table row
+                    for (Element th : row.getElementsByTag("th"))  //  cell header
+                        s += th.text() + ":\n"; // print cell header
+
+                    Elements tds = row.getElementsByTag("td"); // cell data
                     if (tds.size() == 0)
-                        s+= "================== \n";
+                        s+= "================== \n"; // move to another header
                     else
                         for (Element td : tds)
-                            s += td.text()+"\n";
-                    // else
-                    //     s += "--------------------------- \n";
-
-
+                            s += td.text()+"\n"; // print cell data
 
                 }}
+            * */
 
-
-
+            //  Elements ths = row.getElementsByTag("th");
+            //  Elements rows = table.getElementsByTag("tr");
 
             //Element e = doc.select("#firstHeading").first();
             // for(int i=0 ; i<e.size() ; i++)
@@ -209,8 +240,9 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
   @Override
     protected void onPostExecute(String result){
 
-      t.setText(s);
-      t.setContentDescription(s);
+      t.setText(Html.fromHtml(s));
+     //t.setText(s);
+      t.setContentDescription(textDescription);
       message.setText("");
       message.setContentDescription("");
 

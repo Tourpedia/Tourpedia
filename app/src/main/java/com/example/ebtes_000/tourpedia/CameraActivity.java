@@ -105,6 +105,7 @@ public class CameraActivity extends AppCompatActivity {
             return;
         }
         Intent intent = new Intent(this, imgDescription.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
