@@ -92,14 +92,12 @@ public class home extends AppCompatActivity {
         getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_home);
         GetSetting(); // Getting the Setting values from the Shared Preferences
-
         // declaring the img buttons
         ImageButton guideMe = (ImageButton) findViewById(R.id.guideBtn);
         ImageButton Plan = (ImageButton) findViewById(R.id.planBtn);
         ImageButton identify = (ImageButton) findViewById(R.id.identifyBtn);
         ImageButton setting = (ImageButton) findViewById(R.id.settingsBtn);
         ImageButton filters = (ImageButton) findViewById(R.id.filterBtn);
-
         // to guide me
         guideMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +106,6 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // to plan
         Plan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,26 +114,19 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // to identify img
         identify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
                 builder.setMessage(R.string.isThereGlass)
                         .setTitle(R.string.isThereGlassTitle);
-
-
-
                 // Add the buttons
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Yes button
                         Intent intent=new Intent(context,GlassActivity.class);
                         startActivity(intent);
-
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -144,16 +134,13 @@ public class home extends AppCompatActivity {
                         // User clicked No button
                         Intent intent=new Intent(context,CameraActivity.class);
                         startActivity(intent);
-
                     }
                 });
-
                 //Todo: put the check box
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
         });
-
         // to settings
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +149,6 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // to filters
         filters.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,46 +159,54 @@ public class home extends AppCompatActivity {
         });
 
         // Around Me Function
-
         if(isAroundMeOn){
         // Check if Internet present
-        isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
-        if (!isInternetPresent) {
-            // Internet Connection is not present
-            alert.showAlertDialog(home.this, "Internet Connection Error",
-                    "Please connect to working Internet connection", false);
-            // stop executing code by return
-            return;
+            isInternetPresent = ConnectionDetector.isConnectingToInternet(getApplicationContext());
+            if (!isInternetPresent) {
+                // Internet Connection is not present
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Please connect to working Internet connection").setTitle("Internet Connection Error");
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked Yes button
+                        Intent intent = new Intent(context, attractionsList.class);
+                        startActivity(intent);
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                // stop executing code by return
+                return;
+            }
+            // creating GPS Class object
+            gps = new GPSTracker(this);
+            // check if GPS location can get
+            if (gps.canGetLocation()) {
+                Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Couldn't get location information. Please enable GPS").setTitle("GPS Status");
+                // Add the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked Yes button
+                        Intent intent = new Intent(context, attractionsList.class);
+                        startActivity(intent);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                // stop executing code by return
+                return;
+            }
+                AroundME myTask = new AroundME(); // Generating Around Me task
+                Timer myTimer = new Timer(); // Timer
+                myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
         }
-
-        // creating GPS Class object
-        gps = new GPSTracker(this);
-
-        Log.d("Tracing places","before gps");
-        // check if GPS location can get
-        if (gps.canGetLocation()) {
-            Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-        } else {
-
-            Log.d("Tracing places","inside gps else");
-            // Can't get user's current location
-            alert.showAlertDialog(home.this, "GPS Status",
-                    "Couldn't get location information. Please enable GPS",
-                    false);
-
-            // stop executing code by return
-            return;
-        }
-
-
-            AroundME myTask = new AroundME(); // Generating Around Me task
-            Timer myTimer = new Timer(); // Timer
-            myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
-        }
-
 
         // Alert Plan Function
-
         if(isAlertPlansOn){
 
             String CurrentPlan = ""; // Current Plan Date
@@ -223,45 +217,52 @@ public class home extends AppCompatActivity {
             String planDetails;
             int lineNum=1;
             slots = new ArrayList<slot>();
+            Boolean found = false;
             try {
                     //Streams
-                    Log.d("Trace Plan", "Plan not null");
                     for(int i = 0; i<SavedPlans.length; i++){
-                        if(checkDate(SavedPlans[i])){
+                        Log.d("Trace Plan","Inside loop");
+                        Log.d("Trace Plan",SavedPlans[i]);
                             CurrentPlan = SavedPlans[i];
                             Log.d("Trace Plan",CurrentPlan);
                             FileInputStream fileInputStream = openFileInput(CurrentPlan);
                             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                            StringBuffer stringBuffer1 = new StringBuffer();
                             Log.d("Trace Plan", "File opened");
                             slot s = null; //initial
                             while ((planDetails = bufferedReader.readLine()) != null) {
-                                StringBuffer stringBuffer = new StringBuffer();
-                                if (lineNum == 1) { // first line
-                                    Log.d("Trace Plan", "FirstLine");
-                                    EditText name = (EditText) findViewById(R.id.planName);
-                                    stringBuffer.append(planDetails);
-                                    name.setText(stringBuffer.toString());
-                                    oldName = stringBuffer.toString();
-                                } else if (lineNum == 2) {
-                                    Log.d("Trace Plan", "Secound");
-                                    EditText date = (EditText) findViewById(R.id.planDate);
-                                    stringBuffer.append(planDetails);
-                                    date.setText(stringBuffer.toString());
-                                    oldDate = stringBuffer.toString();
-                                } else {
+                                Log.d("Trace Plan", "File inside while");
+                                Log.d("Trace Plan", lineNum+"");
+                                if (lineNum == 1) {
+                                    Log.d("Trace Plan", "Inside 1");
+                                    // first line
+                                }
+                                else if (lineNum == 2){
+                                    Log.d("Trace Plan", "Inside 2");
+                                    Log.d("Trace Plan", planDetails);
+                                    Boolean n = checkDateNew(planDetails);
+                                    Log.d("Trace Plan", n+"");
+                                    if(checkDateNew(planDetails)){
+                                        Log.d("Trace Plan", "Inside checked");
+                                        found = true;
+                                    }
+                                    }
+                                else {
+                                    Log.d("Trace Plan", "Inside else");
                                     if (planDetails != "") { //other lines if exist are for slots
-                                        Log.d("Trace Plan", "Slots split");
-                                        splits = planDetails.split(","); // to split event info
-                                        s = new slot(splits[0], splits[1], splits[2]);
-                                        slots.add(s);
+                                        if(found) {
+                                            Log.d("Trace Plan", "Slots split");
+                                            splits = planDetails.split(","); // to split event info
+                                            s = new slot(splits[0], splits[1], splits[2]);
+                                            slots.add(s);
+                                        }
                                     }
                                 }
                                 lineNum++;
                             }
+                        lineNum = 1;
                         }
-                    }
+
                      //end while
 
                     planEventsTime = new ArrayList<String>();
@@ -270,6 +271,8 @@ public class home extends AppCompatActivity {
                     // saving starting time of each event
                     if (slots != null) {
                         Log.d("Trace Plan", "Slots not null");
+                        Log.d("Trace Plan", slots.size()+"");
+                        Log.d("Trace Plan", slots.toString());
                         for (int i = 0; i < slots.size(); i++) {
                             planEventsTime.add(slots.get(i).getStartTime());
                             Log.d("Trace Plan", planEventsTime.get(i));
@@ -287,27 +290,46 @@ public class home extends AppCompatActivity {
             PlanAlert PlanTask = new PlanAlert(); // Generating Plan Alert task
             Timer myTimer = new Timer(); // Timer
             if(planEventsTime.size() > 0){
-                if(planEventsTime.get(0) != null){
                     Log.d("Trace Plan", "fist time not null");
-                    if(Integer.parseInt(planEventsTime.get(0)) <= new Date().getTime()+1) {
-                        myTimer.schedule(PlanTask, 10000, 10000); // 10000 means 1 minutes
-                        NextEventName = planEventName.remove(0);
-                        NextEventTime = planEventsTime.remove(0);
-                    }
-                }
+                    myTimer.schedule(PlanTask, 10000, 10000); // 10000 means 1 minutes
+
+
             }
         }
     }
 
-
-
+    private Boolean checkDateNew (String d){
+        Calendar t = Calendar.getInstance();
+        if(!d.contains("!")){
+            String withoutD = d.substring(d.indexOf("/")+1,d.length());
+            String withoutM = withoutD.substring(withoutD.indexOf("/")+1,withoutD.length());
+            int year = Integer.parseInt(withoutM);
+            int month = Integer.parseInt(withoutD.substring(0,withoutD.indexOf("/")));
+            int dayOfMonth = Integer.parseInt(d.substring(0, d.indexOf("/")));
+            Log.d("PP", "" + year + "-" + month + "-" + dayOfMonth);
+            // test your condition
+            if (year == t.get(Calendar.YEAR)) {
+                Log.d("Trace Plan", ""+t.get(Calendar.YEAR));
+                Log.d("Trace Plan", ""+(t.get(Calendar.MONTH)+1)); // don't know why it's before by 1 month
+                Log.d("Trace Plan", ""+t.get(Calendar.DAY_OF_MONTH));
+                if(month == (t.get(Calendar.MONTH)+1)) // don't know why it's before by 1 month
+                    if(dayOfMonth == t.get(Calendar.DAY_OF_MONTH))
+                        return true;
+            } else {
+                return false;
+            }
+        }
+            return false;
+    }
     private Boolean checkDate (String d){
-        //EditText date = (EditText) findViewById(R.id.planDate);
         Date date = null;
         try {
-            date = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(d);
+            Log.d("Trace Plan C","CheckDate");
+            date = new SimpleDateFormat("MM/dd/yyyy").parse(d);
+            Log.d("Trace Plan C",date.toString());
         } catch (ParseException e) {
             e.printStackTrace();
+            Log.d("Trace Plan C", "catch");
         }
         return new Date().equals(date);
     }// end checkDate
@@ -324,15 +346,19 @@ public class home extends AppCompatActivity {
 
     class PlanAlert extends TimerTask {
         public void run() {
-            if (planEventsTime != null) {
-                generateNotification(getApplicationContext(), "To follow your plan you should be in "+NextEventName+" at "+NextEventTime);
+            Calendar c =Calendar.getInstance();
+            if (planEventsTime.size() > 0 && planEventsTime != null) {
+                if ((Integer.parseInt(planEventsTime.get(0).substring(0, planEventsTime.get(0).indexOf(":"))) - c.get(Calendar.HOUR_OF_DAY)) <= 1) {
+                    NextEventName = planEventName.remove(0);
+                    NextEventTime = planEventsTime.remove(0);
+                    generateNotification(getApplicationContext(), "To follow your plan you should be in " + NextEventName + " at " + NextEventTime);
+                }
             }
         }
     }
 
     // to Generate the notification
     private void generateNotification(Context context, String message) {
-
         int icon = R.drawable.logoc; // notification logo
         long when = System.currentTimeMillis();
         String appname = context.getResources().getString(R.string.app_name);
@@ -342,7 +368,6 @@ public class home extends AppCompatActivity {
         Notification notification;
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, home.class), 0);
-
         // To support 2.3 os, we use "Notification" class and 3.0+ os will use
         // "NotificationCompat.Builder" class.
         if (currentapiVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -350,7 +375,6 @@ public class home extends AppCompatActivity {
             //notification.setLatestEventInfo(context, appname, message, contentIntent);
             notification.flags = Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify((int) when, notification);
-
         } else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     context);
@@ -358,44 +382,26 @@ public class home extends AppCompatActivity {
                     .setSmallIcon(icon).setTicker(appname).setWhen(0)
                     .setAutoCancel(true).setContentTitle(appname)
                     .setContentText(message).build();
-
             notificationManager.notify((int) when, notification);
-
         }
-
-    }
+    } // end generateNotification
 
     public void GetSetting() {
-
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         isGoogleGlassExist = SP.getBoolean("GoogleGlass", false);
         isAlertPlansOn = SP.getBoolean("PlanAlert", false);
         isAroundMeOn = SP.getBoolean("AroundMe", false);
-
-    }
+    } // end GetSetting
 
     class LoadPlaces extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-        /**
-         * getting Places JSON
-         * */
-
         protected String doInBackground(String... args) {
             // creating Places class object
-
-            Log.d("Tracing places","inside background");
             googlePlaces = new GooglePlaces();
             try {
-                Log.d("Tracing places","inside back try");
                 // Separeate your place types by PIPE symbol "|"
                 // If you want all types places make it as null
                 // Check list of types supported by google
@@ -408,47 +414,26 @@ public class home extends AppCompatActivity {
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);
             } catch (Exception e) {
-                e.printStackTrace();
-            }
+                e.printStackTrace();}
             return null;
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * and show the data in UI
-         * Always use runOnUiThread(new Runnable()) to update UI from background
-         * thread, otherwise you will get error
-         * **/
-
-
+        }// end doInBackground
         protected void onPostExecute(String file_url) {
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
-                    /**
-                     * Updating parsed Places into LISTVIEW
-                     * */
-                    // Get json response status
-
-
                     String status = nearPlaces.status;
-                    Log.d("what s",status);
                     // Check for all possible status
                     if(status.equals("OK")){
-                        Log.d("Tracing places","status is OK");
                         // Successfully got places details
                         if (nearPlaces.results != null) {
-                            near = nearPlaces.results.get(0);
+                            if(!near.equals(nearPlaces.results.get(0)))
+                                near = nearPlaces.results.get(0);
                         }
                         else
                             near = null;
                     }
-
                 }
             });
-
-        }
-
-
+        } // end onPostExecute
     }
 }
