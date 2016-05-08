@@ -350,7 +350,7 @@ public class home extends AppCompatActivity {
 
             new LoadPlaces().execute(); // loading nearby places from google places
             if(near != null){
-            generateNotification(getApplicationContext(), near.name + " is around you");
+            generateNotificationForAroundMe(getApplicationContext(), near.name + " is around you");
             }
         }
     }
@@ -362,14 +362,14 @@ public class home extends AppCompatActivity {
                 if ((Integer.parseInt(planEventsTime.get(0).substring(0, planEventsTime.get(0).indexOf(":"))) - c.get(Calendar.HOUR_OF_DAY)) <= 1) {
                     NextEventName = planEventName.remove(0);
                     NextEventTime = planEventsTime.remove(0);
-                    generateNotification(getApplicationContext(), "To follow your plan you should be in " + NextEventName + " at " + NextEventTime);
+                    generateNotificationForPlan(getApplicationContext(), "You should be in " + NextEventName + " at " + NextEventTime);
                 }
             }
         }
     }
 
     // to Generate the notification
-    private void generateNotification(Context context, String message) {
+    private void generateNotificationForPlan(Context context, String message) {
         int icon = R.drawable.logoc; // notification logo
         long when = System.currentTimeMillis();
         String appname = context.getResources().getString(R.string.app_name);
@@ -378,7 +378,7 @@ public class home extends AppCompatActivity {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         Notification notification;
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, home.class), 0);
+                new Intent(context, plans.class), 0);
         // To support 2.3 os, we use "Notification" class and 3.0+ os will use
         // "NotificationCompat.Builder" class.
         if (currentapiVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -395,7 +395,35 @@ public class home extends AppCompatActivity {
                     .setContentText(message).build();
             notificationManager.notify((int) when, notification);
         }
-    } // end generateNotification
+    } // end generateNotificationForPlan
+
+    private void generateNotificationForAroundMe(Context context, String message) {
+        int icon = R.drawable.logoc; // notification logo
+        long when = System.currentTimeMillis();
+        String appname = context.getResources().getString(R.string.app_name);
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        Notification notification;
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                new Intent(context, guideMe.class), 0);
+        // To support 2.3 os, we use "Notification" class and 3.0+ os will use
+        // "NotificationCompat.Builder" class.
+        if (currentapiVersion < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            notification = new Notification(icon, message, 0);
+            //notification.setLatestEventInfo(context, appname, message, contentIntent);
+            notification.flags = Notification.FLAG_AUTO_CANCEL;
+            notificationManager.notify((int) when, notification);
+        } else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    context);
+            notification = builder.setContentIntent(contentIntent)
+                    .setSmallIcon(icon).setTicker(appname).setWhen(0)
+                    .setAutoCancel(true).setContentTitle(appname)
+                    .setContentText(message).build();
+            notificationManager.notify((int) when, notification);
+        }
+    } // end generateNotificationForAroundMe
 
     public void GetSetting() {
         SharedPreferences SP = getSharedPreferences("Settings", Context.MODE_PRIVATE);
