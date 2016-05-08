@@ -72,12 +72,15 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             case 1:
                message.setText("Now trying to identify the image..");
                 message.setContentDescription("Now trying to identify the image..");
-
-
                 break;
 
             case 2:
                 message.setText("Getting info..");
+                message.setContentDescription("Getting info..");
+                break;
+
+            case 3:
+                message.setText("Sorry, we can't recognize your image");
                 message.setContentDescription("Getting info..");
                 break;
         }
@@ -111,9 +114,6 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             Thread.sleep(30000);
 
-
-
-
            // while(!portResult.getStatus().equals("completed"));
 
 
@@ -131,6 +131,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             }
             else {
+                publishProgress(3);
                 return scoredResult.getStatus();
             }
 

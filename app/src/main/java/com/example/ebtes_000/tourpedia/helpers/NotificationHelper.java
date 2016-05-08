@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
 import com.example.ebtes_000.tourpedia.R;
+import com.example.ebtes_000.tourpedia.imgDescription;
 import com.example.ebtes_000.tourpedia.imgurmodel.ImageResponse;
 
 
@@ -21,7 +23,7 @@ public class NotificationHelper {
     public final static String TAG = NotificationHelper.class.getSimpleName();
 
     private WeakReference<Context> mContext;
-
+    TextView message = imgDescription.message;
 
     public NotificationHelper(Context context) {
         this.mContext = new WeakReference<>(context);
@@ -78,7 +80,8 @@ public class NotificationHelper {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext.get());
         mBuilder.setSmallIcon(android.R.drawable.ic_dialog_alert);
         mBuilder.setContentTitle(mContext.get().getString(R.string.notification_fail));
-
+        message.setText("failed to upload image");
+        message.setContentDescription("failed to upload image");
 
         mBuilder.setColor(mContext.get().getResources().getColor(R.color.primary));
 
