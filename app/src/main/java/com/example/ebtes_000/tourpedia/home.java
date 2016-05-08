@@ -86,6 +86,7 @@ public class home extends AppCompatActivity {
     String NextEventName;
     String NextEventTime;
     String NextPlan;
+    Boolean repeated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -353,7 +354,8 @@ public class home extends AppCompatActivity {
 
             new LoadPlaces().execute(); // loading nearby places from google places
             if(near != null){
-            generateNotificationForAroundMe(getApplicationContext(), near.name + " is around you");
+                if(!repeated)
+                    generateNotificationForAroundMe(getApplicationContext(), near.name + " is around you");
             }
         }
     }
@@ -475,8 +477,12 @@ public class home extends AppCompatActivity {
                         if (nearPlaces.results.size() > 0) {
                             if(near == null)
                                 near = nearPlaces.results.get(0);
-                            else if(!near.equals(nearPlaces.results.get(0)))
+                            else if(! (near.name).equals(nearPlaces.results.get(0).name)) {
                                 near = nearPlaces.results.get(0);
+                                repeated = false;
+                            }
+                            else
+                                repeated = true;
                         }
                         else
                             near = null;
