@@ -68,6 +68,7 @@ public class imgDescription extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(imgDescription.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
@@ -80,6 +81,7 @@ public class imgDescription extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(imgDescription.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
@@ -90,6 +92,7 @@ public class imgDescription extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(imgDescription.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 

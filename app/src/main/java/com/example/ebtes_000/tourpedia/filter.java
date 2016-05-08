@@ -41,6 +41,7 @@ public class filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(filter.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -52,6 +53,7 @@ public class filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(filter.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -60,6 +62,7 @@ public class filter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(filter.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -82,6 +85,7 @@ public class filter extends AppCompatActivity {
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(filter.this, home.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
     }// saveFile end

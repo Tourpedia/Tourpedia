@@ -38,6 +38,7 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(plans.this, addPlan.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -78,6 +79,7 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(plans.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -91,6 +93,7 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(plans.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -100,6 +103,7 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(plans.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -114,6 +118,7 @@ public class plans extends AppCompatActivity { //implements PlanInterface {
                 String planName = (String) listSavedPlans.getItemAtPosition(position);
                 Intent intent = new Intent(plans.this, PlanDetails.class);
                 intent.putExtra("planName", planName);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 

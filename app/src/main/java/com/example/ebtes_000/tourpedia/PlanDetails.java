@@ -52,6 +52,7 @@ public class PlanDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlanDetails.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -65,6 +66,7 @@ public class PlanDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlanDetails.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -74,6 +76,7 @@ public class PlanDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlanDetails.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -204,6 +207,7 @@ public class PlanDetails extends AppCompatActivity {
                         if (deleted) {
                             Toast.makeText(getApplicationContext(), "Plan Deleted", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(PlanDetails.this, plans.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         dialog.dismiss();
                     }}
@@ -297,6 +301,7 @@ public class PlanDetails extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(PlanDetails.this, plans.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         } catch (FileNotFoundException e) {
@@ -335,6 +340,7 @@ public class PlanDetails extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(PlanDetails.this, plans.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         } catch (FileNotFoundException e) {
@@ -354,6 +360,7 @@ public class PlanDetails extends AppCompatActivity {
                 updateFile();
                 Toast.makeText(getApplicationContext(), "Event Deleted", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PlanDetails.this, plans.class);
+                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
     }
@@ -374,6 +381,7 @@ public class PlanDetails extends AppCompatActivity {
                 updateFile();
                 Toast.makeText(getApplicationContext(), "Event Updated", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(PlanDetails.this, plans.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);}
             }
 

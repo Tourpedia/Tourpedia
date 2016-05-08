@@ -76,6 +76,7 @@ public class home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //finish(); // Exit
         getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_home);
         GetSetting(); // Getting the Setting values from the Shared Preferences
@@ -98,8 +99,13 @@ public class home extends AppCompatActivity {
         guideMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*Intent intent = new Intent(home.this, guideMe.class);
+                startActivity(intent);*/
                 Intent intent = new Intent(home.this, guideMe.class);
+               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //intent.putExtra("EXIT", true);
                 startActivity(intent);
+                //finish();
             }
         });
 
@@ -108,6 +114,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home.this, plans.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -129,6 +136,7 @@ public class home extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Yes button
                         Intent intent=new Intent(context,GlassActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
                     }
@@ -137,6 +145,7 @@ public class home extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked No button
                         Intent intent=new Intent(context,CameraActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
                     }
@@ -153,6 +162,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -162,6 +172,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

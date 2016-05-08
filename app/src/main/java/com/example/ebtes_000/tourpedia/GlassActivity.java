@@ -61,6 +61,7 @@ public class GlassActivity extends AppCompatActivity {
                 intent.putExtra("Bitmap", bitmap);
                 startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(GlassActivity.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
@@ -77,6 +78,7 @@ public class GlassActivity extends AppCompatActivity {
                 intent.putExtra("Bitmap", bitmap);
                 startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(GlassActivity.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
@@ -91,6 +93,7 @@ public class GlassActivity extends AppCompatActivity {
                 intent.putExtra("Bitmap", bitmap);
                 startActivity(intent);*/ // causes faild binder
                 Intent intent = new Intent(GlassActivity.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
@@ -225,6 +228,7 @@ public class GlassActivity extends AppCompatActivity {
 
     public void uploadImage(){
         Intent intent = new Intent(this, imgDescription.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

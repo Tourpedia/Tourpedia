@@ -42,6 +42,7 @@ public class settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(settings.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -58,6 +59,7 @@ public class settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(settings.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -67,6 +69,7 @@ public class settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(settings.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -91,6 +94,7 @@ public class settings extends AppCompatActivity {
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(settings.this, home.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
     }// saveFile end

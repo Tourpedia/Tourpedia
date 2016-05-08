@@ -16,6 +16,7 @@ public class guideMe extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //finish(); // Exit
         getSupportActionBar().hide(); // to hide the actionBar
         setContentView(R.layout.activity_guide_me);
 
@@ -26,6 +27,7 @@ public class guideMe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, attractionsList.class);
                 intent.putExtra("attractionsList", "restaurant"); // to send the type when calling the class
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -36,6 +38,7 @@ public class guideMe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, attractionsList.class);
                 intent.putExtra("attractionsList", "attractions"); // to send the type when calling the class
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -44,9 +47,15 @@ public class guideMe extends AppCompatActivity {
         restroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*Intent intent = new Intent(guideMe.this, attractionsList.class);
+                intent.putExtra("attractionsList", "restroom"); // to send the type when calling the class
+                startActivity(intent);*/
                 Intent intent = new Intent(guideMe.this, attractionsList.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //intent.putExtra("EXIT", true);
                 intent.putExtra("attractionsList", "restroom"); // to send the type when calling the class
                 startActivity(intent);
+               // finish();
             }
         });
         //Transportation button
@@ -56,6 +65,7 @@ public class guideMe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, attractionsList.class);
                 intent.putExtra("attractionsList", "Transportation"); // to send the type when calling the class
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -65,6 +75,7 @@ public class guideMe extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -75,6 +86,7 @@ public class guideMe extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -82,6 +94,7 @@ public class guideMe extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(guideMe.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

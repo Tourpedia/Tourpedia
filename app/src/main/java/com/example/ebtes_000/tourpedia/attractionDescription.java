@@ -74,6 +74,7 @@ public class attractionDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(attractionDescription.this, home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -83,6 +84,7 @@ public class attractionDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               Intent intent = new Intent(attractionDescription.this, settings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -90,6 +92,7 @@ public class attractionDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               Intent intent = new Intent(attractionDescription.this, filter.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -106,6 +109,7 @@ public class attractionDescription extends AppCompatActivity {
                 // Make the Intent explicit by setting the Google Maps package
                 mapIntent.setPackage("com.google.android.apps.maps");
                 //  if (mapIntent.resolveActivity(getPackageManager()) != null)
+                mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mapIntent);
 
             }});
@@ -237,6 +241,7 @@ public class attractionDescription extends AppCompatActivity {
                                 lbl_phone.setContentDescription(Html.fromHtml("<b>Phone:</b> " + phone));
 
                                 // displaying the reviews list
+                                if (placeDetails.result.reviews != null)
                                 for (Place.Reviews r : placeDetails.result.reviews) {
                                     HashMap<String, String> map = new HashMap<String, String>();
 
@@ -250,6 +255,18 @@ public class attractionDescription extends AppCompatActivity {
                                     // adding HashMap to ArrayList
                                     ListItems.add(map);
                                 }
+                                else {
+                                    HashMap<String, String> map = new HashMap<String, String>();
+
+                                    // reviewer name
+                                    map.put(KEY_NAME, "");
+
+                                    // review content
+                                    map.put(KEY_TEXT, "no reviews");
+                                    ListItems.add(map);
+
+                                }
+
 
                                 //list adapter
 
