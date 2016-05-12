@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,18 +38,24 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
 
-        Log.e("debug","1");
+        ImageButton home = (ImageButton) findViewById(R.id.homeBtn);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(CameraActivity.this, home.class);
+                startActivity(intent);
+            }
+        });
 
         // Create an instance of Camera
         getCameraInstance();
-        Log.e("debug", "2");
-
+        VariablesAndConstants.isFromGlass=false;
         // Create Preview view and set it as the content of the frame.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
 
-        Log.e("debug", "3");
 
 
 
@@ -60,13 +67,9 @@ public class CameraActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        //if(mCamera!=null)
-        //    mCamera.release();
-        Log.e("debug","4");
 
         if( !getCameraInstance()) {
 
-            Log.e("debug", "5");
 
            // alert.showAlertDialog(this,"","Cann't open the camera",true);
 
@@ -81,7 +84,6 @@ public class CameraActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         // Release the Camera because we don't need it when paused
-        Log.e("debug","6");
 
         releaseCameraAndPreview();
     }

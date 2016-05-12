@@ -59,9 +59,11 @@ public class UploadService {
                         if (cb != null) cb.success(imageResponse, response);
                         if (response == null) {
                             /*
-                             Notify image was NOT uploaded successfully
+                            Todo:Notify image was NOT uploaded successfully
                             */
                             notificationHelper.createFailedUploadNotification();
+
+
                             return;
                         }
                         /*
@@ -75,7 +77,9 @@ public class UploadService {
                     @Override
                     public void failure(RetrofitError error) {
                         if (cb != null) cb.failure(error);
-                        notificationHelper.createFailedUploadNotification();
+                       notificationHelper.createFailedUploadNotification();
+
+
                     }
                 });
     }

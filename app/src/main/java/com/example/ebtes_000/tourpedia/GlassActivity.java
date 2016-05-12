@@ -3,8 +3,10 @@ package com.example.ebtes_000.tourpedia;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -51,15 +53,15 @@ public class GlassActivity extends AppCompatActivity {
         getSupportActionBar().hide();   // to hide the actionBar
         setContentView(R.layout.activity_glass);
 
+        IntentFilter filter1 = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(mBroadcastReceiver1, filter1);
+
+
         ImageButton home = (ImageButton) findViewById(R.id.homeBtn);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(GlassActivity.this, home.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -72,11 +74,7 @@ public class GlassActivity extends AppCompatActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(GlassActivity.this, settings.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -87,11 +85,7 @@ public class GlassActivity extends AppCompatActivity {
         filters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.guideme1 );
-                Intent intent = new Intent();
-                intent.setClass(home.this, guideMe.class);
-                intent.putExtra("Bitmap", bitmap);
-                startActivity(intent);*/ // causes faild binder
+
                 Intent intent = new Intent(GlassActivity.this, filter.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -108,7 +102,6 @@ public class GlassActivity extends AppCompatActivity {
         if(mBluetoothAdapter!=null)
         requestBluetooth();
 
-        //TODO: (else) and maybe create something for the toast.
          try{
              createFile();
         fos = new FileOutputStream(pictureFile);}catch (IOException e){
@@ -169,6 +162,7 @@ public class GlassActivity extends AppCompatActivity {
      public static void sendToGlass(String result){
 
 
+         if(connectedThread!=null)
          connectedThread.write(result.getBytes());
 
 
@@ -236,8 +230,6 @@ public class GlassActivity extends AppCompatActivity {
         private final BluetoothServerSocket mmServerSocket;
 
         public AcceptThread() {
-            // Use a temporary object that is later assigned to mmServerSocket,
-            // because mmServerSocket is final
             BluetoothServerSocket tmp = null;
             try {
                 // MY_UUID is the app's UUID string, also used by the client code
@@ -284,6 +276,9 @@ public class GlassActivity extends AppCompatActivity {
        public void  manageConnectedSocket(BluetoothSocket socket){
 
            //TODO: Call the connectedThread.
+
+           if(connectedThread!=null)
+               connectedThread.cancel();
            connectedThread=new ConnectedThread(socket);
            connectedThread.start();
 
@@ -341,7 +336,6 @@ public class GlassActivity extends AppCompatActivity {
                // if(mmInStream.available()>0){
                 bytes = mmInStream.read(buffer);
                     // Send the obtained bytes to the UI activity
-                    //TODO:Here is all the work start :)
                 Log.d("debug","bytes before: "+ bytes);
                   //  mHandler.obtainMessage(MESSAGE_READ, bytes, 0, buffer)
                             //.sendToTarget();
@@ -384,13 +378,16 @@ public class GlassActivity extends AppCompatActivity {
 
 
             }
-                Log.d("debug", "DOne in outside exeption yaaaaaaaaaaaaaaaaaaaaay!");
                 mHandler.obtainMessage(DONE_READ).sendToTarget();
+                new AcceptThread().start();
+
 
             } catch (IOException e) {
 
-                mHandler.obtainMessage(DONE_READ).sendToTarget();
-                Log.d("debug","DOne in exeption: "+e.getMessage());
+              //  mHandler.obtainMessage(DONE_READ).sendToTarget();
+              //  Log.d("debug","DOne in exeption: "+e.getMessage());
+
+                cancel();
 
             }
         }
@@ -410,10 +407,48 @@ public class GlassActivity extends AppCompatActivity {
         public void cancel() {
             try {
                 mmSocket.close();
+
+
             } catch (IOException e) { }
         }
     }
 
+    private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+                switch(state) {
+                    case BluetoothAdapter.STATE_OFF:
+
+                        Toast.makeText(context,"Bluetooth is off",Toast.LENGTH_SHORT);
+                        VariablesAndConstants.isFromGlass=false;
+                        finish();
+
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_OFF:
+                        Toast.makeText(context,"Bluetooth is turning off",Toast.LENGTH_SHORT);
+                        break;
+                    case BluetoothAdapter.STATE_ON:
+
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_ON:
+
+                        break;
+                }
+
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(mBroadcastReceiver1);
+    }
 
 }

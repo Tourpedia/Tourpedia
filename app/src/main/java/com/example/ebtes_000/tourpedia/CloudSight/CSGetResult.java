@@ -14,7 +14,7 @@ public class CSGetResult extends GenericJson {
     @Key
     private String name;
 
-    public String getStatus() {
+       public String getStatus() {
         return status;
     }
 

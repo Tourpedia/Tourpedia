@@ -23,18 +23,10 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     public CameraPreview(Context context, Camera camera) {
         super(context);
         setCamera(camera);
-        Log.e("debug", "12");
-
-
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
         mHolder.addCallback(this);
-
-        Log.e("debug", "13");
-
-
-
 
     }
 
@@ -141,10 +133,7 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
     private void stopPreviewAndFreeCamera() {
 
-        Log.e("debug","29");
-
-
-        if (mCamera != null) {
+               if (mCamera != null) {
             // Call stopPreview() to stop updating the preview surface.
 
             Log.e("debug","30");

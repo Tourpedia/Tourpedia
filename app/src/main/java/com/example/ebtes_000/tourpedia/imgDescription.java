@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ public class imgDescription extends AppCompatActivity {
     public static TextView message;
     public static TextView  description;
 
-    public static ProgressDialog pDialog;
+   // public static ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class imgDescription extends AppCompatActivity {
         message=(TextView) findViewById(R.id.uploadingMessage);
         description=(TextView) findViewById(R.id.description);
 
+        description.setMovementMethod(LinkMovementMethod.getInstance());
 
         uploadStart = new UploadStart(context);
         uploadStart.uploadImage();
@@ -56,8 +58,9 @@ public class imgDescription extends AppCompatActivity {
         ImageView myImage = (ImageView) findViewById(R.id.capturedImg);
 
 
-
-        myImage.setImageBitmap(bMapRotate);
+        if(!VariablesAndConstants.isFromGlass){
+        myImage.setImageBitmap(bMapRotate);}
+        else myImage.setImageBitmap(myBitmap);
         myImage.setContentDescription("Image");
 
 
@@ -101,5 +104,11 @@ public class imgDescription extends AppCompatActivity {
 
 
 
+    }
+
+
+    public void Restart()
+    {
+        this.recreate();
     }
 }

@@ -81,7 +81,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             case 3:
                 message.setText("Sorry, we can't recognize your image");
-                message.setContentDescription("Getting info..");
+                message.setContentDescription("Sorry, we can't recognize your image");
                 break;
         }
     }
@@ -112,7 +112,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
 
             Log.d("debug", "Post result: " + portResult);
 
-            Thread.sleep(30000);
+            Thread.sleep(25000);
 
            // while(!portResult.getStatus().equals("completed"));
 
@@ -132,6 +132,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             }
             else {
                 publishProgress(3);
+                s="Sorry, we can't recognize your image";
                 return scoredResult.getStatus();
             }
 
@@ -175,8 +176,8 @@ t.setText(Html.fromHtml(first + next));
 
         try {
             Document doc = Jsoup.connect(infoUrl).get();
-           // s = doc.title()+"\n"; // we should remove it
-            s = "";
+            s = "<br/><b><font color='#7DBABB' >"+doc.title().substring(0,doc.title().indexOf("- Wiki"))+"</font><b> <br/>"; // we should remove it
+           // s = "";
             textDescription = "";
             for ( Element table : doc.select("table.infobox")){
                 for (Element row : table.getElementsByTag("tr")){ // table row
@@ -240,9 +241,11 @@ t.setText(Html.fromHtml(first + next));
   @Override
     protected void onPostExecute(String result){
 
-      t.setText(Html.fromHtml(s));
-     //t.setText(s);
-      t.setContentDescription(textDescription);
+      if(infoUrl!=null)
+      t.setText(Html.fromHtml(s+"<br/> <a href=\""+infoUrl+"\"> Click here to read more </a> <br/>"));
+      else t.setText(Html.fromHtml(s));
+               //t.setText(s);
+               t.setContentDescription(textDescription);
       message.setText("");
       message.setContentDescription("");
 
