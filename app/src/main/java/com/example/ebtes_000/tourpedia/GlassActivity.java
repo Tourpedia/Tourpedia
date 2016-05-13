@@ -379,7 +379,7 @@ public class GlassActivity extends AppCompatActivity {
 
             }
                 mHandler.obtainMessage(DONE_READ).sendToTarget();
-                new AcceptThread().start();
+               // new AcceptThread().start();
 
 
             } catch (IOException e) {

@@ -47,7 +47,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
     static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
     String infoUrl ;
-    String s , textDescription;
+    String s , textDescription,glassT;
     TextView message;
     TextView t;
     ViewFlipper flipper;
@@ -133,6 +133,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
             else {
                 publishProgress(3);
                 s="Sorry, we can't recognize your image";
+                textDescription ="Sorry, we can't recognize your image";
                 return scoredResult.getStatus();
             }
 
@@ -177,25 +178,29 @@ t.setText(Html.fromHtml(first + next));
         try {
             Document doc = Jsoup.connect(infoUrl).get();
             s = "<br/><b><font color='#7DBABB' >"+doc.title().substring(0,doc.title().indexOf("- Wiki"))+"</font><b> <br/>"; // we should remove it
-           // s = "";
-            textDescription = "";
+            glassT = doc.title().substring(0,doc.title().indexOf("- Wiki"))+"\n";
+            textDescription = doc.title().substring(0,doc.title().indexOf("- Wiki"));
             for ( Element table : doc.select("table.infobox")){
                 for (Element row : table.getElementsByTag("tr")){ // table row
                     for (Element th : row.getElementsByTag("th")) {  //  cell header
                         s += "<br/><b><font color='#7DBABB' >"+th.text() + ": "+"</font><b>"; // print cell header
-                        textDescription += th.text();  }
+                        textDescription += th.text();
+                        glassT += th.text() + ": "; }
                        /* s = "<b><font color='#7DBABB' >"+s+"</font><b>";
                         t.setText(Html.fromHtml(s));*/
 
                        // t.setTextColor(Color.CYAN);
                     Elements tds = row.getElementsByTag("td"); // cell data
-                    if (tds.size() == 0) //{
+                    if (tds.size() == 0) {//{
                         s += "<br/>"; // move to another header
+                    glassT+= "\n";}
                        // t.append(Html.fromHtml(s)); }
                     else
                         for (Element td : tds) {
                             s += "<font color='#000000'>"+td.text()+"</font><br/>"; // print cell data
-                            textDescription +=  td.text();}
+                            textDescription +=  td.text();
+                            s += td.text()+"\n";
+                            glassT += td.text()+"\n";}
                            /* s = "<font color='#000000'>"+s+"</font>";
                             t.append(Html.fromHtml(s));}*/
 
@@ -251,7 +256,7 @@ t.setText(Html.fromHtml(first + next));
 
       if(VariablesAndConstants.isFromGlass){
 
-          GlassActivity.sendToGlass(s);
+          GlassActivity.sendToGlass(glassT);
 
           VariablesAndConstants.isFromGlass=false;
       }

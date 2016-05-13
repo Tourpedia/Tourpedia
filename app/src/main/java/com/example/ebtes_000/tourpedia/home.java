@@ -128,6 +128,8 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                if(isGoogleGlassExist){
                 builder.setMessage(R.string.isThereGlass)
                         .setTitle(R.string.isThereGlassTitle);
                 // Add the buttons
@@ -149,7 +151,13 @@ public class home extends AppCompatActivity {
                 });
                 //Todo: put the check box
                 AlertDialog dialog = builder.create();
-                dialog.show();
+                dialog.show();}
+
+                else{
+                    Intent intent=new Intent(context,CameraActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
             }
         });
         // to settings
