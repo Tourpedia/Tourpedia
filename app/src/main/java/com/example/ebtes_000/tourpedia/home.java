@@ -150,7 +150,7 @@ public class home extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                //Todo: put the check box
+                //Todo: here is identify
                 AlertDialog dialog = builder.create();
                 dialog.show();*/}
 

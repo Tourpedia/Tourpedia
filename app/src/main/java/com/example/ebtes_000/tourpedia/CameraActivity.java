@@ -1,6 +1,7 @@
 package com.example.ebtes_000.tourpedia;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -91,6 +92,10 @@ public class CameraActivity extends AppCompatActivity {
 
     //Capture picture
     public void captureImage(View v) {
+
+        ImageButton button = (ImageButton) this.findViewById(R.id.button_capture);
+        button.setColorFilter(Color.argb(255,100,10,10)); // White Tint
+
         // get an image from the camera
         mCamera.takePicture(null, null, mPicture);
     }
