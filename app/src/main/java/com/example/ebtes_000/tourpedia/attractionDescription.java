@@ -118,7 +118,7 @@ public class attractionDescription extends AppCompatActivity {
         Intent i = getIntent();
 
         // Place referece id
-        String reference = i.getStringExtra(KEY_REFERENCE);
+
 
         //place Type
         Bundle extras;
@@ -129,7 +129,10 @@ public class attractionDescription extends AppCompatActivity {
                 ref = "";
             } else {
                 Guideingtype= extras.getString("Type");
-                ref = extras.getString("ref");
+                if(extras.getString("ref") == null)
+                    ref = extras.getString(KEY_REFERENCE);
+                else
+                    ref = extras.getString("ref");
             }
         } else {
             Guideingtype= (String) savedInstanceState.getSerializable("Type");
@@ -141,10 +144,7 @@ public class attractionDescription extends AppCompatActivity {
 
 
         // Calling a Async Background thread
-        if(ref != "")
-            new LoadattractionDescription().execute(ref);
-        else
-        new LoadattractionDescription().execute(reference);
+        new LoadattractionDescription().execute(ref);
     }
 
 
