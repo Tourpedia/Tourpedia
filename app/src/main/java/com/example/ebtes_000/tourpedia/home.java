@@ -130,16 +130,17 @@ public class home extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 if(isGoogleGlassExist){
-                builder.setMessage(R.string.isThereGlass)
+               /* builder.setMessage(R.string.isThereGlass)
                         .setTitle(R.string.isThereGlassTitle);
                 // Add the buttons
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id) {*/
                         // User clicked Yes button
                         Intent intent=new Intent(context,GlassActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        Toast.makeText(context, "Change settings if you want to use mobile camera", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
-                    }
+                    /*}
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -151,12 +152,16 @@ public class home extends AppCompatActivity {
                 });
                 //Todo: put the check box
                 AlertDialog dialog = builder.create();
-                dialog.show();}
+                dialog.show();*/}
 
                 else{
                     Intent intent=new Intent(context,CameraActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Toast.makeText(context, "Change settings if you have Google glass", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+
+
+
                 }
             }
         });
