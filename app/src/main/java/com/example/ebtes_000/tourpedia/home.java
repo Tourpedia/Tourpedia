@@ -79,6 +79,8 @@ public class home extends AppCompatActivity {
     Boolean isGoogleGlassExist = false;
     Boolean isAlertPlansOn = false;
     Boolean isAroundMeOn = false;
+    Boolean found;
+    Boolean split = false;
 
     ArrayList<String> planEventsTime = null;
     ArrayList<String> planEventName = null;
@@ -243,7 +245,7 @@ public class home extends AppCompatActivity {
             String planDetails;
             int lineNum=1;
             slots = new ArrayList<slot>();
-            Boolean found = false;
+            found = false;
             try {
                     //Streams
                     for(int i = 0; i<SavedPlans.length; i++){
@@ -277,7 +279,8 @@ public class home extends AppCompatActivity {
                                 else {
                                     Log.d("Trace Plan", "Inside else");
                                     if (planDetails != "") { //other lines if exist are for slots
-                                        if(found) {
+                                        if(found && !split) {
+                                            split = true;
                                             Log.d("Trace Plan", "Slots split");
                                             splits = planDetails.split(","); // to split event info
                                             s = new slot(splits[0], splits[1], splits[2]);
@@ -388,6 +391,7 @@ public class home extends AppCompatActivity {
 
     // to Generate the notification
     private void generateNotificationForPlan(Context context, String message) {
+        found = false;
         int icon = R.drawable.logoc; // notification logo
         long when = System.currentTimeMillis();
         String appname = context.getResources().getString(R.string.app_name);
