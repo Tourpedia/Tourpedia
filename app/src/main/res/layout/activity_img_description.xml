@@ -14,7 +14,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="68dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
             android:adjustViewBounds="false"

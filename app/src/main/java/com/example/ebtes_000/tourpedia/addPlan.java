@@ -315,7 +315,7 @@ public class addPlan extends AppCompatActivity {
 
     }// end checkTime
 
-    private Boolean checkDate (String d){
+   private Boolean checkDate (String d){
         //EditText date = (EditText) findViewById(R.id.planDate);
         Date date = null;
         try {
@@ -323,8 +323,10 @@ public class addPlan extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Log.d("here", new Date().toString());
         return new Date().before(date);
     }// end checkDate
+
 
     private String getDayOfWeek(String date){
         int s1,s2,s3;

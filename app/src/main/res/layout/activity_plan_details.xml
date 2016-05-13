@@ -12,7 +12,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="68dp"
             android:id="@+id/imageView"
             android:src="@drawable/appc"
             android:adjustViewBounds="false" />
@@ -90,7 +90,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp">
+            android:layout_marginRight="24dp"
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,18 +117,38 @@
                 android:ems="10"
                 android:hint="Enter plan date"
                 android:id="@+id/planDate"
-                android:onClick="showDatePickerDialog"
                 android:clickable="false" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Events:"
-                android:id="@+id/desc"
-                android:textColor="#3f9d9f"
-                android:layout_marginTop="10dp"
-                android:textSize="18dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Events:"
+                    android:id="@+id/desc"
+                    android:textColor="#3f9d9f"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp" />
+
+                <ImageButton
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/AddEventBtn"
+                    android:layout_gravity="center_horizontal|right"
+                    android:src="@drawable/addc"
+                    android:scaleType="fitCenter"
+                    android:background="#00000000"
+                    android:onClick="addEvent"
+                    android:contentDescription="Add"
+                    android:nestedScrollingEnabled="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginLeft="240dp" />
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/list"
@@ -189,8 +210,7 @@
                 android:inputType="time"
                 android:ems="10"
                 android:id="@+id/timeFrom"
-                android:hint="Start"
-                android:onClick="showTimePickerDialog" />
+                android:hint="Start" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -198,14 +218,34 @@
                 android:inputType="time"
                 android:ems="10"
                 android:id="@+id/timeTo"
-                android:hint="End"
-                android:onClick="showTimePickerDialog" />
+                android:hint="End" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/AddEventClearingBtn"
+                    android:layout_gravity="center_horizontal|right"
+                    android:src="@drawable/addc"
+                    android:scaleType="fitCenter"
+                    android:background="#00000000"
+                    android:onClick="ClearingFields"
+                    android:contentDescription="Add"
+                    android:nestedScrollingEnabled="true"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </FrameLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="150dp">
+                android:layout_marginTop="150dp"
+                android:id="@+id/editdelBtns">
 
                 <ImageButton
                     android:layout_width="40dp"
