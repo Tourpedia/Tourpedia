@@ -266,7 +266,7 @@
                     android:src="@drawable/editc"
                     android:background="#00000000"
                     android:scaleType="fitCenter"
-                    android:layout_marginLeft="220dp"
+                    android:layout_marginLeft="230dp"
                     android:onClick="updateEvent"
                     android:nestedScrollingEnabled="false"
                     android:clickable="true" />

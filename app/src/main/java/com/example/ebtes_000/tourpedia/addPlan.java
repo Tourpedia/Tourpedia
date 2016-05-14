@@ -261,7 +261,7 @@ public class addPlan extends AppCompatActivity {
 
                //     date += "  " + getDayOfWeek(date);
                         try {
-                          //  OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(planName, MODE_PRIVATE));
+                            // creating new file
                             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(getDayOfWeek(date), MODE_PRIVATE));
                             // writing name
                             outputStreamWriter.write(planName + "\n");
@@ -274,16 +274,14 @@ public class addPlan extends AppCompatActivity {
                             if (place != "" && timeFrom != "" && timeTo != "")
                                 outputStreamWriter.write(place + "," + timeFrom + "," + timeTo + "\n");
 
-            /*outputStreamWriter.write(place+"\n");
-            outputStreamWriter.write("From: "+timeFrom);
-            outputStreamWriter.write(" - To: "+timeTo+"\n");*/
 
                             outputStreamWriter.close();
                             Toast.makeText(getApplicationContext(), "Plan saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(addPlan.this, plans.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                        } catch (FileNotFoundException e) {
+                        }
+                        catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();

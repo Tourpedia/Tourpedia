@@ -39,6 +39,7 @@ public class PlanDetails extends AppCompatActivity {
     LinearLayout eventSec;
     String oldName = "";
     String oldDate = "";
+    Boolean isEventEdited;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +137,7 @@ public class PlanDetails extends AppCompatActivity {
                 }
             }
         });
-
+        isEventEdited = false;
         displayPlanDetails(planName);
 
 
@@ -286,10 +287,15 @@ public class PlanDetails extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
         }
         if (flag == false) {
+            if (isEventEdited == false){
             Toast.makeText(getApplicationContext(), "No edits!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(PlanDetails.this, plans.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PlanDetails.this, plans.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         }
     }
 
@@ -376,6 +382,7 @@ public class PlanDetails extends AppCompatActivity {
     }//end updateDate
 
     public void deleteEvent(View view) {
+        isEventEdited = true;
         for (int i = 0; i < slots.size(); i++)
             if (slots.get(i).getSelected() == true) {
                 slots.remove(i);
@@ -413,6 +420,8 @@ public class PlanDetails extends AppCompatActivity {
     }
 
     private void updateFile() {
+        isEventEdited = true;
+
         try {
             String planDetails;
             int lineNum = 1;
