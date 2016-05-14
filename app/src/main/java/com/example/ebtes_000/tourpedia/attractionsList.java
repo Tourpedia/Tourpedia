@@ -322,6 +322,7 @@ public class attractionsList extends AppCompatActivity {
                             if (nearPlaces.results != null) {
                                 // loop through each place
                                 for (Place p : nearPlaces.results) {
+                                    if(p.rating >= ratingPref){
                                     HashMap<String, String> map = new HashMap<String, String>();
 
                                     // Place reference is used to get "place full details"
@@ -332,7 +333,7 @@ public class attractionsList extends AppCompatActivity {
 
 
                                     // adding HashMap to ArrayList
-                                    placesListItems.add(map);
+                                    placesListItems.add(map);}
                                 }
                                 //list adapter
                                 ListAdapter adapter = new SimpleAdapter(attractionsList.this, placesListItems,

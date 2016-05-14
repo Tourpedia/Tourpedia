@@ -198,7 +198,7 @@ public class home extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Yes button
-                        Intent intent = new Intent(context, attractionsList.class);
+                        Intent intent = new Intent(context, home.class);
                         startActivity(intent);
                     }
                 });
@@ -220,7 +220,7 @@ public class home extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked Yes button
-                        Intent intent = new Intent(context, attractionsList.class);
+                        Intent intent = new Intent(context, home.class);
                         startActivity(intent);
                     }
                 });
@@ -231,16 +231,13 @@ public class home extends AppCompatActivity {
             }
                 AroundME myTask = new AroundME(); // Generating Around Me task
                 Timer myTimer = new Timer(); // Timer
-                myTimer.schedule(myTask, 50000, 50000); // 50000 means 5 minutes
+                myTimer.schedule(myTask, 100000, 100000); // 50000 means 5 minutes
         }
 
         // Alert Plan Function
         if(isAlertPlansOn){
-
             String CurrentPlan = ""; // Current Plan Date
             String[] SavedPlans = getApplicationContext().fileList(); // getting list of files names
-            // looking for today's plan if exist
-
             // reading plan file
             String planDetails;
             int lineNum=1;
@@ -249,39 +246,23 @@ public class home extends AppCompatActivity {
             try {
                     //Streams
                     for(int i = 0; i<SavedPlans.length; i++){
-                        Log.d("Trace Plan","Inside loop");
-                        Log.d("Trace Plan",SavedPlans[i]);
                             CurrentPlan = SavedPlans[i];
-                            Log.d("Trace Plan",CurrentPlan);
                             FileInputStream fileInputStream = openFileInput(CurrentPlan);
                             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                            Log.d("Trace Plan", "File opened");
                             slot s = null; //initial
                             while ((planDetails = bufferedReader.readLine()) != null) {
-                                Log.d("Trace Plan", "File inside while");
-                                Log.d("Trace Plan", lineNum+"");
                                 if (lineNum == 1) {
-                                        NextPlan = CurrentPlan;
-                                    Log.d("Trace Plan", "Inside 1");
-                                    // first line
-                                }
+                                        NextPlan = CurrentPlan;}
                                 else if (lineNum == 2){
-                                    Log.d("Trace Plan", "Inside 2");
-                                    Log.d("Trace Plan", planDetails);
                                     Boolean n = checkDateNew(planDetails);
-                                    Log.d("Trace Plan", n+"");
                                     if(checkDateNew(planDetails)){
-                                        Log.d("Trace Plan", "Inside checked");
-                                        found = true;
-                                    }
+                                        found = true;}
                                     }
                                 else {
-                                    Log.d("Trace Plan", "Inside else");
                                     if (planDetails != "") { //other lines if exist are for slots
                                         if(found && !split) {
                                             split = true;
-                                            Log.d("Trace Plan", "Slots split");
                                             splits = planDetails.split(","); // to split event info
                                             s = new slot(splits[0], splits[1], splits[2]);
                                             slots.add(s);
@@ -292,23 +273,16 @@ public class home extends AppCompatActivity {
                                 lineNum++;
                             }
                         lineNum = 1;
-                        }
-
-                     //end while
+                        }//end while
 
                     planEventsTime = new ArrayList<String>();
                     planEventName = new ArrayList<String>();
 
                     // saving starting time of each event
                     if (slots != null) {
-                        Log.d("Trace Plan", "Slots not null");
-                        Log.d("Trace Plan", slots.size()+"");
-                        Log.d("Trace Plan", slots.toString());
                         for (int i = 0; i < slots.size(); i++) {
                             planEventsTime.add(slots.get(i).getStartTime());
-                            Log.d("Trace Plan", planEventsTime.get(i));
                             planEventName.add(slots.get(i).getaPlace());
-                            Log.d("Trace Plan", planEventName.get(i));
                         }
                     }
 
@@ -316,15 +290,11 @@ public class home extends AppCompatActivity {
                 }catch(IOException e){
                     e.printStackTrace();
                 }
-            Log.d("Trace Plan", "File Done");
             // Timer initialization
             PlanAlert PlanTask = new PlanAlert(); // Generating Plan Alert task
             Timer myTimer = new Timer(); // Timer
             if(planEventsTime.size() > 0){
-                    Log.d("Trace Plan", "fist time not null");
                     myTimer.schedule(PlanTask, 10000, 10000); // 10000 means 1 minutes
-
-
             }
         }
     }
@@ -337,12 +307,8 @@ public class home extends AppCompatActivity {
             int year = Integer.parseInt(withoutM);
             int month = Integer.parseInt(withoutD.substring(0,withoutD.indexOf("/")));
             int dayOfMonth = Integer.parseInt(d.substring(0, d.indexOf("/")));
-            Log.d("PP", "" + year + "-" + month + "-" + dayOfMonth);
             // test your condition
             if (year == t.get(Calendar.YEAR)) {
-                Log.d("Trace Plan", ""+t.get(Calendar.YEAR));
-                Log.d("Trace Plan", ""+(t.get(Calendar.MONTH)+1)); // don't know why it's before by 1 month
-                Log.d("Trace Plan", ""+t.get(Calendar.DAY_OF_MONTH));
                 if(month == (t.get(Calendar.MONTH)+1)) // don't know why it's before by 1 month
                     if(dayOfMonth == t.get(Calendar.DAY_OF_MONTH))
                         return true;
@@ -352,18 +318,6 @@ public class home extends AppCompatActivity {
         }
             return false;
     }
-    private Boolean checkDate (String d){
-        Date date = null;
-        try {
-            Log.d("Trace Plan C","CheckDate");
-            date = new SimpleDateFormat("MM/dd/yyyy").parse(d);
-            Log.d("Trace Plan C",date.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.d("Trace Plan C", "catch");
-        }
-        return new Date().equals(date);
-    }// end checkDate
 
     class AroundME extends TimerTask {
         public void run() {

@@ -444,8 +444,10 @@ return "";
                            final AutoCompleteTextView a = (AutoCompleteTextView) findViewById(R.id.placeTxt);
                                for (int i = 0; i < nearPlaces.results.size(); i++) {
                                    if(nearPlaces.results.get(i) != null){
-                                       Place temp = nearPlaces.results.get(i);
-                                       places[i] = temp.name;
+                                       if(nearPlaces.results.get(i).rating >= ratingPref) {
+                                           Place temp = nearPlaces.results.get(i);
+                                           places[i] = temp.name;
+                                       }
                                    }
                                }
 

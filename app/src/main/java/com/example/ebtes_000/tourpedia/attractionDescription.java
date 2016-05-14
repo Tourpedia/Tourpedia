@@ -1,6 +1,9 @@
 package com.example.ebtes_000.tourpedia;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,7 +61,7 @@ public class attractionDescription extends AppCompatActivity {
 
     String longitude;
     String latitude;
-
+    public Context context=this;
     String ref;
 
     // KEY Strings
@@ -291,53 +294,112 @@ public class attractionDescription extends AppCompatActivity {
                                 //end reviews list
 
                             }
-                            Log.d("placeDetails.results","NO");
+                            Log.d("placeDetails.results", "NO");
                         }
-                        else if(status.equals("ZERO_RESULTS")){
-                            alert.showAlertDialog(attractionDescription.this, "Near Places",
-                                    "Sorry no place found.",
-                                    false);
+                        else if (status.equals("ZERO_RESULTS")) {
+                            // Zero results found
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry no places found. Try to choose another places type").setTitle("Near Places");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+                        } else if (status.equals("UNKNOWN_ERROR")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry unknown error occurred.").setTitle("Places Error");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } else if (status.equals("OVER_QUERY_LIMIT")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry query limit to google places is reached").setTitle("Places Error");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } else if (status.equals("REQUEST_DENIED")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry error occurred. Request is denied").setTitle("Places Error");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } else if (status.equals("INVALID_REQUEST")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry error occurred. Invalid Request").setTitle("Places Error");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Sorry error occurred.").setTitle("Places Error");
+                            // Add the buttons
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked Yes button
+                                    Intent intent = new Intent(context, attractionDescription.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                         }
-                        else if(status.equals("UNKNOWN_ERROR"))
-                        {
-                            alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                    "Sorry unknown error occured.",
-                                    false);
-                        }
-                        else if(status.equals("OVER_QUERY_LIMIT"))
-                        {
-                            alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                    "Sorry query limit to google places is reached",
-                                    false);
-                        }
-                        else if(status.equals("REQUEST_DENIED"))
-                        {
-                            alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                    "Sorry error occured. Request is denied",
-                                    false);
-                        }
-                        else if(status.equals("INVALID_REQUEST"))
-                        {
-                            alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                    "Sorry error occured. Invalid Request",
-                                    false);
-                        }
-                        else
-                        {
-                            alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                    "Sorry error occured.",
-                                    false);
-                        }
-                    }else{
-                        alert.showAlertDialog(attractionDescription.this, "Places Error",
-                                "Sorry error occured.",
-                                false);
                     }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("Sorry error occurred. Check your internet Connection and try again").setTitle("Error");
+                        // Add the buttons
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked Yes button
+                                Intent intent = new Intent(context, attractionDescription.class);
+                                startActivity(intent);
+                            }
+                        });
 
-
+                        AlertDialog dialog = builder.create();
+                        dialog.show();}
                 }
             });
-
         }
 
 }

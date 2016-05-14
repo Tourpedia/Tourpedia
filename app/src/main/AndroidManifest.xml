@@ -10,10 +10,8 @@
 
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <!-- Access Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
