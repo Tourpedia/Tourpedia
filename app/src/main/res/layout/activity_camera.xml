@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CameraActivity"
     android:orientation="vertical"
-    android:id="@+id/camera">
+    android:id="@+id/camera"
+    android:layoutDirection = "ltr">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +70,8 @@
         android:onClick="captureImage"
         android:contentDescription="Capture"
         android:baselineAlignBottom="false"
-        android:focusable="true" />
+        android:focusable="true"
+        />
 
       <!--  <Button
             android:id="@+id/button_capture"

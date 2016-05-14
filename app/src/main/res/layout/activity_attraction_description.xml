@@ -6,7 +6,8 @@
     tools:context="com.example.ebtes_000.tourpedia.attractionDescription"
     android:orientation="vertical"
     android:id="@+id/attractionDesc"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:layoutDirection = "ltr">
 
     <FrameLayout
         android:layout_width="wrap_content"
