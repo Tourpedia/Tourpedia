@@ -93,8 +93,8 @@ public class CameraActivity extends AppCompatActivity {
     //Capture picture
     public void captureImage(View v) {
 
-        ImageButton button = (ImageButton) this.findViewById(R.id.button_capture);
-        button.setColorFilter(Color.argb(255,100,10,10)); // White Tint
+        //ImageButton button = (ImageButton) this.findViewById(R.id.button_capture);
+        //button.setColorFilter(Color.argb(255,100,10,10)); // White Tint
 
         // get an image from the camera
         mCamera.takePicture(null, null, mPicture);

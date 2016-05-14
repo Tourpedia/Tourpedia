@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:clickable="true"
-        android:src="@drawable/recbutton"
+        android:src="@drawable/cambutton"
         android:layout_gravity="center|bottom"
         android:background="#00ffffff"
         android:onClick="captureImage"

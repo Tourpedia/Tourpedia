@@ -1,11 +1,13 @@
 package com.example.ebtes_000.tourpedia.services;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
 import com.example.ebtes_000.tourpedia.Constants;
-import com.example.ebtes_000.tourpedia.helpers.NotificationHelper;
+//import com.example.ebtes_000.tourpedia.helpers.NotificationHelper;
+import com.example.ebtes_000.tourpedia.imgDescription;
 import com.example.ebtes_000.tourpedia.imgurmodel.ImageResponse;
 import com.example.ebtes_000.tourpedia.imgurmodel.ImgurAPI;
 import com.example.ebtes_000.tourpedia.imgurmodel.Upload;
@@ -25,6 +27,7 @@ public class UploadService {
     public final static String TAG = UploadService.class.getSimpleName();
 
     private WeakReference<Context> mContext;
+    TextView message = imgDescription.message;
 
     public UploadService(Context context) {
         this.mContext = new WeakReference<>(context);
@@ -41,8 +44,8 @@ public class UploadService {
 
 
 
-        final NotificationHelper notificationHelper = new NotificationHelper(mContext.get());
-        notificationHelper.createUploadingNotification();
+      //  final NotificationHelper notificationHelper = new NotificationHelper(mContext.get());
+      //  notificationHelper.createUploadingNotification();
 
         RestAdapter restAdapter = buildRestAdapter();
 
@@ -61,7 +64,10 @@ public class UploadService {
                             /*
                             Todo:Notify image was NOT uploaded successfully
                             */
-                            notificationHelper.createFailedUploadNotification();
+
+                            message.setText("failed to upload image");
+                            message.setContentDescription("failed to upload image");
+                            //notificationHelper.createFailedUploadNotification();
 
 
                             return;
@@ -70,14 +76,17 @@ public class UploadService {
                         Notify image was uploaded successfully
                         */
                         if (imageResponse.success) {
-                            notificationHelper.createUploadedNotification(imageResponse);
+                            //notificationHelper.createUploadedNotification(imageResponse);
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         if (cb != null) cb.failure(error);
-                       notificationHelper.createFailedUploadNotification();
+
+                        message.setText("failed to upload image");
+                        message.setContentDescription("failed to upload image");
+                     //  notificationHelper.createFailedUploadNotification();
 
 
                     }
