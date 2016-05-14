@@ -134,6 +134,7 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
                 publishProgress(3);
                 s="Sorry, we can't recognize your image";
                 textDescription ="Sorry, we can't recognize your image";
+                glassT="Sorry, we can't recognize your image";
                 return scoredResult.getStatus();
             }
 
@@ -141,6 +142,11 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
         catch ( Exception e) {
             //System.out.println("Error");
             Log.d("debug", "Post result exception: " + e.fillInStackTrace());
+
+            s="Error, Connection timed out";
+            textDescription ="Error, Connection timed out";
+            glassT="Error, Connection timed out";
+
 
         }
 
@@ -162,6 +168,9 @@ public class ImageIdentifying extends AsyncTask<String,Integer,String> {
         }catch (IOException e){
 
             Log.d("debug","error in search "+ e.getMessage());
+            s="Error, Connection timed out";
+            textDescription ="Error, Connection timed out";
+            glassT="Error, Connection timed out";
         }
 
 
@@ -238,6 +247,10 @@ t.setText(Html.fromHtml(first + next));
 
         } catch (IOException e) {
             e.printStackTrace();
+
+            s="Error, Connection timed out";
+            textDescription ="Error, Connection timed out";
+            glassT="Error, Connection timed out";
         }
 
     }
