@@ -52,7 +52,7 @@
         <activity
             android:name=".home"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,45 +62,49 @@
         <activity
             android:name=".settings"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".addPlan"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".attractionDescription"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".attractionsList"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".guideMe"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".filter"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".imgDescription"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity
             android:name=".plans"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".Identify"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".GlassActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity android:name=".PlanDetails"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
