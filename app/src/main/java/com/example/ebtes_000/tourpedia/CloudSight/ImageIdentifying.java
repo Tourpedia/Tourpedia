@@ -195,10 +195,7 @@ t.setText(Html.fromHtml(first + next));
                         s += "<br/><b><font color='#7DBABB' >"+th.text() + ": "+"</font><b>"; // print cell header
                         textDescription += th.text();
                         glassT += th.text() + ": "; }
-                       /* s = "<b><font color='#7DBABB' >"+s+"</font><b>";
-                        t.setText(Html.fromHtml(s));*/
 
-                       // t.setTextColor(Color.CYAN);
                     Elements tds = row.getElementsByTag("td"); // cell data
                     if (tds.size() == 0) {//{
                         s += "<br/>"; // move to another header
@@ -210,8 +207,7 @@ t.setText(Html.fromHtml(first + next));
                             textDescription +=  td.text();
                             s += td.text()+"\n";
                             glassT += td.text()+"\n";}
-                           /* s = "<font color='#000000'>"+s+"</font>";
-                            t.append(Html.fromHtml(s));}*/
+
 
                 }
             }
