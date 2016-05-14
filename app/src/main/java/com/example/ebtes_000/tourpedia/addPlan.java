@@ -325,7 +325,24 @@ public class addPlan extends AppCompatActivity {
         return new Date().before(date);
     }// end checkDate
 
+  /*  private Boolean checkDate (String d){
+        //EditText date = (EditText) findViewById(R.id.planDate);
+        Date date = null;
+        try {
+            date = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        int a = sdf.format(date).compareTo(sdf.format(new Date()));
+        if (a >= 0)
+            return true;
+        if (a < 0)
+            return false;
+        return false;
 
+
+    }// end checkDate*/
     private String getDayOfWeek(String date){
         int s1,s2,s3;
         String yr;
